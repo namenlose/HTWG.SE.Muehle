@@ -1,5 +1,9 @@
-val d = 5
-val b = d + 3
+case class player(Name:String)
+case class Stone(Colour:String, Owner:player, position:Int)
+case class field(places: List[Option[Stone]])
 
-println("hallo")
-println(d - 2)
+val field1 = field(List.fill(24)(None))
+
+val mapcolor = Map("black" -> "PlayerOne",
+                      "weiß" -> "PlayerTwo")
+
