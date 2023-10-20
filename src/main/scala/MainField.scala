@@ -1,11 +1,9 @@
 @main def hello: Unit =
-  println("Willkommen bei Muehle")
+  println("Hallo, das ist Muehle")
   println(mesh)
 
-//val barWidth = 8
 
 val eol = sys.props("line.separator")
-//def bar(barWidth: Int) = "o" + "-" * barWidth + "o" + "-" * barWidth + "o" + eol
 def bar(cellWidth: Int = 6) = "o" + "-" * cellWidth + "o" + "-" * cellWidth + "o" + eol
 def line(cellWidth: Int = 6) = "|" + " " * cellWidth + "|" + " " * cellWidth + "|" + eol 
 def cells(cellWidth: Int = 4) = "| o" + "-" * cellWidth + "o" + "-" * cellWidth + "o" + " |" + eol /*"|-o---o---o-|"*/
