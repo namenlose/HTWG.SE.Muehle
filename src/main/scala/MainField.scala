@@ -1,5 +1,5 @@
 @main def hello: Unit =
-  println("Willkommen bei Muehle")
+  println("hey")
   println(mesh)
 
 //val barWidth = 8
