@@ -7,7 +7,8 @@ lazy val root = project
     version := "0.1.0-SNAPSHOT",
 
     scalaVersion := scala3Version,
-
+    libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always,
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.17",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.17" % "test"
+
   )
