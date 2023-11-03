@@ -1,3 +1,5 @@
+package HTWG.SE.Muehle
+
 @main def hello: Unit =
   println("Hallo, das ist Muehle")
   println(mesh)
