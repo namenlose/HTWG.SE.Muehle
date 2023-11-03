@@ -1,5 +1,6 @@
 package HTWG.SE.Muehle
 import scala.io.StdIn.readLine
+
 //import HTWG.SE.Muehle.Field
 
 @main def hello: Unit =
@@ -9,12 +10,18 @@ import scala.io.StdIn.readLine
   println("Geben Sie eine Spielsteinfarbe ein:")
   val color = readLine()
   println(name + " positonieren Sie ihren ersten Stein:")
-  val position = readLine()
-  println(Stone(color, 1).changePosition)
+  val ring: Int = readLine().toInt
+  val zeile: Int = readLine().toInt
+  val spalte: Int = readLine().toInt
+  val nummer: Int = readLine().toInt
+  val position1: Position = new Position(ring, zeile, spalte, nummer)
+  val stone1: Stone = new Stone("weis", position1)
+  println(stone1.setStone(position1))
 
-  println(Field.mesh)
+  val field1: Field = new Field(6, 2)
+  println(field1.mesh)
 
-/*val groeße = 6
+/*val groeße = 11
 val number = 2
 
 val eol = sys.props("line.separator")

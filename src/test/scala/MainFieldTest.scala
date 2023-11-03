@@ -4,8 +4,9 @@ import org.scalatest.matchers.should.Matchers._
 
 
 class MainFieldTest extends AnyWordSpec {
-  //@main def hello: Unit =
+
  "Muehle" should {
+
    "have a bar as String of form 'o------o------o'" in {
      bar() should be("o------o------o" + eol)
    }
