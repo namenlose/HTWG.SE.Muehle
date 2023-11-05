@@ -2,8 +2,6 @@ package HTWG.SE.Muehle
 
 case class Field(groeße: Int, number: Int){
 
-    //val groeße = 6
-    //val number = 2
 
     val eol = sys.props("line.separator")
     def bar(cellWidth: Int = 6, number: Int = 2) = ("o" + "-" * cellWidth) * number + "o" + eol 
