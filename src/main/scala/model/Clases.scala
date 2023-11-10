@@ -1,4 +1,4 @@
-package HTWG.SE.Muehle
+package HTWG.SE.Muehle.model
 
 case class FieldArray(){
 
@@ -13,7 +13,6 @@ case class FieldArray(){
             println("Fehler: Die Position ist bereits belegt")
         }
 
-        println("FieldArray:" + fieldArray(circle)(position))
         val field = new Field(6, fieldArray)
         println(field.mesh)
 

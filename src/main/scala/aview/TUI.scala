@@ -1,58 +1,70 @@
-package HTWG.SE.Muehle
+package HTWG.SE.Muehle.aview
+import HTWG.SE.Muehle.model.{FieldArray, Field}
+import HTWG.SE.Muehle.controller.Controller
+import HTWG.SE.Muehle.util.Observer
+
+
 import scala.io.StdIn.readLine
 import scala.io.StdIn.readInt
 import scala.io.StdIn.readChar
 
-@main def tui: Unit =
-    //println(updatedMesh)
-    
-    println("Bitte waehlen Sie eine Farbe: Schwarz(s) oder Weiss(w)")
+case class TUI(controller: Controller) extends Observer{
+
+    controller.add(this)
+  
+    def firstStone() = {
+
+    println("Hallo, das ist Muehle")
+    println("Geben Sie zwei Spieler Namen ein:")
+    val nameOne = readLine()
+    val nameTwo = readLine()
+
+     println("Geben Sie eine Spielsteinfarbe ein (Schwarz(b) oder Weiß(w)):")
     val playerOne = readChar()
-    val playerTwo = readChar()
-    
-    if(playerOne != 'b' && playerOne != 'w') {
-        println("Bitte wählen Sie entweder Schwarz oder Weiss")
+    val playerTwo = if(playerOne == 'w'){
+      'b'
+    }else{
+      'w'
     }
 
-    println("Wohin möchten Sie ihren Stein setzen?" + eol + mesh)
-    println("Zeile: ")
+    println(nameOne + " positonieren Sie ihren ersten Stein:" + controller.field1.eol + controller.field1.mesh)
+    println("Kreis: ")
     val ind1 = readInt()
     println(" ")
-    println("Spalte: ")
+    println("Position: ")
     val ind2 = readInt()
     println(" ")
-    //val updateMesh = setStone(mesh, ind1, ind2)
-    val newMesh = setStone(mesh, ind1, ind2, playerOne)
-    println(newMesh)
-    var Mesh = newMesh
 
-    
+    var mesh = controller.controllerPlaceFirstStone(ind1, ind2, playerOne)
+
+    setStones(nameOne, nameTwo, playerOne, playerTwo, mesh)
+
+}
+
+    def setStones(nameOne: String, nameTwo: String, playerOne: Char, playerTwo: Char, mesh: String): Unit = {
     var i = 1;
+    
     while(i <=  17) {
-    println("Wohin möchten Sie ihren Stein setzen?" + eol)
-    println("Zeile: ")
-    val ind1 = readInt()
-    println(" ")
-    println("Spalte: ")
-    val ind2 = readInt()
-    println(" ")
-    //val updateMesh = setStone(newMesh, ind1, ind2)
-    //val newMesh = setStone(newMesh, ind1, ind2)
-     if(i % 2 == 0) {
-        val updatedMesh = setStone(Mesh, ind1, ind2, playerOne)
-        println(updatedMesh)
-        Mesh = updatedMesh
-    } else {
-        val updatedMesh = setStone(Mesh, ind1, ind2, playerTwo)
-        println(updatedMesh)
-        Mesh = updatedMesh
-    }
-    
-    i += 1
-    
-    }
 
-    
+        if(i % 2 == 0) {
+            println(nameOne + " positonieren Sie einen Stein:" + controller.field1.eol)
+        }else{
+            println(nameTwo + " positonieren Sie einen Stein:" + controller.field1.eol)
+        }
+        println("Kreis: ")
+        val ind1 = readInt()
+        println(" ")
+        println("Position: ")
+        val ind2 = readInt()
+        println(" ")
+
+        controller.controllerPlaceStones(ind1, ind2, playerOne, playerTwo, i, mesh)
+
+        i += 1   
+    }
+}
+    override def update: Unit =  {}
+}
 
 
     
