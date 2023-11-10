@@ -7,6 +7,9 @@ import scala.io.StdIn.readChar
 @main def MainMuehle: Unit =
 
   val TUI: TUI = new TUI()
+  //val array: FieldArray = new FieldArray()
 
-  val mesh = TUI.firstStone()
+  //val test = array.placeStone(1, 1)
+  //val mesh = TUI.firstStone()
+  TUI.firstStone()
  
