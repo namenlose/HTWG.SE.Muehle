@@ -6,7 +6,8 @@ import scala.io.StdIn.readChar
 
 @main def MainMuehle: Unit =
 
-  val TUI: TUI = new TUI()
+  val controller: Controller = new Controller()
+  val TUI: TUI = new TUI(controller)
   //val array: FieldArray = new FieldArray()
 
   //val test = array.placeStone(1, 1)
