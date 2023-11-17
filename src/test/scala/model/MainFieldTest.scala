@@ -9,6 +9,7 @@ import org.scalatest.matchers.should.Matchers._
 class MainFieldTest extends AnyWordSpec {
 
  "Muehle" should {
+  
 
   val array = new FieldArray()
   val field = new Field(6, array.fieldArray)
