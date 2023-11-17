@@ -16,9 +16,18 @@ class ControllerTest extends AnyWordSpec {
             controller.fieldString should be(fieldArray.placeStone(0, 0,'b'))
         }
 
-        "place more stones" in{
+        "place more stones(odd)" in{
             controller.controllerPlaceStones(0, 1, 'b','w', 1, fieldArray.placeStone(0, 0,'b'))
             controller.fieldString should be(fieldArray.placeStone(0, 1,'w'))
+        }
+
+        "place more stones(even)" in{
+            controller.controllerPlaceStones(0, 1, 'b','w', 0, fieldArray.placeStone(0, 0,'b'))
+            controller.fieldString should be(fieldArray.placeStone(0, 1,'w'))
+        }
+
+        "return a string of the field" in{
+            controller.getFieldString() should be(controller.fieldString)
         }
     }
 }
