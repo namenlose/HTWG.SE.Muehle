@@ -2,8 +2,6 @@ package HTWG.SE.Muehle.aview
 import HTWG.SE.Muehle.model.{FieldArray, Field}
 import HTWG.SE.Muehle.controller.Controller
 import HTWG.SE.Muehle.util.Observer
-
-
 import scala.io.StdIn.readLine
 import scala.io.StdIn.readInt
 import scala.io.StdIn.readChar
@@ -12,7 +10,7 @@ case class TUI(controller: Controller) extends Observer{
 
     controller.add(this)
   
-    def firstStone(): Unit = {
+    def firstStone(): String = {
 
     println("Hallo, das ist Muehle")
     println("Geben Sie zwei Spieler Namen ein:")
@@ -37,6 +35,7 @@ case class TUI(controller: Controller) extends Observer{
 
     var mesh = controller.controllerPlaceFirstStone(ind1, ind2, playerOne)
     setStones(nameOne, nameTwo, playerOne, playerTwo, mesh)
+    mesh
 
 }
 
