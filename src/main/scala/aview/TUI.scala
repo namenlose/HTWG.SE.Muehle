@@ -9,6 +9,7 @@ import scala.io.StdIn.readChar
 case class TUI(controller: Controller) extends Observer{
 
     controller.add(this)
+    
   
     def firstStone(): String = {
 
