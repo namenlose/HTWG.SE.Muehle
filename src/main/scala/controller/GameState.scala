@@ -1,26 +1,36 @@
 package HTWG.SE.Muehle.controller
 
 trait GameState {
-    def handle(context: Context): Unit
+    def handle(): String
 }
-
-case class whiteState() extends GameState {
-    def handle(context: Context): Unit ={
-        println("Weiss ist dran")
-        context.state = new whiteState
+var currentState = ""
+class whiteState() extends GameState {
+    
+    override def handle(): String ={
+        currentState = "Weiss ist dran"
+        //context.state = new blackState
+        //println("weiss")
+        currentState
     }
 }
 case class blackState() extends GameState {
-    def handle(context: Context): Unit = {
-        println("Schwarz ist dran")
-        context.state = new blackState 
+    override def handle(): String = {
+        currentState = "Schwarz ist dran"
+        //context.state = new whiteState
+        //println("schwarz")
+        currentState
     }
 }
-class Context(var state: GameState) {
+
+/* class Context(var state: GameState) {
     def request(): Unit = state.handle(this)
+    //def message() = currentState
 }
+
+
 object StateClient extends App {
     val context = new Context(new whiteState)
+    
     context.request()
     context.request()
-}
+}  */
