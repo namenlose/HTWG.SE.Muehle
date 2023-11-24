@@ -32,7 +32,9 @@ class Handler1(array: Array[Array[Char]]) extends HandlerInterface {
 
         if(y == 4 && muehle == false){
             muehle = nextHandler()
+            y = 0
         }else if(muehle == true){
+            y = 0
             return true
         }else{
 
@@ -78,7 +80,9 @@ class Handler2(array: Array[Array[Char]]) extends HandlerInterface {
 
         if(y == 4 && muehle == false){
             muehle = nextHandler()
+            y = 0
         }else if(muehle == true){
+            y = 0
             return true
         }else {
 
@@ -86,7 +90,6 @@ class Handler2(array: Array[Array[Char]]) extends HandlerInterface {
             array1(0) = array(1)(y)
             array1(1) = array(1)(y + 1)
             array1(2) = array(1)(y + 2)
-
             checkRequirementRecursiv(array1)
         }
         muehle
@@ -122,16 +125,16 @@ class Handler3(array: Array[Array[Char]]) extends HandlerInterface {
         }
 
         if(y == 4 && muehle == false){
-            println("handler3 if")
+            y = 0
             muehle = nextHandler()
         }else if(muehle == true) {
+            y = 0
             return true
         }else{
                 y = y + 2
                 array1(0) = array(2)(y)
                 array1(1) = array(2)(y + 1)
                 array1(2) = array(2)(y + 2)
-
                 checkRequirementRecursiv(array1)
             }
         muehle
