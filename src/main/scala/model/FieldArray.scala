@@ -6,7 +6,7 @@ case class FieldArray(){
     val fieldArray= Array(Array('o', 'o', 'o', 'o', 'o', 'o' ,'o', 'o'), Array('o', 'o', 'o', 'o', 'o', 'o' ,'o', 'o'), Array('o', 'o', 'o', 'o', 'o', 'o' ,'o', 'o'))
     def placeStone(circle: Int, position: Int, player: Char): String = {
 
-        if(fieldArray(circle)(position) == 'o'){
+        if(fieldArray(circle)(position) == 'o' || player == 'o'){
             fieldArray(circle)(position) = player
         }else{
             fieldArray(circle)(position) = fieldArray(circle)(position)
