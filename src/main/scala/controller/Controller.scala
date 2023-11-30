@@ -78,9 +78,10 @@ class Controller() extends Observable{
         notifyObservers
     }
 
-    def undoStep ={
+    def undoStep: String ={
         fieldString = undoManager.undoStep
         notifyObservers
+        fieldString
     } 
 
 }
