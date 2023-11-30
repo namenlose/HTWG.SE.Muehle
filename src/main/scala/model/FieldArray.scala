@@ -15,8 +15,6 @@ case class FieldArray(){
 
         val field = new Field(6, fieldArray)
         field.mesh
-        //println(field.mesh)
-
     }
     def get(circle: Int, position: Int) = fieldArray(circle)(position)
 }

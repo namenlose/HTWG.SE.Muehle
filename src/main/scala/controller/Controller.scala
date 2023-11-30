@@ -1,14 +1,15 @@
 package HTWG.SE.Muehle.controller
 import HTWG.SE.Muehle.model.{FieldArray, Field, Handler1}
-import HTWG.SE.Muehle.util.Observable
+import HTWG.SE.Muehle.util.{Observable, UndoManager}
 import HTWG.SE.Muehle.controller.GameState
 import HTWG.SE.Muehle.controller.StoneFactory
+
 
 
 class Controller() extends Observable{
     //var stone = new blackS()
     val undoManager = new UndoManager(this)
-    trait Stone {
+    /*trait Stone {
     def placeStone(): StoneFactory
     def place(): Char = {
         val stone = placeStone()
@@ -25,7 +26,7 @@ class Controller() extends Observable{
 
     class blackStone extends Stone {
     override def placeStone(): StoneFactory = new blackS
-    }
+    }*/
 
     var state: GameState = new blackState()
     def handle(): String = {
@@ -43,6 +44,12 @@ class Controller() extends Observable{
 
     def controllerPlaceFirstStone(ind1: Int, ind2: Int, player: Char): String = {
         
+        state = if(player == 'w'){
+            new whiteState
+        }else{
+            new blackState
+        }
+
         fieldString = array.placeStone(ind1, ind2, player)
         notifyObservers
         fieldString
@@ -67,7 +74,7 @@ class Controller() extends Observable{
     def getFieldString() = fieldString
 
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String) = {
-        undoManager.doStep(ind1, ind2, player1, player2, i, mesh)
+        undoManager.doStep(new SetCommand(ind1, ind2, player1, player2, i, mesh, this))
         notifyObservers
     }
 

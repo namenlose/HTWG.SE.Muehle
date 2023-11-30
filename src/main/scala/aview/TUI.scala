@@ -6,13 +6,13 @@ import scala.io.StdIn.readLine
 import scala.io.StdIn.readInt
 import scala.io.StdIn.readChar
 import scala.annotation.meta.field
-import HTWG.SE.Muehle.controller.UndoManager
 
 case class TUI(controller: Controller) extends Observer{
 
     controller.add(this)
-    var player = controller.c.place()
-    var player1 = controller.b.place()
+
+    /*var player = controller.c.place()
+    var player1 = controller.b.place()*/
     def firstStone(): String = {
 
     println("Hallo, das ist Muehle")
@@ -20,13 +20,14 @@ case class TUI(controller: Controller) extends Observer{
     val nameOne = readLine()
     val nameTwo = readLine()
 
-    /* println("Geben Sie eine Spielsteinfarbe ein (Schwarz(b) oder Weiß(w)):")
+     println("Geben Sie eine Spielsteinfarbe ein (Schwarz(b) oder Weiß(w)):")
     val playerOne = readChar()
     val playerTwo = if(playerOne == 'w'){
       'b'
     }else{
       'w'
-    } */
+    }
+
 
     println(nameOne + " positonieren Sie ihren ersten Stein:" + controller.field1.eol + controller.field1.mesh)
     println("Kreis: ")
@@ -36,8 +37,8 @@ case class TUI(controller: Controller) extends Observer{
     val ind2 = readInt()
     println(" ")
 
-    var mesh = controller.controllerPlaceFirstStone(ind1, ind2, player)
-    setStones(nameOne, nameTwo, player, player, mesh)
+    var mesh = controller.controllerPlaceFirstStone(ind1, ind2, playerOne)
+    setStones(nameOne, nameTwo, playerOne, playerTwo, mesh)
     mesh
 
 }
@@ -74,15 +75,13 @@ case class TUI(controller: Controller) extends Observer{
         println(" ")
 
         if(undo == false){
-            controller.doStep(ind1, ind2, player, player1, i, mesh)
+            controller.doStep(ind1, ind2, playerOne, playerTwo, i, mesh)
         }else{
             controller.undoStep
             undo = false
             
         }
 
-        //controller.controllerPlaceStones(ind1, ind2, player, player1, i, mesh)
-        //controller.state
         i += 1  
     }
 }
