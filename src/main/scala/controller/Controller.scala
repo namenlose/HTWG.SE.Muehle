@@ -84,4 +84,9 @@ class Controller() extends Observable{
         fieldString
     } 
 
+    def redoStep: Unit ={
+        undoManager.redoStep
+        notifyObservers
+    }
+
 }
