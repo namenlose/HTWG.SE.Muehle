@@ -3,6 +3,7 @@ package HTWG.SE.Muehle.controller
 trait GameState {
     def handle(): String
 }
+
 var currentState = ""
 class whiteState() extends GameState {
     

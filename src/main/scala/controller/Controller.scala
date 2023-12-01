@@ -1,28 +1,32 @@
 package HTWG.SE.Muehle.controller
 import HTWG.SE.Muehle.model.{FieldArray, Field, Handler1}
-import HTWG.SE.Muehle.util.Observable
+import HTWG.SE.Muehle.util.{Observable, UndoManager}
 import HTWG.SE.Muehle.controller.GameState
 import HTWG.SE.Muehle.controller.StoneFactory
 
 
+
 class Controller() extends Observable{
     //var stone = new blackS()
-    trait Stone {
+    val undoManager = new UndoManager(this)
+    /*trait Stone {
     def placeStone(): StoneFactory
     def place(): Char = {
         val stone = placeStone()
         stone.color()
         }
     }
-    val c = new whiteStone
-    val b = new blackStone
-class whiteStone extends Stone {
+    val c = new blackStone
+    val b = new whiteStone
+
+    class whiteStone extends Stone {
     override def placeStone(): StoneFactory = new whiteS
 
-}
-class blackStone extends Stone {
+    }
+
+    class blackStone extends Stone {
     override def placeStone(): StoneFactory = new blackS
-}
+    }*/
 
     var state: GameState = new blackState()
     def handle(): String = {
@@ -40,6 +44,12 @@ class blackStone extends Stone {
 
     def controllerPlaceFirstStone(ind1: Int, ind2: Int, player: Char): String = {
         
+        state = if(player == 'w'){
+            new whiteState
+        }else{
+            new blackState
+        }
+
         fieldString = array.placeStone(ind1, ind2, player)
         notifyObservers
         fieldString
@@ -58,11 +68,20 @@ class blackStone extends Stone {
                 println("MÜHLE!!")
             }
         }
-        notifyObservers
         fieldString
         
     }
     def getFieldString() = fieldString
-    //def message() = state
+
+    def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String) = {
+        undoManager.doStep(new SetCommand(ind1, ind2, player1, player2, i, mesh, this))
+        notifyObservers
+    }
+
+    def undoStep: String ={
+        fieldString = undoManager.undoStep
+        notifyObservers
+        fieldString
+    } 
 
 }

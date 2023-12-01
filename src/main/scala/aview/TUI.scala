@@ -10,8 +10,9 @@ import scala.annotation.meta.field
 case class TUI(controller: Controller) extends Observer{
 
     controller.add(this)
-    var player = controller.c.place()
-    var player1 = controller.b.place()
+
+    /*var player = controller.c.place()
+    var player1 = controller.b.place()*/
     def firstStone(): String = {
 
     println("Hallo, das ist Muehle")
@@ -19,13 +20,14 @@ case class TUI(controller: Controller) extends Observer{
     val nameOne = readLine()
     val nameTwo = readLine()
 
-    /* println("Geben Sie eine Spielsteinfarbe ein (Schwarz(b) oder Weiß(w)):")
+     println("Geben Sie eine Spielsteinfarbe ein (Schwarz(b) oder Weiß(w)):")
     val playerOne = readChar()
     val playerTwo = if(playerOne == 'w'){
       'b'
     }else{
       'w'
-    } */
+    }
+
 
     println(nameOne + " positonieren Sie ihren ersten Stein:" + controller.field1.eol + controller.field1.mesh)
     println("Kreis: ")
@@ -35,16 +37,18 @@ case class TUI(controller: Controller) extends Observer{
     val ind2 = readInt()
     println(" ")
 
-    var mesh = controller.controllerPlaceFirstStone(ind1, ind2, player)
-    setStones(nameOne, nameTwo, player, player, mesh)
+    var mesh = controller.controllerPlaceFirstStone(ind1, ind2, playerOne)
+    setStones(nameOne, nameTwo, playerOne, playerTwo, mesh)
     mesh
 
 }
 
     def setStones(nameOne: String, nameTwo: String, playerOne: Char, playerTwo: Char, mesh: String): Unit = {
     //val context = new Context(new whiteState)
+    //val undoManager = new UndoManager(controller)
     val key = new Controller()
     var i = 1;
+    var undo = false
     while(i <=  17) {
 
         if(i % 2 == 0) {
@@ -62,13 +66,22 @@ case class TUI(controller: Controller) extends Observer{
         }
         println("Kreis: ")
         val ind1 = readInt()
+        if(ind1 > 2){
+            undo = true
+        }
         println(" ")
         println("Position: ")
         val ind2 = readInt()
         println(" ")
 
-        controller.controllerPlaceStones(ind1, ind2, player, player1, i, mesh)
-        //controller.state
+        if(undo == false){
+            controller.doStep(ind1, ind2, playerOne, playerTwo, i, mesh)
+        }else{
+            controller.undoStep
+            undo = false
+            
+        }
+
         i += 1  
     }
 }
