@@ -7,6 +7,7 @@ import HTWG.SE.Muehle.controller.StoneFactory
 
 class Controller() extends Observable{
     //var stone = new blackS()
+    val undoManager = new UndoManager(this)
     trait Stone {
     def placeStone(): StoneFactory
     def place(): Char = {
@@ -14,15 +15,17 @@ class Controller() extends Observable{
         stone.color()
         }
     }
-    val c = new whiteStone
-    val b = new blackStone
-class whiteStone extends Stone {
+    val c = new blackStone
+    val b = new whiteStone
+
+    class whiteStone extends Stone {
     override def placeStone(): StoneFactory = new whiteS
 
-}
-class blackStone extends Stone {
+    }
+
+    class blackStone extends Stone {
     override def placeStone(): StoneFactory = new blackS
-}
+    }
 
     var state: GameState = new blackState()
     def handle(): String = {
@@ -58,11 +61,19 @@ class blackStone extends Stone {
                 println("MÜHLE!!")
             }
         }
-        notifyObservers
         fieldString
         
     }
     def getFieldString() = fieldString
-    //def message() = state
+
+    def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String) = {
+        undoManager.doStep(ind1, ind2, player1, player2, i, mesh)
+        notifyObservers
+    }
+
+    def undoStep ={
+        fieldString = undoManager.undoStep
+        notifyObservers
+    } 
 
 }
