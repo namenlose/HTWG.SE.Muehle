@@ -13,13 +13,14 @@ case class TUI(controller: Controller) extends Observer{
 
     /*var player = controller.c.place()
     var player1 = controller.b.place()*/
-    def firstStone(): String = {
 
+
+    
+    def firstStone(): String = {
     println("Hallo, das ist Muehle")
     println("Geben Sie zwei Spieler Namen ein:")
     val nameOne = readLine()
     val nameTwo = readLine()
-
      println("Geben Sie eine Spielsteinfarbe ein (Schwarz(b) oder Weiß(w)):")
     val playerOne = readChar()
     val playerTwo = if(playerOne == 'w'){

@@ -17,5 +17,15 @@ case class FieldArray(){
         field.mesh
     }
     def get(circle: Int, position: Int) = fieldArray(circle)(position)
+
+    def takeStone(circle: Int, position: Int): String = {
+        if(fieldArray(circle)(position) != 'o') {
+            fieldArray(circle)(position) = 'o'
+        } else {
+            fieldArray(circle)(position) = fieldArray(circle)(position)
+        }
+        val field = new Field(6, fieldArray)
+        field.mesh
+    }
 }
 
