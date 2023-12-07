@@ -1,9 +1,12 @@
 package HTWG.SE.Muehle.util
 import HTWG.SE.Muehle.controller.Controller
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
 
 class UndoManager(controller: Controller) {
     var undoStack: List[Command] = List()
-    var redoStack: List[Int] = List()
+    var redoStack: List[Command] = List()
     var empty: Option[List[Command]] = None
 
     def doStep(command: Command) ={
@@ -13,16 +16,27 @@ class UndoManager(controller: Controller) {
         undoStack
     }
 
-    def undoStep: String = {
-        var string = "" //das streichen failure zurückgeben
+    def undoStep1: Try[String] = {
+        //var string = "" //das streichen failure zurückgeben
         if(empty == Some(undoStack)){
-            val command = undoStack.head
-            undoStack = undoStack.drop(1)
-            string = command.undoStep
+            Success((undoStep))
             
         }else{
-            println("kein Undo moeglich")
+            Failure(new NoSuchElementException("Nicht möglich!"))
         }
-        string //das auch succes zurückgeben
+        //string //das auch succes zurückgeben
+    }
+    def undoStep: String = {
+    var string = ""    
+    val command = undoStack.head
+    redoStack = command +: redoStack
+    undoStack = undoStack.drop(1)
+    string = command.undoStep
+    string
+    }
+    def redoStep: Unit = {
+        val command = redoStack.head
+        redoStack = redoStack.drop(1)
+        command.doStep
     }
 }

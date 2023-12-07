@@ -55,7 +55,6 @@ class Controller() extends Observable{
         fieldString
     }
 
-    //new
     def controllerPlaceStones(ind1: Int, ind2: Int, player1: Char, player2: Char, i: Int, mesh: String): String = {
 
         if(i % 2 == 0){
@@ -84,5 +83,8 @@ class Controller() extends Observable{
         notifyObservers
         fieldString
     } 
-
+    def redoStep: Unit ={
+        undoManager.redoStep
+        notifyObservers
+    }
 }

@@ -9,6 +9,7 @@ import javax.swing.ImageIcon
 
 class Gui(controller: Controller) extends MainFrame with Observer {
     controller.add(this)
+    private var color: Char = ' '
    /*  menuBar = new MenuBar {
         contents += new Menu("File") {
             contents += new MenuItem(Action("Exit") {
@@ -25,13 +26,37 @@ class Gui(controller: Controller) extends MainFrame with Observer {
     val player1 = new TextField() {
         columns = 20
     }
+    contents += new Button("Weiss") {
+        reactions += {
+            case event.ButtonClicked(_) =>
+                color = 'w'
+    }
+}
+    contents += new Button("Schwarz") {
+         reactions += {
+            case event.ButtonClicked(_) =>
+                color = 'w'
+    }
+    }
+
+    val circle = new TextField() {
+        columns = 20
+    }
+    val column = new TextField() {
+        columns = 20
+    }
     contents += player1
+    contents += circle
+    contents += column
+
     val icon= new ImageIcon()
     contents += new Button("Enter") {
       reactions += {
         case event.ButtonClicked(_) =>
-            val playerOneName = player1.text
-            //controller.getPlayerOne(playerOneName)
+            //val playerOneName = player1.text
+            val ind1 = circle.text.toInt
+            val ind2 = column.text.toInt
+            controller.controllerPlaceFirstStone(ind1, ind2, color)
       }
     }
   }
