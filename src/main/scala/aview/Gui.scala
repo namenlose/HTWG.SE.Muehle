@@ -5,6 +5,7 @@ import scala.swing._
 import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.util._
 import javax.swing.ImageIcon
+import javax.print.attribute.standard.OrientationRequested
 //import java.awt.MenuBar
 
 class Gui(controller: Controller) extends MainFrame with Observer {
@@ -18,14 +19,14 @@ class Gui(controller: Controller) extends MainFrame with Observer {
         }
     }
      */
-  new Frame {
+  val firstFrame = new MainFrame {
   title = "Mill"
-  contents = new FlowPanel {
-    val label = new Label("Geben Sie ihren Namen ein")
+  contents = new BoxPanel(Orientation.Vertical) {
+    val label = new Label("Wählen Sie eine Farbe")
     contents += label
-    val player1 = new TextField() {
+    /* val player1 = new TextField() {
         columns = 20
-    }
+    } */
     contents += new Button("Weiss") {
         reactions += {
             case event.ButtonClicked(_) =>
@@ -38,14 +39,14 @@ class Gui(controller: Controller) extends MainFrame with Observer {
                 color = 'w'
     }
     }
-
+contents += new Label("Wählen Sie die Position aus")
     val circle = new TextField() {
-        columns = 20
+        columns = 10
     }
     val column = new TextField() {
-        columns = 20
+        columns = 10
     }
-    contents += player1
+    //contents += player1
     contents += circle
     contents += column
 
@@ -56,9 +57,20 @@ class Gui(controller: Controller) extends MainFrame with Observer {
             //val playerOneName = player1.text
             val ind1 = circle.text.toInt
             val ind2 = column.text.toInt
-            controller.controllerPlaceFirstStone(ind1, ind2, color)
+            controller.controllerPlaceFirstStone(ind1, ind2, color) //Danach muss sich ein neues Fenster öffnen
+            val newFrame = new Frame {
+                title = "Muehle"
+                contents = new FlowPanel {
+                    contents += circle
+                    contents += column
+                }
+            }
+            newFrame.visible = true
+            close()
+            //firstFrame.visible = false
       }
     }
+    //contents += ImageIcon()
   }
   
   pack()
