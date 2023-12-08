@@ -34,6 +34,7 @@ class UndoManager(controller: Controller) {
     string = command.undoStep
     string
     }
+    
     def redoStep: Unit = {
         val command = redoStack.head
         redoStack = redoStack.drop(1)

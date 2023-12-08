@@ -50,6 +50,7 @@ case class TUI(controller: Controller) extends Observer{
     val key = new Controller()
     var i = 1;
     var undo = false
+    var redo = false
     while(i <=  17) {
 
         if(i % 2 == 0) {
@@ -67,20 +68,25 @@ case class TUI(controller: Controller) extends Observer{
         }
         println("Kreis: ")
         val ind1 = readInt()
-        if(ind1 > 2){
+        if(ind1 == 3){
             undo = true
+        }
+        if(ind1 == 4){
+            redo = true
         }
         println(" ")
         println("Position: ")
         val ind2 = readInt()
         println(" ")
 
-        if(undo == false){
+        if(undo == false && redo == false){
             controller.doStep(ind1, ind2, playerOne, playerTwo, i, mesh)
-        }else{
+        }else if(undo == true){
             controller.undoStep
             undo = false
-            
+        }else if(redo == true){
+            controller.redoStep
+            redo = false
         }
 
         i += 1  

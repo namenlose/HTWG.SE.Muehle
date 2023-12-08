@@ -2,6 +2,8 @@ package HTWG.SE.Muehle.aview
 
 import scala.swing.FlowPanel.Alignment
 import scala.swing._
+import javax.swing.table._
+import scala.swing.event._
 import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.util._
 import javax.swing.ImageIcon
@@ -10,6 +12,11 @@ import javax.swing.ImageIcon
 class Gui(controller: Controller) extends MainFrame with Observer {
     controller.add(this)
     private var color: Char = ' '
+    val w = new Color(255, 255, 255)
+    val gray = new Color(150,150,150)
+    val b = new Color(0, 0, 0)
+    var i = 0
+    
    /*  menuBar = new MenuBar {
         contents += new Menu("File") {
             contents += new MenuItem(Action("Exit") {
@@ -35,8 +42,163 @@ class Gui(controller: Controller) extends MainFrame with Observer {
     contents += new Button("Schwarz") {
          reactions += {
             case event.ButtonClicked(_) =>
-                color = 'w'
+                color = 'b'
     }
+    }
+
+   /* contents += new Button{
+        text = "Farb test"
+        background = gray
+        reactions += {
+            case event.ButtonClicked(_) =>
+                background = white      
+            }
+    }*/
+
+    val firstLine = new GridPanel(1, 13){
+         contents += new Button{
+            background = gray
+            reactions += {
+                case event.ButtonClicked(_) =>
+                    var color2 = ' '
+                    var colorButton = new Color(150, 150, 150)
+                    var colorButton2 = new Color(150, 150, 150)
+                                if(color == 'w') {
+                                    color2 = 'b'
+                                    colorButton = new Color(255, 255, 255)
+                                    colorButton2 = new Color(0,0,0)
+                                } else {
+                                    color2 = 'w'
+                                    colorButton2 = new Color(255,255,255)
+                                    colorButton = new Color(0, 0, 0)
+                                }
+                                
+                                    if(i % 2 == 0) {
+                                        controller.controllerPlaceFirstStone(0, 0, color)
+                                        background = colorButton
+                                        i += 1
+                                    } else {
+                                        controller.controllerPlaceFirstStone(0, 0, color2)
+                                        background = colorButton2
+                                        i += 1
+                                    }
+                                
+            }
+        }
+
+         contents += new Label{
+        text = "-"
+    }
+     contents += new Label{
+        text = "-"
+    }
+     contents += new Label{
+        text = "-"
+    }
+
+     contents += new Label{
+        text = "-"
+    }
+     contents += new Label{
+        text = "-"
+    }
+    contents += new Button{
+        background = gray
+            reactions += {
+                case event.ButtonClicked(_) =>
+                    var color2 = ' '
+                    var colorButton = new Color(150, 150, 150)
+                    var colorButton2 = new Color(150, 150, 150)
+                                if(color == 'w') {
+                                    color2 = 'b'
+                                    colorButton = new Color(255, 255, 255)
+                                    colorButton2 = new Color(0,0,0)
+                                } else {
+                                    color2 = 'w'
+                                    colorButton2 = new Color(255,255,255)
+                                    colorButton = new Color(0, 0, 0)
+                                }
+                                
+                                    if(i % 2 == 0) {
+                                        controller.controllerPlaceFirstStone(0, 1, color)
+                                        background = colorButton
+                                        i += 1
+                                    } else {
+                                        controller.controllerPlaceFirstStone(0, 1, color2)
+                                        background = colorButton2
+                                        i += 1
+                                    }
+                                
+            }
+    }
+            contents += new Label{
+        text = "-"
+    }
+     contents += new Label{
+        text = "-"
+    }
+     contents += new Label{
+        text = "-"
+    }
+
+     contents += new Label{
+        text = "-"
+    }
+     contents += new Label{
+        text = "-"
+    }
+    contents += new Button{
+            background = gray
+    }
+    }
+
+    val secondLine = new GridPanel(1, 13){
+        contents += new Label{
+        text = "|"
+    }
+    contents += new Label{
+        text = " "
+    }
+     contents += new Label{
+        text = " "
+    }
+     contents += new Label{
+        text = " "
+    }
+     contents += new Label{
+        text = " "
+    }
+     contents += new Label{
+        text = " "
+    }
+    contents += new Label{
+        text = "|"
+    }
+    contents += new Label{
+        text = " "
+    }
+     contents += new Label{
+        text = " "
+    }
+     contents += new Label{
+        text = " "
+    }
+     contents += new Label{
+        text = " "
+    }
+     contents += new Label{
+        text = " "
+    }
+    contents += new Label{
+        text = "|"
+    }
+    }
+
+    val spielfeld = new GridPanel(11, 1){
+       contents += firstLine
+       contents += secondLine
+
+   
     }
 
     val circle = new TextField() {
@@ -48,6 +210,7 @@ class Gui(controller: Controller) extends MainFrame with Observer {
     contents += player1
     contents += circle
     contents += column
+    contents += spielfeld
 
     val icon= new ImageIcon()
     contents += new Button("Enter") {
