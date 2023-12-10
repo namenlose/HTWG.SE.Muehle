@@ -12,11 +12,8 @@ import javax.print.attribute.standard.OrientationRequested
 
 class Gui(controller: Controller) extends MainFrame with Observer {
     controller.add(this)
-    private var color: Char = ' '
-    val w = new Color(255, 255, 255)
-    val gray = new Color(150,150,150)
-    val b = new Color(0, 0, 0)
-    var i = 0
+    var color: Char = ' '
+    val spielfeld = new GuiField(controller)
     
    /*  menuBar = new MenuBar {
         contents += new Menu("File") {
@@ -31,189 +28,28 @@ class Gui(controller: Controller) extends MainFrame with Observer {
   contents = new BoxPanel(Orientation.Vertical) {
     val label = new Label("Wählen Sie eine Farbe")
     contents += label
-    /* val player1 = new TextField() {
-        columns = 20
-    } */
-    contents += new Button("Weiss") {
+
+    val buttonWhite: Button = new Button("Weiss") {
         reactions += {
             case event.ButtonClicked(_) =>
                 color = 'w'
+                spielfeld.playFrame(color)
+
     }
 }
-    contents += new Button("Schwarz") {
+    val buttonBlack: Button = new Button("Schwarz") {
          reactions += {
             case event.ButtonClicked(_) =>
                 color = 'b'
+                spielfeld.playFrame(color)
+
     }
     }
 
-   /* contents += new Button{
-        text = "Farb test"
-        background = gray
-        reactions += {
-            case event.ButtonClicked(_) =>
-                background = white      
-            }
-    }*/
+    contents += buttonWhite
+    contents += buttonBlack
 
-    val firstLine = new GridPanel(1, 13){
-         contents += new Button{
-            background = gray
-            reactions += {
-                case event.ButtonClicked(_) =>
-                    var color2 = ' '
-                    var colorButton = new Color(150, 150, 150)
-                    var colorButton2 = new Color(150, 150, 150)
-                                if(color == 'w') {
-                                    color2 = 'b'
-                                    colorButton = new Color(255, 255, 255)
-                                    colorButton2 = new Color(0,0,0)
-                                } else {
-                                    color2 = 'w'
-                                    colorButton2 = new Color(255,255,255)
-                                    colorButton = new Color(0, 0, 0)
-                                }
-                                
-                                    if(i % 2 == 0) {
-                                        controller.controllerPlaceFirstStone(0, 0, color)
-                                        background = colorButton
-                                        i += 1
-                                    } else {
-                                        controller.controllerPlaceFirstStone(0, 0, color2)
-                                        background = colorButton2
-                                        i += 1
-                                    }
-                                
-            }
-        }
-
-         contents += new Label{
-        text = "-"
-    }
-     contents += new Label{
-        text = "-"
-    }
-     contents += new Label{
-        text = "-"
-    }
-
-     contents += new Label{
-        text = "-"
-    }
-     contents += new Label{
-        text = "-"
-    }
-    contents += new Button{
-        background = gray
-            reactions += {
-                case event.ButtonClicked(_) =>
-                    var color2 = ' '
-                    var colorButton = new Color(150, 150, 150)
-                    var colorButton2 = new Color(150, 150, 150)
-                                if(color == 'w') {
-                                    color2 = 'b'
-                                    colorButton = new Color(255, 255, 255)
-                                    colorButton2 = new Color(0,0,0)
-                                } else {
-                                    color2 = 'w'
-                                    colorButton2 = new Color(255,255,255)
-                                    colorButton = new Color(0, 0, 0)
-                                }
-                                
-                                    if(i % 2 == 0) {
-                                        controller.controllerPlaceFirstStone(0, 1, color)
-                                        background = colorButton
-                                        i += 1
-                                    } else {
-                                        controller.controllerPlaceFirstStone(0, 1, color2)
-                                        background = colorButton2
-                                        i += 1
-                                    }
-                                
-            }
-    }
-            contents += new Label{
-        text = "-"
-    }
-     contents += new Label{
-        text = "-"
-    }
-     contents += new Label{
-        text = "-"
-    }
-
-     contents += new Label{
-        text = "-"
-    }
-     contents += new Label{
-        text = "-"
-    }
-    contents += new Button{
-            background = gray
-    }
-    }
-
-    val secondLine = new GridPanel(1, 13){
-        contents += new Label{
-        text = "|"
-    }
-    contents += new Label{
-        text = " "
-    }
-     contents += new Label{
-        text = " "
-    }
-     contents += new Label{
-        text = " "
-    }
-     contents += new Label{
-        text = " "
-    }
-     contents += new Label{
-        text = " "
-    }
-    contents += new Label{
-        text = "|"
-    }
-    contents += new Label{
-        text = " "
-    }
-     contents += new Label{
-        text = " "
-    }
-     contents += new Label{
-        text = " "
-    }
-     contents += new Label{
-        text = " "
-    }
-     contents += new Label{
-        text = " "
-    }
-    contents += new Label{
-        text = "|"
-    }
-    }
-
-    val spielfeld = new GridPanel(11, 1){
-       contents += firstLine
-       contents += secondLine
-
-   
-    }
-
-    val circle = new TextField() {
-        columns = 10
-    }
-    val column = new TextField() {
-        columns = 10
-    }
-    //contents += player1
-    contents += circle
-    contents += column
-    contents += spielfeld
-
-    val icon= new ImageIcon()
+   /* val icon= new ImageIcon()
     contents += new Button("Enter") {
       reactions += {
         case event.ButtonClicked(_) =>
@@ -232,16 +68,17 @@ class Gui(controller: Controller) extends MainFrame with Observer {
             close()
             //firstFrame.visible = false
       }
-    }
+    }*/
     //contents += ImageIcon()
   }
-  
+
   pack()
   centerOnScreen()
   open()
-}
+    
+  }
 
-    override def update: Unit = {
-        
-    }
+
+override def update: Unit = {}
+
 }

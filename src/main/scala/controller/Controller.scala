@@ -3,7 +3,10 @@ import HTWG.SE.Muehle.model.{FieldArray, Field, Handler1}
 import HTWG.SE.Muehle.util.{Observable, UndoManager}
 import HTWG.SE.Muehle.controller.GameState
 import HTWG.SE.Muehle.controller.StoneFactory
-
+import scala.swing.FlowPanel.Alignment
+import scala.swing._
+import javax.swing.table._
+import scala.swing.event._
 
 
 class Controller() extends Observable{
@@ -41,6 +44,7 @@ class Controller() extends Observable{
     val field1: Field = new Field(6, array.fieldArray)
     val handler1: Handler1 = new Handler1(array.fieldArray)
     var fieldString = ""
+    var counter = 0
 
     def controllerPlaceFirstStone(ind1: Int, ind2: Int, player: Char): String = {
         
@@ -72,6 +76,49 @@ class Controller() extends Observable{
         
     }
     def getFieldString() = fieldString
+
+    def setStoneGui(pos1: Int, pos2: Int, color: Char): Color = {
+        var color2 = ' '
+        var background = new Color(150, 150, 150)
+        var colorButton = new Color(150, 150, 150)
+        var colorButton2 = new Color(150, 150, 150)
+        var mesh = " "
+        println("farbe:" + color)
+            if(color == 'w') {
+                color2 = 'b'
+                colorButton = new Color(255, 255, 255)
+                colorButton2 = new Color(0,0,0)
+            } else {
+                color2 = 'w'
+                colorButton2 = new Color(255,255,255)
+                colorButton = new Color(0, 0, 0)
+            }
+
+            if(counter == 0){
+                mesh = controllerPlaceFirstStone(pos1, pos2, color)
+                background = colorButton
+                counter += 1
+            }else if(counter % 2 == 0 && counter < 18) {
+                doStep(pos1, pos2, color, color2, counter, mesh)
+                background = colorButton
+                counter += 1
+            } else {
+                doStep(pos1, pos2, color, color2, counter, mesh)
+                background = colorButton2
+                counter += 1
+            }
+/*
+            if(counter % 2 == 0 && counter < 18) {
+                controllerPlaceFirstStone(pos1, pos2, color)
+                background = colorButton
+                counter += 1
+            } else {
+                controllerPlaceFirstStone(pos1, pos2, color2)
+                background = colorButton2
+                counter += 1
+            }*/
+            background
+    }
 
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String) = {
         undoManager.doStep(new SetCommand(ind1, ind2, player1, player2, i, mesh, this))
