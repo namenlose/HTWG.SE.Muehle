@@ -16,6 +16,7 @@ import scala.io.StdIn.readChar
   //val test = array.placeStone(1, 1)
   //val mesh = TUI.firstStone()
   val gui: Gui = new Gui(controller)
+  //val game: GUIField = new GUIField(controller)
   //gui.visible = true
   TUI.firstStone()
  

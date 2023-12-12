@@ -86,6 +86,14 @@ case class TUI(controller: Controller) extends Observer{
         i += 1  
     }
 }
+
+/*reactions += {
+    case event: posChanged => printTui
+}
+
+def printTui: Unit = {
+
+}*/
     override def update: Unit =  {println(controller.getFieldString())
 }
 }

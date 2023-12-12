@@ -3,8 +3,9 @@ import HTWG.SE.Muehle.model.{FieldArray, Field, Handler1}
 import HTWG.SE.Muehle.util.{Observable, UndoManager}
 import HTWG.SE.Muehle.controller.GameState
 import HTWG.SE.Muehle.controller.StoneFactory
+//import HTWG.SE.Muehle.controller.Events
 
-
+import scala.swing.Publisher
 
 class Controller() extends Observable{
     //var stone = new blackS()
@@ -49,7 +50,7 @@ class Controller() extends Observable{
         }else{
             new blackState
         }
-
+        //publish(new posChanged)
         fieldString = array.placeStone(ind1, ind2, player)
         notifyObservers
         fieldString
