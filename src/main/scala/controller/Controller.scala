@@ -55,7 +55,7 @@ class Controller() extends Observable{
         }
 
         fieldString = array.placeStone(ind1, ind2, player)
-        notifyObservers(Event.StonePlaced(ind1, ind2, player))
+        //notifyObservers(Event.StonePlaced)
         fieldString
     }
 
@@ -65,14 +65,15 @@ class Controller() extends Observable{
             fieldString = array.placeStone(ind1, ind2, player1)
             if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
+                 //notifyObservers(Event.StonePlaced)
             }
         }else{
             fieldString = array.placeStone(ind1, ind2, player2)
              if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
             }
+            //notifyObservers(Event.StonePlaced)
         }
-        notifyObservers(Event.StonePlaced)
         fieldString
         
     }
@@ -118,7 +119,7 @@ class Controller() extends Observable{
                 background = colorButton2
                 counter += 1
             }*/
-            notifyObservers(Event.StonePlaced)
+            notifyObservers(Event.StonePlaced(pos1, pos2, color))
             background
     }
 

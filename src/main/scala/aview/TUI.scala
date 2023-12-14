@@ -94,7 +94,10 @@ case class TUI(controller: Controller) extends Observer{
 }
 def update(e: Event): Unit = {
     e match {
-        case Event.StonePlaced() => println(controller.controllerPlaceStones(ind1, ind2, player))//println(controller.getFieldString())
+        //case Event.StonePlaced(pos1, pos2, color) => //println(controller.controllerPlaceFirstStone(pos1, pos2, color)) println(controller.getFieldString())
+        //case Event.StonePlaced => println(controller.getFieldString())
+        //case Event.StonePlaced(pos1, pos2, color) => println(controller.controllerPlaceFirstStone(pos1, pos2, color))
+        case Event.StonePlaced(pos1, pos2, color) => println(controller.controllerPlaceFirstStone(pos1, pos2, color))
         case Event.doStep => ""
     }
 }

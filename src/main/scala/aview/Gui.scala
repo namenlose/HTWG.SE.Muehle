@@ -84,7 +84,7 @@ class Gui(controller: Controller) extends MainFrame with Observer {
 override def update(e: Event): Unit = {
     e match {
         case Event.doStep => GuiField(controller)
-        case Event.StonePlaced => GuiField(controller)
+        //case Event.StonePlaced() => GuiField(controller)
         repaint()
     }
 
