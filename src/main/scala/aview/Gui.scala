@@ -33,18 +33,42 @@ class Gui(controller: Controller) extends MainFrame with Observer {
         reactions += {
             case event.ButtonClicked(_) =>
                 color = 'w'
-                spielfeld.playFrame(color)
-
+                val window = newWindow(color)
+                window.visible = true
+                window.pack()
+                window.centerOnScreen()
+                window.open()
     }
 }
     val buttonBlack: Button = new Button("Schwarz") {
          reactions += {
             case event.ButtonClicked(_) =>
                 color = 'b'
-                spielfeld.playFrame(color)
+                val window = newWindow(color)
+                window.visible = true
+                window.pack()
+                window.centerOnScreen()
+                window.open()
+    }
+    }
 
+    val undo = new Button("Undo"){
+        reactions += {
+            case event.ButtonClicked(_) =>
+                controller.undoStep
+        }
     }
+
+    def newWindow(color: Char): MainFrame = {
+        new MainFrame{
+            contents = new FlowPanel{
+            contents += spielfeld.playPanel(color)
+            contents += undo
+            }
+        }
     }
+
+   
 
     contents += buttonWhite
     contents += buttonBlack

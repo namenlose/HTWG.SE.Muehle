@@ -14,7 +14,7 @@ import javax.print.attribute.standard.OrientationRequested
     val gray = new Color(150,150,150)
  
 
-    def playFrame(color: Char) = new MainFrame{
+    def playPanel(color: Char) = new FlowPanel{
 
     def createLine: Label = new Label{
         text = "-"
@@ -33,7 +33,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
             reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(0,0,color)
+                    controller.setStoneGui(0,0,color)
+                    background = controller.getColor(0,0)
         }
     }
     contents += createLine
@@ -46,7 +47,8 @@ import javax.print.attribute.standard.OrientationRequested
         background = gray
             reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(0,1, color)
+                    controller.setStoneGui(0,1, color)
+                    background = controller.getColor(0,1)
             }
     }
     contents += createLine
@@ -59,7 +61,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(0,2, color)
+                    controller.setStoneGui(0,2, color)
+                    background = controller.getColor(0,2)
             }
     }
     }
@@ -87,7 +90,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(1,0, color)
+                    controller.setStoneGui(1,0, color)
+                    background = controller.getColor(1,0)
             }
         }
         contents += createLine
@@ -97,7 +101,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(1,1, color)
+                    controller.setStoneGui(1,1, color)
+                    background = controller.getColor(1,1)
             }
         }
         contents += createLine
@@ -107,7 +112,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(1,2, color)
+                    controller.setStoneGui(1,2, color)
+                    background = controller.getColor(1,2)
             }
         }
         contents += createSpace
@@ -139,7 +145,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(2,0, color)
+                    controller.setStoneGui(2,0, color)
+                    background = controller.getColor(2,0)
             }
         }
         contents += createLine
@@ -147,7 +154,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(2,1, color)
+                    controller.setStoneGui(2,1, color)
+                    background = controller.getColor(2,1)
             }
         }
         contents += createLine
@@ -155,7 +163,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(2,2, color)
+                    controller.setStoneGui(2,2, color)
+                    background = controller.getColor(2,2)
             }
         }
         contents += createSpace
@@ -185,7 +194,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(0,7, color)
+                    controller.setStoneGui(0,7, color)
+                    background = controller.getColor(0,7)
             }
         }
         contents += createLine
@@ -193,7 +203,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(1,7, color)
+                    controller.setStoneGui(1,7, color)
+                    background = controller.getColor(1,7)
             }
         }
         contents += createLine
@@ -201,7 +212,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(2,7, color)
+                   controller.setStoneGui(2,7, color)
+                   background = controller.getColor(2,7)
             }
         }
         contents += createSpace
@@ -211,7 +223,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(2,3, color)
+                    controller.setStoneGui(2,3, color)
+                    background = controller.getColor(2,3)
             }
         }
         contents += createLine
@@ -219,7 +232,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(1,3, color)
+                    controller.setStoneGui(1,3, color)
+                    background = controller.getColor(1,3)
             }
         }
         contents += createLine
@@ -227,7 +241,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(0,3, color)
+                    controller.setStoneGui(0,3, color)
+                    background = controller.getColor(0,3)
             }
         }
     }
@@ -241,7 +256,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(2,6, color)
+                   controller.setStoneGui(2,6, color)
+                   background = controller.getColor(2,6)
             }
         }
         contents += createLine
@@ -249,7 +265,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(2,5, color)
+                    controller.setStoneGui(2,5, color)
+                    background = controller.getColor(2,5)
             }
         }
         contents += createLine
@@ -257,7 +274,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(2,4, color)
+                   controller.setStoneGui(2,4, color)
+                   background = controller.getColor(2,4)
             }
         }
         contents += createSpace
@@ -273,7 +291,9 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(1,6, color)
+                    controller.setStoneGui(1,6,color)
+                   controller.setStoneGui(1,6, color)
+                   background = controller.getColor(1,6)
             }
         }
         contents += createLine
@@ -283,7 +303,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(1,5, color)
+                    controller.setStoneGui(1,5, color)
+                    background = controller.getColor(1,5)
             }
         }
         contents += createLine
@@ -293,7 +314,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(1,4, color)
+                    controller.setStoneGui(1,4, color)
+                    background = controller.getColor(1,4)
             }
         }
         contents += createSpace
@@ -305,7 +327,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
             reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(0,6,color)
+                    controller.setStoneGui(0,6,color)
+                    background = controller.getColor(0,6)
         }
     }
     contents += createLine
@@ -318,7 +341,8 @@ import javax.print.attribute.standard.OrientationRequested
         background = gray
             reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(0,5, color)
+                    controller.setStoneGui(0,5, color)
+                    background = controller.getColor(0,5)
             }
     }
     contents += createLine
@@ -331,7 +355,8 @@ import javax.print.attribute.standard.OrientationRequested
             background = gray
              reactions += {
                 case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(0,4, color)
+                   controller.setStoneGui(0,4, color)
+                   background = controller.getColor(0,4)
             }
     }
     }
@@ -352,11 +377,11 @@ import javax.print.attribute.standard.OrientationRequested
        contents += tenthLine
     }
 
-    contents = spielfeld
+    contents += spielfeld
     
-      pack()
-      centerOnScreen()
-      open()
+      //pack()
+     // centerOnScreen()
+      //open()
   }
 
 }

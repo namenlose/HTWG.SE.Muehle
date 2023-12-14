@@ -12,6 +12,7 @@ import scala.swing.event._
 class Controller() extends Observable{
     //var stone = new blackS()
     val undoManager = new UndoManager(this)
+    val fieldArray = new FieldArray
     /*trait Stone {
     def placeStone(): StoneFactory
     def place(): Char = {
@@ -77,47 +78,39 @@ class Controller() extends Observable{
     }
     def getFieldString() = fieldString
 
-    def setStoneGui(pos1: Int, pos2: Int, color: Char): Color = {
-        var color2 = ' '
-        var background = new Color(150, 150, 150)
-        var colorButton = new Color(150, 150, 150)
-        var colorButton2 = new Color(150, 150, 150)
+    def setStoneGui(pos1: Int, pos2: Int, color: Char) = {
         var mesh = " "
-        println("farbe:" + color)
+        var color2 = ' '
             if(color == 'w') {
                 color2 = 'b'
-                colorButton = new Color(255, 255, 255)
-                colorButton2 = new Color(0,0,0)
             } else {
                 color2 = 'w'
-                colorButton2 = new Color(255,255,255)
-                colorButton = new Color(0, 0, 0)
             }
 
             if(counter == 0){
                 mesh = controllerPlaceFirstStone(pos1, pos2, color)
-                background = colorButton
                 counter += 1
             }else if(counter % 2 == 0 && counter < 18) {
                 doStep(pos1, pos2, color, color2, counter, mesh)
-                background = colorButton
                 counter += 1
             } else {
                 doStep(pos1, pos2, color, color2, counter, mesh)
-                background = colorButton2
                 counter += 1
             }
-/*
-            if(counter % 2 == 0 && counter < 18) {
-                controllerPlaceFirstStone(pos1, pos2, color)
-                background = colorButton
-                counter += 1
-            } else {
-                controllerPlaceFirstStone(pos1, pos2, color2)
-                background = colorButton2
-                counter += 1
-            }*/
-            background
+    }
+
+    def getColor(ind1: Int, ind2: Int): Color ={
+        val color = array.get(ind1, ind2)
+        print("colorChar", color)
+        var background = new Color(150, 150, 150)
+
+        if(color == 'b'){
+            background = new Color(0,0, 0)
+        }else if(color == 'w'){
+            background = new Color(255, 255, 255)
+        }
+        print("getColor:", background)
+        background
     }
 
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String) = {
