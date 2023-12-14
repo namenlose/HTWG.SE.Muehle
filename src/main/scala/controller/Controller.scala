@@ -1,6 +1,6 @@
 package HTWG.SE.Muehle.controller
 import HTWG.SE.Muehle.model.{FieldArray, Field, Handler1}
-import HTWG.SE.Muehle.util.{Observable, UndoManager}
+import HTWG.SE.Muehle.util.{Observable, UndoManager, Event}
 import HTWG.SE.Muehle.controller.GameState
 import HTWG.SE.Muehle.controller.StoneFactory
 import scala.swing.FlowPanel.Alignment
@@ -55,7 +55,7 @@ class Controller() extends Observable{
         }
 
         fieldString = array.placeStone(ind1, ind2, player)
-        notifyObservers
+        notifyObservers(Event.StonePlaced(ind1, ind2, player))
         fieldString
     }
 
@@ -72,6 +72,7 @@ class Controller() extends Observable{
                 println("MÜHLE!!")
             }
         }
+        notifyObservers(Event.StonePlaced)
         fieldString
         
     }
@@ -95,7 +96,7 @@ class Controller() extends Observable{
             }
 
             if(counter == 0){
-                mesh = controllerPlaceFirstStone(pos1, pos2, color)
+                //mesh = controllerPlaceFirstStone(pos1, pos2, color)
                 background = colorButton
                 counter += 1
             }else if(counter % 2 == 0 && counter < 18) {
@@ -117,21 +118,22 @@ class Controller() extends Observable{
                 background = colorButton2
                 counter += 1
             }*/
+            notifyObservers(Event.StonePlaced)
             background
     }
 
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String) = {
         undoManager.doStep(new SetCommand(ind1, ind2, player1, player2, i, mesh, this))
-        notifyObservers
-    }
+        notifyObservers(Event.doStep)
+    } 
 
     def undoStep: String ={
         fieldString = undoManager.undoStep
-        notifyObservers
+        notifyObservers(Event.undo)
         fieldString
     } 
     def redoStep: Unit ={
         undoManager.redoStep
-        notifyObservers
+        notifyObservers(Event.redoStep)
     }
 }
