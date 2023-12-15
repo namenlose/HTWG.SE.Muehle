@@ -1,4 +1,4 @@
-package HTWG.SE.Muehle.util
+/* package HTWG.SE.Muehle.util
 
 class TestObject extends Observer {
   def update:Unit = println("Ping")
@@ -15,4 +15,4 @@ object ObserverPattern {
   observable.notifyObservers                     
   observable.remove(observer2)
   observable.notifyObservers
-}
+} */

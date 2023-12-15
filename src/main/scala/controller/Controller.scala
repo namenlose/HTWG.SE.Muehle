@@ -1,6 +1,6 @@
 package HTWG.SE.Muehle.controller
 import HTWG.SE.Muehle.model.{FieldArray, Field, Handler1}
-import HTWG.SE.Muehle.util.{Observable, UndoManager}
+import HTWG.SE.Muehle.util.{Observable, UndoManager, Event}
 import HTWG.SE.Muehle.controller.GameState
 import HTWG.SE.Muehle.controller.StoneFactory
 import scala.swing.FlowPanel.Alignment
@@ -56,7 +56,7 @@ class Controller() extends Observable{
         }
 
         fieldString = array.placeStone(ind1, ind2, player)
-        notifyObservers
+        //notifyObservers(Event.StonePlaced)
         fieldString
     }
 
@@ -66,12 +66,14 @@ class Controller() extends Observable{
             fieldString = array.placeStone(ind1, ind2, player1)
             if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
+                 //notifyObservers(Event.StonePlaced)
             }
         }else{
             fieldString = array.placeStone(ind1, ind2, player2)
              if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
             }
+            //notifyObservers(Event.StonePlaced)
         }
         fieldString
         
@@ -87,21 +89,22 @@ class Controller() extends Observable{
                 color2 = 'w'
             }
 
-            if(counter == 0){
-                mesh = controllerPlaceFirstStone(pos1, pos2, color)
+           /* if(counter == 0){
+                //mesh = controllerPlaceFirstStone(pos1, pos2, color)
+                //background = colorButton
                 counter += 1
-            }else if(counter % 2 == 0 && counter < 18) {
+            }else */
+            if(/*counter % 2 == 0 && */counter < 18) {
                 doStep(pos1, pos2, color, color2, counter, mesh)
                 counter += 1
-            } else {
+            } /*else {
                 doStep(pos1, pos2, color, color2, counter, mesh)
                 counter += 1
-            }
+            }*/
     }
 
     def getColor(ind1: Int, ind2: Int): Color ={
         val color = array.get(ind1, ind2)
-        print("colorChar", color)
         var background = new Color(150, 150, 150)
 
         if(color == 'b'){
@@ -109,22 +112,21 @@ class Controller() extends Observable{
         }else if(color == 'w'){
             background = new Color(255, 255, 255)
         }
-        print("getColor:", background)
         background
     }
 
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String) = {
         undoManager.doStep(new SetCommand(ind1, ind2, player1, player2, i, mesh, this))
-        notifyObservers
-    }
+        notifyObservers(Event.doStep)
+    } 
 
     def undoStep: String ={
         fieldString = undoManager.undoStep
-        notifyObservers
+        notifyObservers(Event.undo)
         fieldString
     } 
     def redoStep: Unit ={
         undoManager.redoStep
-        notifyObservers
+        notifyObservers(Event.redoStep)
     }
 }

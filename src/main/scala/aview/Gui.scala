@@ -3,7 +3,7 @@ package HTWG.SE.Muehle.aview
 import scala.swing.FlowPanel.Alignment
 import scala.swing._
 import javax.swing.table._
-import scala.swing.event._
+//import scala.swing.event._
 import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.util._
 import javax.swing.ImageIcon
@@ -59,11 +59,19 @@ class Gui(controller: Controller) extends MainFrame with Observer {
         }
     }
 
+    val redo = new Button("Redo"){
+        reactions += {
+            case event.ButtonClicked(_) =>
+                controller.redoStep
+        }
+    }
+
     def newWindow(color: Char): MainFrame = {
         new MainFrame{
             contents = new FlowPanel{
             contents += spielfeld.playPanel(color)
             contents += undo
+            contents += redo
             }
         }
     }
@@ -103,6 +111,14 @@ class Gui(controller: Controller) extends MainFrame with Observer {
   }
 
 
-override def update: Unit = {}
+override def update(e: Event): Unit = {
+    //case Event.undo => 
+    //e match {
+        //case Event.doStep => GuiField(controller)
+        //case Event.StonePlaced() => GuiField(controller)
+        //repaint()
+    //}
+
+}
 
 }

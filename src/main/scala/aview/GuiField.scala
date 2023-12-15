@@ -3,14 +3,15 @@
 import scala.swing.FlowPanel.Alignment
 import scala.swing._
 import javax.swing.table._
-import scala.swing.event._
+//import scala.swing.event._
 import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.util._
 import javax.swing.ImageIcon
 import javax.print.attribute.standard.OrientationRequested
  
  
- class GuiField(controller: Controller){
+ class GuiField(controller: Controller)extends Observer{
+    controller.add(this)
     val gray = new Color(150,150,150)
  
 
@@ -28,15 +29,28 @@ import javax.print.attribute.standard.OrientationRequested
         text = " "
     }
 
+    def createButton(ind1: Int, ind2: Int): Button = new Button{
+            background = gray
+            reactions += {
+                case event.ButtonClicked(_) =>
+                    controller.setStoneGui(ind1,ind2,color)
+                    background = controller.getColor(ind1,ind2)
+        }
+    }
+
+    val testButton = createButton(0,0)
+
     val firstLine: GridPanel = new GridPanel(1, 13){
-         contents += new Button{
+         contents += testButton
+            
+            /*new Button{
             background = gray
             reactions += {
                 case event.ButtonClicked(_) =>
                     controller.setStoneGui(0,0,color)
                     background = controller.getColor(0,0)
         }
-    }
+    }*/
     contents += createLine
     contents += createLine
     contents += createLine
@@ -382,6 +396,10 @@ import javax.print.attribute.standard.OrientationRequested
       //pack()
      // centerOnScreen()
       //open()
+  }
+
+  override def update(e: Event): Unit = {
+    //case Event.undo =>
   }
 
 }

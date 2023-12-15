@@ -1,7 +1,7 @@
 package HTWG.SE.Muehle.aview
 import HTWG.SE.Muehle.model.{FieldArray, Field}
 import HTWG.SE.Muehle.controller.{Controller, GameState, StoneFactory}
-import HTWG.SE.Muehle.util.Observer
+import HTWG.SE.Muehle.util.{Observer, Event}
 import scala.io.StdIn.readLine
 import scala.io.StdIn.readInt
 import scala.io.StdIn.readChar
@@ -92,9 +92,21 @@ case class TUI(controller: Controller) extends Observer{
         i += 1  
     }
 }
-    override def update: Unit =  {println(controller.getFieldString())
+def update(e: Event): Unit = {
+    e match {
+        //case Event.StonePlaced(pos1, pos2, color) => //println(controller.controllerPlaceFirstStone(pos1, pos2, color)) println(controller.getFieldString())
+        //case Event.StonePlaced => println(controller.getFieldString())
+        //case Event.StonePlaced(pos1, pos2, color) => println(controller.controllerPlaceFirstStone(pos1, pos2, color))
+        case Event.StonePlaced(pos1, pos2, color) => println(controller.controllerPlaceFirstStone(pos1, pos2, color))
+        case Event.doStep => println(controller.getFieldString())
+        case Event.undo => println(controller.getFieldString())
+        case Event.redoStep => println(controller.getFieldString())
+    }
 }
+    //override def update: Unit =  {println(controller.getFieldString())
+
 }
+//}
 
     
 
