@@ -297,3 +297,246 @@ def clickButton(pos1: Int, pos2: Int): Unit = {
 }
 
 //}
+
+
+package HTWG.SE.Muehle.aview
+
+import scala.swing.FlowPanel.Alignment
+import scala.swing._
+import javax.swing.table._
+//import scala.swing.event._
+import HTWG.SE.Muehle.controller._
+import HTWG.SE.Muehle.util._
+import javax.swing.ImageIcon
+import javax.print.attribute.standard.OrientationRequested
+//import java.awt.MenuBar
+
+class Gui(controller: Controller) extends MainFrame with Observer {
+    controller.add(this)
+    var color: Char = ' '
+    val spielfeld = new GuiField(controller)
+    var pos1 = 8
+    var pos2 = 8
+    
+   /*  menuBar = new MenuBar {
+        contents += new Menu("File") {
+            contents += new MenuItem(Action("Exit") {
+                sys.exit(0)
+            })
+        }
+    }
+     */
+  val firstFrame = new MainFrame {
+  title = "Mill"
+  contents = new BoxPanel(Orientation.Vertical) {
+    val label = new Label("Wählen Sie eine Farbe")
+    contents += label
+
+    val buttonWhite: Button = new Button("Weiss") {
+        reactions += {
+            case event.ButtonClicked(_) =>
+                color = 'w'
+                spielfeld.playFrame(pos1, pos2, color)
+                close()
+
+    }
+}
+    val buttonBlack: Button = new Button("Schwarz") {
+         reactions += {
+            case event.ButtonClicked(_) =>
+                color = 'b'
+                spielfeld.playFrame(pos1, pos2, color)
+                close()
+
+    }
+}
+
+    contents += buttonWhite
+    contents += buttonBlack
+
+   /* val icon= new ImageIcon()
+    contents += new Button("Enter") {
+      reactions += {
+        case event.ButtonClicked(_) =>
+            //val playerOneName = player1.text
+            val ind1 = circle.text.toInt
+            val ind2 = column.text.toInt
+            controller.controllerPlaceFirstStone(ind1, ind2, color) //Danach muss sich ein neues Fenster öffnen
+            val newFrame = new Frame {
+                title = "Muehle"
+                contents = new FlowPanel {
+                    contents += circle
+                    contents += column
+                }
+            }
+            newFrame.visible = true
+            close()
+            //firstFrame.visible = false
+      }
+    }*/
+    //contents += ImageIcon()
+  }
+
+  pack()
+  centerOnScreen()
+  open()
+    
+  }
+
+
+override def update(e: Event): Unit = {
+    e match {
+        //case Event.doStep => GuiField(controller)
+        //case Event.StonePlaced2(pos1, pos2, color) => println("he")
+        case Event.StonePlaced2(pos1, pos2, color) => spielfeld.playFrame(pos1, pos2, color)
+        case Event.StonePlaced(pos1, pos2, color) => " "
+        case Event.doStep1(pos1, pos2, color) => spielfeld.playFrame(pos1, pos2, color)
+        case Event.doStep => " "
+        //repaint()
+    }
+}
+}
+
+
+
+package HTWG.SE.Muehle.util
+
+trait Observer {
+    def update(e: Event): Unit
+}
+class Observable {
+  var subscribers: Vector[Observer] = Vector()
+
+  def add(s: Observer): Unit = subscribers = subscribers :+ s
+
+  def remove(s: Observer): Unit = subscribers = subscribers.filterNot(o => o == s)
+
+  def notifyObservers(e: Event): Unit = subscribers.foreach(o => o.update(e))
+}
+
+enum Event {
+  case StonePlaced(ind1: Int, ind2: Int, player: Char)
+  case StonePlaced2(ind1: Int, ind2: Int, color: Char)
+  case StonePlaced1
+  case undo
+  case redoStep
+  case doStep
+  case doStep1(ind1: Int, ind2: Int, color: Char)
+}
+
+
+package HTWG.SE.Muehle.aview
+import HTWG.SE.Muehle.model.{FieldArray, Field}
+import HTWG.SE.Muehle.controller.{Controller, GameState, StoneFactory}
+import HTWG.SE.Muehle.util.{Observer, Event}
+import scala.io.StdIn.readLine
+import scala.io.StdIn.readInt
+import scala.io.StdIn.readChar
+import scala.annotation.meta.field
+
+case class TUI(controller: Controller) extends Observer{
+
+    controller.add(this)
+
+    /*var player = controller.c.place()
+    var player1 = controller.b.place()*/
+
+
+    
+    def firstStone(): String = {
+    println("Hallo, das ist Muehle")
+    println("Geben Sie zwei Spieler Namen ein:")
+    val nameOne = readLine()
+    val nameTwo = readLine()
+     println("Geben Sie eine Spielsteinfarbe ein (Schwarz(b) oder Weiß(w)):")
+    val playerOne = readChar()
+    val playerTwo = if(playerOne == 'w'){
+      'b'
+    }else{
+      'w'
+    }
+
+
+    println(nameOne + " positonieren Sie ihren ersten Stein:" + controller.field1.eol + controller.field1.mesh)
+    println("Kreis: ")
+    val ind1 = readInt()
+    println(" ")
+    println("Position: ")
+    val ind2 = readInt()
+    println(" ")
+
+    var mesh = controller.controllerPlaceFirstStone(ind1, ind2, playerOne)
+    setStones(nameOne, nameTwo, playerOne, playerTwo, mesh)
+    mesh
+
+}
+
+    def setStones(nameOne: String, nameTwo: String, playerOne: Char, playerTwo: Char, mesh: String): Unit = {
+    //val context = new Context(new whiteState)
+    //val undoManager = new UndoManager(controller)
+    val key = new Controller()
+    var i = 1;
+    var undo = false
+    var redo = false
+    while(i <=  17) {
+
+        if(i % 2 == 0) {
+            println(nameOne + " positonieren Sie einen Stein:" + controller.field1.eol)
+            //controller.state
+            controller.turn()
+            println(controller.handle())
+            //controller.turn()
+        }else{
+            println(nameTwo + " positonieren Sie einen Stein:" + controller.field1.eol)
+            controller.turn()
+            controller.handle()
+            println(controller.handle())
+            //controller.turn()
+        }
+        println("Kreis: ")
+        val ind1 = readInt()
+        if(ind1 == 3){
+            undo = true
+        }
+        if(ind1 == 4){
+            redo = true
+        }
+        println(" ")
+        println("Position: ")
+        val ind2 = readInt()
+        println(" ")
+
+        if(undo == false && redo == false){
+            controller.doStep(ind1, ind2, playerOne, playerTwo, i, mesh)
+        }else if(undo == true){
+            controller.undoStep
+            undo = false
+        }else if(redo == true){
+            controller.redoStep
+            redo = false
+        }
+
+        i += 1  
+    }
+}
+def update(e: Event): Unit = {
+    e match {
+        //case Event.StonePlaced(pos1, pos2, color) => //println(controller.controllerPlaceFirstStone(pos1, pos2, color)) println(controller.getFieldString())
+        //case Event.StonePlaced => println(controller.getFieldString())
+        case Event.StonePlaced(pos1, pos2, color) => println(controller.controllerPlaceFirstStone(pos1, pos2, color))
+        //case Event.StonePlaced(pos1, pos2, color) => println(controller.controllerPlaceFirstStone(pos1, pos2, color))
+        case Event.doStep => println(controller.getFieldString())
+        case Event.StonePlaced1 => println(controller.getFieldString())
+        case Event.StonePlaced2(pos1, pos2, color) => " "
+        case Event.doStep1(pos1, pos2, color) => " "
+        
+    }
+}
+    //override def update: Unit =  {println(controller.getFieldString())
+
+}
+//}
+
+    
+
+

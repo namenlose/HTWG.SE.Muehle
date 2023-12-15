@@ -35,16 +35,20 @@ class Gui(controller: Controller) extends MainFrame with Observer {
         reactions += {
             case event.ButtonClicked(_) =>
                 color = 'w'
+                val window = newWindow(pos1, pos2, color)
+                window.visible = true
+                window.pack()
+                window.centerOnScreen()
+                window.open()
                 spielfeld.playFrame(pos1, pos2, color)
                 close()
-
     }
 }
     val buttonBlack: Button = new Button("Schwarz") {
          reactions += {
             case event.ButtonClicked(_) =>
                 color = 'b'
-                spielfeld.playFrame(pos1, pos2, color)
+                spielfeld.playFrame(color)
                 close()
 
     }
@@ -84,7 +88,7 @@ class Gui(controller: Controller) extends MainFrame with Observer {
 
 
 override def update(e: Event): Unit = {
-    e match {
+    //e match {
         //case Event.doStep => GuiField(controller)
         //case Event.StonePlaced2(pos1, pos2, color) => println("he")
         case Event.StonePlaced2(pos1, pos2, color) => spielfeld.playFrame(pos1, pos2, color)
@@ -92,6 +96,7 @@ override def update(e: Event): Unit = {
         case Event.doStep1(pos1, pos2, color) => spielfeld.playFrame(pos1, pos2, color)
         case Event.doStep => " "
         //repaint()
-    }
+    //}
 }
 }
+
