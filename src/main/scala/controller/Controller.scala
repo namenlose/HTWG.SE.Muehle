@@ -122,13 +122,20 @@ class Controller() extends Observable{
         notifyObservers(Event.doStep)
     } 
 
-    def undoStep: String ={
-        fieldString = undoManager.undoStep
-        notifyObservers(Event.undo)
+    def undoStep ={
+        val list = undoManager.undoStep
+        val array: Array[Int] = list(1).asInstanceOf[Array[Int]]
+        val row: Int = array(0)
+        val col: Int = array(1)
+        fieldString = list(0).toString()
+        notifyObservers(Event.undo(row, col))
         fieldString
     } 
+
     def redoStep: Unit ={
-        undoManager.redoStep
-        notifyObservers(Event.redoStep)
+        val array: Array[Int] = undoManager.redoStep
+        val row: Int = array(0)
+        val col: Int = array(1)
+        notifyObservers(Event.redoStep(row, col))
     }
 }

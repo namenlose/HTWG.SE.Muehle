@@ -5,6 +5,7 @@ import scala.swing._
 import javax.swing.table._
 import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.util._
+import HTWG.SE.Muehle.model.ButtonMap
 import javax.swing.ImageIcon
 import javax.print.attribute.standard.OrientationRequested
  
@@ -12,7 +13,7 @@ import javax.print.attribute.standard.OrientationRequested
  class GuiField(controller: Controller)extends Observer{
     controller.add(this)
     val gray = new Color(150,150,150)
- 
+    var buttonMap = new ButtonMap(controller, 'w').createButtonMap
 
     def playPanel(color: Char) = new FlowPanel{
 
@@ -27,10 +28,11 @@ import javax.print.attribute.standard.OrientationRequested
     def createSpace: Label = new Label {
         text = " "
     }
-
-    val buttonMap: Map[(Int, Int), Button] = {
+ 
+    buttonMap = new ButtonMap(controller, color).createButtonMap
+   /* def buttonMap: Map[(Int, Int), Button] = {
   val rows = 3
-  val columns = 7
+  val columns = 8
   val buttons = for {
     row <- 0 until rows
     col <- 0 until columns
@@ -46,10 +48,11 @@ import javax.print.attribute.standard.OrientationRequested
     (row, col) -> button
   }
   buttons.toMap
-}
+}*/
 
     val firstLine: GridPanel = new GridPanel(1, 13){
-         contents += testButton
+        val button0 = buttonMap((0,0))
+         contents += button0
             
             /*new Button{
             background = gray
@@ -190,7 +193,7 @@ import javax.print.attribute.standard.OrientationRequested
         contents += createLine
         contents +=  button13
         contents += createLine
-         contents +=  button14
+        contents +=  button14
     }
 
     val button15 = buttonMap((2, 6)) 
@@ -205,7 +208,7 @@ import javax.print.attribute.standard.OrientationRequested
         contents += createLine
         contents += button16
         contents += createLine
-        contents += button14
+        contents += button17
         contents += createSpace
         contents += createVerticalLine
         contents += createSpace
@@ -270,14 +273,21 @@ import javax.print.attribute.standard.OrientationRequested
 
     contents += spielfeld
     
-      pack()
-      centerOnScreen()
-      open()
+      //pack()
+      //centerOnScreen()
+      //open()
   }
   override def update(e: Event): Unit = {
    e match {
         //case Event.doStep => GuiField(controller)
         case Event.StonePlaced(pos1, pos2, color) => controller.setStoneGui(pos1, pos2, color)
+        case Event.doStep => println(" ")
+        case Event.undo(row, col) => 
+            val button: Button = buttonMap(row, col)
+            button.background = controller.getColor(row, col)
+        case Event.redoStep(row, col) => 
+            val button: Button = buttonMap(row, col)
+            button.background = controller.getColor(row, col)
         //repaint()
     }
 }
