@@ -46,7 +46,7 @@ class Gui(controller: Controller) extends MainFrame with Observer {
                 close()
 
     }
-    }
+}
 
     contents += buttonWhite
     contents += buttonBlack
@@ -84,10 +84,8 @@ class Gui(controller: Controller) extends MainFrame with Observer {
 override def update(e: Event): Unit = {
     //e match {
         //case Event.doStep => GuiField(controller)
-        //case Event.StonePlaced() => GuiField(controller)
+        //case Event.StonePlaced2(pos1, pos2, color) => println("he")
         //repaint()
     //}
-
 }
-
 }

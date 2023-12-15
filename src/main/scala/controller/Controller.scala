@@ -53,9 +53,10 @@ class Controller() extends Observable{
         }else{
             new blackState
         }
-
         fieldString = array.placeStone(ind1, ind2, player)
         //notifyObservers(Event.StonePlaced)
+        notifyObservers(Event.StonePlaced1)
+        //notifyObservers(Event.StonePlaced2(ind1, ind2, player))
         fieldString
     }
 
@@ -65,12 +66,13 @@ class Controller() extends Observable{
             fieldString = array.placeStone(ind1, ind2, player1)
             if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
-                 //notifyObservers(Event.StonePlaced)
+                notifyObservers(Event.StonePlaced(ind1, ind2, player1))
             }
         }else{
             fieldString = array.placeStone(ind1, ind2, player2)
              if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
+                notifyObservers(Event.StonePlaced(ind1, ind2, player2))
             }
             //notifyObservers(Event.StonePlaced)
         }
