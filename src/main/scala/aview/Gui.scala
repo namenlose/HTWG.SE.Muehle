@@ -115,10 +115,8 @@ override def update(e: Event): Unit = {
     //case Event.undo => 
     //e match {
         //case Event.doStep => GuiField(controller)
-        //case Event.StonePlaced() => GuiField(controller)
+        //case Event.StonePlaced2(pos1, pos2, color) => println("he")
         //repaint()
     //}
-
 }
-
 }
