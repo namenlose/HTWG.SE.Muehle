@@ -7,13 +7,51 @@ import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.util._
 import javax.swing.ImageIcon
 import javax.print.attribute.standard.OrientationRequested
+import javax.swing.SwingUtilities
  
  
  class GuiField(controller: Controller) extends Observer{
+    private var clickButtonAlreadyTriggered = false
     val gray = new Color(150,150,150)
- 
+    var color = 'w'
+    val buttonMap: Map[(Int, Int), Button] = {
+        val rows = 3
+        val columns = 8
+        val buttons = for {
+            row <- 0 until rows
+            col <- 0 until columns
+    } yield {
+        val button = new Button {
+        background = gray
+        reactions += {
+            case event.ButtonClicked(_) =>
+            background = controller.setStoneGui(row, col, color)
+            background = controller.getColor(row, col)
+            clickButtonAlreadyTriggered = true
+      }
+    }
+    (row, col) -> button
+  }
+  buttons.toMap
+}
 
-    def playFrame(color: Char) = new MainFrame{
+def clickButton(pos1: Int, pos2: Int): Unit = {
+  SwingUtilities.invokeLater(new Runnable {
+    def run(): Unit = {
+      if (!clickButtonAlreadyTriggered & pos1 != 8 & pos2 != 8) {
+      buttonMap.get((pos1, pos2)) match {
+        case Some(button) =>
+          button.doClick()
+          println("Button found")
+        case None =>
+          println(s"Button at position ($pos1, $pos2) not found.")
+      }
+    }
+}
+  })
+}
+
+    def playFrame(pos1: Int, pos2: Int, color: Char) = new MainFrame{
 
     def createLine: Label = new Label{
         text = "-"
@@ -27,33 +65,9 @@ import javax.print.attribute.standard.OrientationRequested
         text = " "
     }
 
-    val buttonMap: Map[(Int, Int), Button] = {
-  val rows = 3
-  val columns = 7
-  val buttons = for {
-    row <- 0 until rows
-    col <- 0 until columns
-  } yield {
-    val button = new Button {
-      background = gray
-      reactions += {
-        case event.ButtonClicked(_) =>
-          background = controller.setStoneGui(row, col, color)
-      }
-    }
-    (row, col) -> button
-  }
-  buttons.toMap
-}
-
+    val button0 = buttonMap((0, 0))
     val firstLine: GridPanel = new GridPanel(1, 13){
-         contents += new Button{
-            background = gray
-            reactions += {
-                case event.ButtonClicked(_) =>
-                    background = controller.setStoneGui(0,0,color)
-        }
-    }
+    contents += button0
     contents += createLine
     contents += createLine
     contents += createLine
@@ -80,18 +94,18 @@ import javax.print.attribute.standard.OrientationRequested
     }
 
     def secondLine:GridPanel = new GridPanel(1, 13){
-        contents += createVerticalLine
-    contents += createSpace
-     contents += createSpace
-     contents += createSpace
-     contents += createSpace
-     contents += createSpace
     contents += createVerticalLine
     contents += createSpace
-     contents += createSpace
-     contents += createSpace
-     contents += createSpace
-     contents += createSpace
+    contents += createSpace
+    contents += createSpace
+    contents += createSpace
+    contents += createSpace
+    contents += createVerticalLine
+    contents += createSpace
+    contents += createSpace
+    contents += createSpace
+    contents += createSpace
+    contents += createSpace
     contents += createVerticalLine
     }
 
@@ -184,7 +198,7 @@ import javax.print.attribute.standard.OrientationRequested
         contents += createLine
         contents +=  button13
         contents += createLine
-         contents +=  button14
+        contents +=  button14
     }
 
     val button15 = buttonMap((2, 6)) 
@@ -199,7 +213,7 @@ import javax.print.attribute.standard.OrientationRequested
         contents += createLine
         contents += button16
         contents += createLine
-        contents += button14
+        contents += button17
         contents += createSpace
         contents += createVerticalLine
         contents += createSpace
@@ -263,17 +277,23 @@ import javax.print.attribute.standard.OrientationRequested
     }
 
     contents = spielfeld
+
+    //if()
+    clickButton(pos1, pos2)
     
       pack()
       centerOnScreen()
       open()
   }
+  
   override def update(e: Event): Unit = {
-   e match {
+    //Swing.onEDT {
+    e match {
         //case Event.doStep => GuiField(controller)
-        case Event.StonePlaced(pos1, pos2, color) => controller.setStoneGui(pos1, pos2, color)
+        case Event.StonePlaced2(pos1, pos2, color) => clickButtonAlreadyTriggered = true
         //repaint()
     }
 }
-
 }
+
+//}

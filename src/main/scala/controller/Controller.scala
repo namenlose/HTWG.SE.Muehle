@@ -54,9 +54,8 @@ class Controller() extends Observable{
             new blackState
         }
         fieldString = array.placeStone(ind1, ind2, player)
-        //notifyObservers(Event.StonePlaced)
-        notifyObservers(Event.StonePlaced1)
-        //notifyObservers(Event.StonePlaced2(ind1, ind2, player))
+        //notifyObservers(Event.StonePlaced(ind1, ind2, player))
+        notifyObservers(Event.StonePlaced2(ind1, ind2, player))
         fieldString
     }
 
@@ -79,6 +78,19 @@ class Controller() extends Observable{
         fieldString
         
     }
+
+    def getColor(ind1: Int, ind2: Int): Color ={
+        val color = array.get(ind1, ind2)
+        var background = new Color(150, 150, 150)
+
+        if(color == 'b'){
+            background = new Color(0,0, 0)
+        }else if(color == 'w'){
+            background = new Color(255, 255, 255)
+        }
+        background
+    }
+    
     def getFieldString() = fieldString
 
     def setStoneGui(pos1: Int, pos2: Int, color: Char): Color = {
@@ -127,6 +139,7 @@ class Controller() extends Observable{
 
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String) = {
         undoManager.doStep(new SetCommand(ind1, ind2, player1, player2, i, mesh, this))
+        //notifyObservers(Event.doStep1(ind1, ind2, player1))
         notifyObservers(Event.doStep)
     } 
 

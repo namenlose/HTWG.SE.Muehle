@@ -14,6 +14,8 @@ class Gui(controller: Controller) extends MainFrame with Observer {
     controller.add(this)
     var color: Char = ' '
     val spielfeld = new GuiField(controller)
+    var pos1 = 8
+    var pos2 = 8
     
    /*  menuBar = new MenuBar {
         contents += new Menu("File") {
@@ -33,7 +35,7 @@ class Gui(controller: Controller) extends MainFrame with Observer {
         reactions += {
             case event.ButtonClicked(_) =>
                 color = 'w'
-                spielfeld.playFrame(color)
+                spielfeld.playFrame(pos1, pos2, color)
                 close()
 
     }
@@ -42,7 +44,7 @@ class Gui(controller: Controller) extends MainFrame with Observer {
          reactions += {
             case event.ButtonClicked(_) =>
                 color = 'b'
-                spielfeld.playFrame(color)
+                spielfeld.playFrame(pos1, pos2, color)
                 close()
 
     }
@@ -82,10 +84,14 @@ class Gui(controller: Controller) extends MainFrame with Observer {
 
 
 override def update(e: Event): Unit = {
-    //e match {
+    e match {
         //case Event.doStep => GuiField(controller)
         //case Event.StonePlaced2(pos1, pos2, color) => println("he")
+        case Event.StonePlaced2(pos1, pos2, color) => spielfeld.playFrame(pos1, pos2, color)
+        case Event.StonePlaced(pos1, pos2, color) => " "
+        case Event.doStep1(pos1, pos2, color) => spielfeld.playFrame(pos1, pos2, color)
+        case Event.doStep => " "
         //repaint()
-    //}
+    }
 }
 }

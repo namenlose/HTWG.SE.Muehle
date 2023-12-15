@@ -100,6 +100,9 @@ def update(e: Event): Unit = {
         //case Event.StonePlaced(pos1, pos2, color) => println(controller.controllerPlaceFirstStone(pos1, pos2, color))
         case Event.doStep => println(controller.getFieldString())
         case Event.StonePlaced1 => println(controller.getFieldString())
+        case Event.StonePlaced2(pos1, pos2, color) => " "
+        case Event.doStep1(pos1, pos2, color) => " "
+        
     }
 }
     //override def update: Unit =  {println(controller.getFieldString())
