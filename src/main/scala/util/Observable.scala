@@ -16,7 +16,7 @@ class Observable {
 enum Event {
   case StonePlaced(ind1: Int, ind2: Int, player: Char)
   //case StonePlaced2(ind1: Int, ind2: Int, player: Char)
-  case StonePlaced1
+  //case StonePlaced1
   case undo(row: Int, col: Int)
   case redoStep(row: Int, col: Int)
   case doStep

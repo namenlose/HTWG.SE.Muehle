@@ -56,7 +56,7 @@ class Controller() extends Observable{
         }
         fieldString = array.placeStone(ind1, ind2, player)
         //notifyObservers(Event.StonePlaced)
-        notifyObservers(Event.StonePlaced1)
+        //notifyObservers(Event.StonePlaced1)
         //notifyObservers(Event.StonePlaced2(ind1, ind2, player))
         fieldString
     }
@@ -65,20 +65,31 @@ class Controller() extends Observable{
 
         if(i % 2 == 0){
             fieldString = array.placeStone(ind1, ind2, player1)
-            if(handler1.checkRequirement(array.fieldArray) == true){
+            muehle(array)
+            /*if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
-                notifyObservers(Event.StonePlaced(ind1, ind2, player1))
-            }
+                //notifyObservers(Event.StonePlaced(ind1, ind2, player1))
+            }*/
         }else{
             fieldString = array.placeStone(ind1, ind2, player2)
-             if(handler1.checkRequirement(array.fieldArray) == true){
+            muehle(array)
+             /*if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
-                notifyObservers(Event.StonePlaced(ind1, ind2, player2))
-            }
+                //notifyObservers(Event.StonePlaced(ind1, ind2, player2))
+            }*/
             //notifyObservers(Event.StonePlaced)
         }
         fieldString
         
+    }
+
+    def muehle(array: FieldArray): Boolean ={
+        var muehle: Boolean = false
+        if(handler1.checkRequirement(array.fieldArray) == true){
+                println("MÜHLE!!")
+                muehle = true
+            }
+        muehle
     }
     def getFieldString() = fieldString
 

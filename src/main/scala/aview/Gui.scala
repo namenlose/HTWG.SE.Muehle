@@ -66,12 +66,24 @@ class Gui(controller: Controller) extends MainFrame with Observer {
         }
     }
 
+    /*var muehle = new Label()
+
+    def muehleLabel = new Label(){
+        val bool: Boolean = controller.muehle(controller.array)
+        if( bool == true){
+            text = "MÜHLE!!"
+        }else{
+            text = "keine Mühle"
+        }
+    }*/
+
     def newWindow(color: Char): MainFrame = {
         new MainFrame{
             contents = new FlowPanel{
             contents += spielfeld.playPanel(color)
             contents += undo
             contents += redo
+            //contents += muehleLabel
             }
         }
     }
@@ -112,11 +124,11 @@ class Gui(controller: Controller) extends MainFrame with Observer {
 
 
 override def update(e: Event): Unit = {
-    //case Event.undo => 
     //e match {
+        //case Event.doStep => this.firstFrame.muehle = muehleLabel
         //case Event.doStep => GuiField(controller)
         //case Event.StonePlaced2(pos1, pos2, color) => println("he")
         //repaint()
-    //}
+    }
 }
-}
+
