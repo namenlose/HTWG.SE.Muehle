@@ -17,19 +17,19 @@ import javax.print.attribute.standard.OrientationRequested
 
     def playPanel(color: Char) = new FlowPanel{
 
-    def createLine: Label = new Label{
-        text = "-"
-    }
+        def createLine: Label = new Label{
+            text = "-"
+        }
 
-    def createVerticalLine: Label = new Label{
-        text = "|"
-    }
+        def createVerticalLine: Label = new Label{
+            text = "|"
+        }
 
-    def createSpace: Label = new Label {
-        text = " "
-    }
- 
-    buttonMap = new ButtonMap(controller, color).createButtonMap
+        def createSpace: Label = new Label {
+            text = " "
+        }
+    
+        buttonMap = new ButtonMap(controller, color).createButtonMap
    /* def buttonMap: Map[(Int, Int), Button] = {
   val rows = 3
   val columns = 8
@@ -50,59 +50,59 @@ import javax.print.attribute.standard.OrientationRequested
   buttons.toMap
 }*/
 
-    val firstLine: GridPanel = new GridPanel(1, 13){
-        val button0 = buttonMap((0,0))
-         contents += button0
-            
-            /*new Button{
-            background = gray
-            reactions += {
-                case event.ButtonClicked(_) =>
-                    controller.setStoneGui(0,0,color)
-                    background = controller.getColor(0,0)
-        }
-    }*/
-    contents += createLine
-    contents += createLine
-    contents += createLine
-    contents += createLine
-    contents += createLine
-
-    val button1 = buttonMap((0, 1)) 
-    contents += button1
-    contents += createLine
-    contents += createLine
-    contents += createLine
-    contents += createLine
-    contents += createLine
-
-    val button2 = buttonMap((0, 2))
-    contents += button2
-    /*contents += new Button{
-            background = gray
-             reactions += {
-                case event.ButtonClicked(_) =>
-                    controller.setStoneGui(0,2, color)
-                    background = controller.getColor(0,2)
+        val firstLine: GridPanel = new GridPanel(1, 13){
+            val button0 = buttonMap((0,0))
+            contents += button0
+                
+                /*new Button{
+                background = gray
+                reactions += {
+                    case event.ButtonClicked(_) =>
+                        controller.setStoneGui(0,0,color)
+                        background = controller.getColor(0,0)
             }
-    } */
-    }
+        }*/
+        contents += createLine
+        contents += createLine
+        contents += createLine
+        contents += createLine
+        contents += createLine
 
-    def secondLine:GridPanel = new GridPanel(1, 13){
+        val button1 = buttonMap((0, 1)) 
+        contents += button1
+        contents += createLine
+        contents += createLine
+        contents += createLine
+        contents += createLine
+        contents += createLine
+
+        val button2 = buttonMap((0, 2))
+        contents += button2
+        /*contents += new Button{
+                background = gray
+                reactions += {
+                    case event.ButtonClicked(_) =>
+                        controller.setStoneGui(0,2, color)
+                        background = controller.getColor(0,2)
+                }
+        } */
+        }
+
+        def secondLine:GridPanel = new GridPanel(1, 13){
+            contents += createVerticalLine
+        contents += createSpace
+        contents += createSpace
+        contents += createSpace
+        contents += createSpace
+        contents += createSpace
         contents += createVerticalLine
-    contents += createSpace
-     contents += createSpace
-     contents += createSpace
-     contents += createSpace
-     contents += createSpace
-    contents += createVerticalLine
-    contents += createSpace
-     contents += createSpace
-     contents += createSpace
-     contents += createSpace
-     contents += createSpace
-    contents += createVerticalLine
-    }
+        contents += createSpace
+        contents += createSpace
+        contents += createSpace
+        contents += createSpace
+        contents += createSpace
+        contents += createVerticalLine
+        }
 
     val button3 = buttonMap((1, 0))
     val button4 = buttonMap((1, 1)) 

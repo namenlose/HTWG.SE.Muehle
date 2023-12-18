@@ -91,6 +91,7 @@ class Controller() extends Observable{
             }
         muehle
     }
+    
     def getFieldString() = fieldString
 
     def setStoneGui(pos1: Int, pos2: Int, color: Char) = {
