@@ -1,5 +1,5 @@
 package HTWG.SE.Muehle.util
-import HTWG.SE.Muehle.controller.Controller
+import HTWG.SE.Muehle.controller.controllerBaseImpl.Controller
 import scala.util.Failure
 import scala.util.Success
 import scala.util.Try

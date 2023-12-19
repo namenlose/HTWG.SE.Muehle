@@ -1,4 +1,4 @@
-package HTWG.SE.Muehle.model
+package HTWG.SE.Muehle.model.FieldComponent
 
 case class Field(groeße: Int, array: Array[Array[Char]] /*, pos1: Char, pos2: Char, pos3: Char, pos4: Char, pos5: Char, pos6: Char, pos7: Char, pos8: Char, circle*/){
 

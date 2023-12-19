@@ -1,8 +1,8 @@
-package HTWG.SE.Muehle.controller
+package HTWG.SE.Muehle.controller.controllerBaseImpl
 
 import HTWG.SE.Muehle.util.{Command, Observable}
-import HTWG.SE.Muehle.controller.Controller
-import HTWG.SE.Muehle.model.{FieldArray}
+import HTWG.SE.Muehle.controller.controllerBaseImpl.Controller
+import HTWG.SE.Muehle.model.FieldComponent.{FieldArray}
 import scala.util.Try
 import scala.util.Failure
 import java.{util => ju}

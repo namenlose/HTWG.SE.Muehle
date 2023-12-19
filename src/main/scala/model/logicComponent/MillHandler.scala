@@ -1,4 +1,4 @@
-package HTWG.SE.Muehle.model
+package HTWG.SE.Muehle.model.logicComponent
 
 trait HandlerInterface() {
     def checkRequirement(array: Array[Array[Char]]): Boolean = {false}

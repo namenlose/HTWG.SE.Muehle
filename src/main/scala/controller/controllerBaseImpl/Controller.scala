@@ -1,15 +1,16 @@
-package HTWG.SE.Muehle.controller
-import HTWG.SE.Muehle.model.{FieldArray, Field, Handler1}
+package HTWG.SE.Muehle.controller.controllerBaseImpl
+
+import HTWG.SE.Muehle.model.FieldComponent.{FieldArray, Field}
+import HTWG.SE.Muehle.model.logicComponent.Handler1
 import HTWG.SE.Muehle.util.{Observable, UndoManager, Event}
-import HTWG.SE.Muehle.controller.GameState
-import HTWG.SE.Muehle.controller.StoneFactory
+import HTWG.SE.Muehle.controller._
 import scala.swing.FlowPanel.Alignment
 import scala.swing._
 import javax.swing.table._
 import scala.swing.event._
 
 
-class Controller() extends Observable{
+class Controller() extends Observable with controllerInterface {
     //var stone = new blackS()
     val undoManager = new UndoManager(this)
     val fieldArray = new FieldArray
@@ -82,9 +83,19 @@ class Controller() extends Observable{
         fieldString
         
     }
-    def getFieldString() = fieldString
 
-    def setStoneGui(pos1: Int, pos2: Int, color: Char) = {
+    def muehle(array: FieldArray): Boolean ={
+        var muehle: Boolean = false
+        if(handler1.checkRequirement(array.fieldArray) == true){
+                println("MÜHLE!!")
+                muehle = true
+            }
+        muehle
+    }
+    
+    def getFieldString():String = fieldString
+
+    def setStoneGui(pos1: Int, pos2: Int, color: Char):Unit = {
         var mesh = " "
         var color2 = ' '
             if(color == 'w') {
@@ -119,13 +130,12 @@ class Controller() extends Observable{
         background
     }
 
-    def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String) = {
+    def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String): Unit = {
         undoManager.doStep(new SetCommand(ind1, ind2, player1, player2, i, mesh, this))
-        //notifyObservers(Event.doStep1(ind1, ind2, player1))
         notifyObservers(Event.doStep)
     } 
 
-    def undoStep ={
+    def undoStep: Unit ={
         val list = undoManager.undoStep
         val array: Array[Int] = list(1).asInstanceOf[Array[Int]]
         val row: Int = array(0)

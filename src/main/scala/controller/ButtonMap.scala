@@ -1,6 +1,7 @@
 package HTWG.SE.Muehle.model
 
 import scala.swing._
+import HTWG.SE.Muehle.controller.controllerBaseImpl._
 import HTWG.SE.Muehle.controller._
 
 class ButtonMap(controller: Controller, color: Char){

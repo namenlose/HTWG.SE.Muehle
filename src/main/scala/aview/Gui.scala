@@ -5,6 +5,7 @@ import scala.swing._
 import javax.swing.table._
 //import scala.swing.event._
 import HTWG.SE.Muehle.controller._
+import HTWG.SE.Muehle.controller.controllerBaseImpl._
 import HTWG.SE.Muehle.util._
 import javax.swing.ImageIcon
 import javax.print.attribute.standard.OrientationRequested
@@ -14,8 +15,6 @@ class Gui(controller: Controller) extends MainFrame with Observer {
     controller.add(this)
     var color: Char = ' '
     val spielfeld = new GuiField(controller)
-    var pos1 = 8
-    var pos2 = 8
     
    /*  menuBar = new MenuBar {
         contents += new Menu("File") {
@@ -25,9 +24,9 @@ class Gui(controller: Controller) extends MainFrame with Observer {
         }
     }
      */
-  val firstFrame = new MainFrame {
-  title = "Mill"
-  contents = new BoxPanel(Orientation.Vertical) {
+    val firstFrame = new MainFrame {
+    title = "Mill"
+    contents = new BoxPanel(Orientation.Vertical) {
     val label = new Label("Wählen Sie eine Farbe")
     contents += label
 
@@ -35,24 +34,62 @@ class Gui(controller: Controller) extends MainFrame with Observer {
         reactions += {
             case event.ButtonClicked(_) =>
                 color = 'w'
-                val window = newWindow(pos1, pos2, color)
+                val window = newWindow(color)
                 window.visible = true
                 window.pack()
                 window.centerOnScreen()
                 window.open()
-                spielfeld.playFrame(pos1, pos2, color)
-                close()
     }
 }
     val buttonBlack: Button = new Button("Schwarz") {
          reactions += {
             case event.ButtonClicked(_) =>
                 color = 'b'
-                spielfeld.playFrame(color)
-                close()
-
+                val window = newWindow(color)
+                window.visible = true
+                window.pack()
+                window.centerOnScreen()
+                window.open()
     }
-}
+    }
+
+    val undo = new Button("Undo"){
+        reactions += {
+            case event.ButtonClicked(_) =>
+                controller.undoStep
+        }
+    }
+
+    val redo = new Button("Redo"){
+        reactions += {
+            case event.ButtonClicked(_) =>
+                controller.redoStep
+        }
+    }
+
+    /*var muehle = new Label()
+
+    def muehleLabel = new Label(){
+        val bool: Boolean = controller.muehle(controller.array)
+        if( bool == true){
+            text = "MÜHLE!!"
+        }else{
+            text = "keine Mühle"
+        }
+    }*/
+
+    def newWindow(color: Char): MainFrame = {
+        new MainFrame{
+            contents = new FlowPanel{
+            contents += spielfeld.playPanel(color)
+            contents += undo
+            contents += redo
+            //contents += muehleLabel
+            }
+        }
+    }
+
+   
 
     contents += buttonWhite
     contents += buttonBlack
@@ -89,14 +126,9 @@ class Gui(controller: Controller) extends MainFrame with Observer {
 
 override def update(e: Event): Unit = {
     //e match {
+        //case Event.doStep => this.firstFrame.muehle = muehleLabel
         //case Event.doStep => GuiField(controller)
         //case Event.StonePlaced2(pos1, pos2, color) => println("he")
-        case Event.StonePlaced2(pos1, pos2, color) => spielfeld.playFrame(pos1, pos2, color)
-        case Event.StonePlaced(pos1, pos2, color) => " "
-        case Event.doStep1(pos1, pos2, color) => spielfeld.playFrame(pos1, pos2, color)
-        case Event.doStep => " "
         //repaint()
-    //}
+    }
 }
-}
-

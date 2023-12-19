@@ -1,4 +1,5 @@
 package HTWG.SE.Muehle.controller
+
 trait StoneFactory {
         def color(): Char
     }

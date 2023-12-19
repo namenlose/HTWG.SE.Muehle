@@ -1,4 +1,4 @@
-package HTWG.SE.Muehle.model
+package HTWG.SE.Muehle.model.FieldComponent
 
 case class FieldArray(){
 
