@@ -1,6 +1,6 @@
 package HTWG.SE.Muehle.controller.controllerBaseImpl
 
-import HTWG.SE.Muehle.model.FieldComponent.{FieldArray, Field}
+import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.{FieldArray, Field}
 import HTWG.SE.Muehle.model.logicComponent.Handler1
 import HTWG.SE.Muehle.util.{Observable, UndoManager, Event}
 import HTWG.SE.Muehle.controller._
@@ -42,8 +42,10 @@ class Controller() extends Observable with controllerInterface {
         case black: blackState => state = new whiteState
     }
 
+    //val wurde zur Methode
+    def field1: Field = new Field(6, array.fieldArray)
+    
     val array: FieldArray = new FieldArray()
-    val field1: Field = new Field(6, array.fieldArray)
     val handler1: Handler1 = new Handler1(array.fieldArray)
     var fieldString = ""
     var counter = 0

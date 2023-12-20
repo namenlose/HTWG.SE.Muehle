@@ -6,12 +6,13 @@ import javax.swing.table._
 //import scala.swing.event._
 import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.controller.controllerBaseImpl._
+import HTWG.SE.Muehle.controller.controllerInterface
 import HTWG.SE.Muehle.util._
 import javax.swing.ImageIcon
 import javax.print.attribute.standard.OrientationRequested
 //import java.awt.MenuBar
 
-class Gui(controller: Controller) extends MainFrame with Observer {
+class Gui(controller: controllerInterface) extends MainFrame with Observer {
     controller.add(this)
     var color: Char = ' '
     val spielfeld = new GuiField(controller)
@@ -117,14 +118,14 @@ class Gui(controller: Controller) extends MainFrame with Observer {
     //contents += ImageIcon()
   }
 
-  pack()
-  centerOnScreen()
-  open()
+    pack()
+    centerOnScreen()
+    open()
     
   }
 
 
-override def update(e: Event): Unit = {
+    override def update(e: Event): Unit = {
     //e match {
         //case Event.doStep => this.firstFrame.muehle = muehleLabel
         //case Event.doStep => GuiField(controller)

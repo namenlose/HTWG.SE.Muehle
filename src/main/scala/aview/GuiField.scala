@@ -11,7 +11,7 @@ import javax.swing.ImageIcon
 import javax.print.attribute.standard.OrientationRequested
  
  
- class GuiField(controller: Controller)extends Observer{
+ class GuiField(controller: controllerInterface)extends Observer{
     controller.add(this)
     val gray = new Color(150,150,150)
     var buttonMap = new ButtonMap(controller, 'w').createButtonMap

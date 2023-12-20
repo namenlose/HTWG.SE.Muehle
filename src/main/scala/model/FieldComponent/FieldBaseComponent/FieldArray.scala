@@ -1,6 +1,8 @@
-package HTWG.SE.Muehle.model.FieldComponent
+package HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent
 
-case class FieldArray(){
+import HTWG.SE.Muehle.model.FieldComponent.FieldArrayInterface
+
+case class FieldArray() extends FieldArrayInterface {
 
 
     val fieldArray= Array(Array('o', 'o', 'o', 'o', 'o', 'o' ,'o', 'o'), Array('o', 'o', 'o', 'o', 'o', 'o' ,'o', 'o'), Array('o', 'o', 'o', 'o', 'o', 'o' ,'o', 'o'))
@@ -16,7 +18,7 @@ case class FieldArray(){
         val field = new Field(6, fieldArray)
         field.mesh
     }
-    def get(circle: Int, position: Int) = fieldArray(circle)(position)
+    def get(circle: Int, position: Int):Char = fieldArray(circle)(position)
 
     def takeStone(circle: Int, position: Int): String = {
         if(fieldArray(circle)(position) != 'o') {

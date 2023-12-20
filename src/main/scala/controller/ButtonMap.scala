@@ -4,7 +4,7 @@ import scala.swing._
 import HTWG.SE.Muehle.controller.controllerBaseImpl._
 import HTWG.SE.Muehle.controller._
 
-class ButtonMap(controller: Controller, color: Char){
+class ButtonMap(controller: controllerInterface, color: Char){
     val gray = new Color(150,150,150)
 
 def createButtonMap: Map[(Int, Int), Button] = {
