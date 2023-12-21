@@ -1,7 +1,7 @@
 package HTWG.SE.Muehle.test.scala.aview
 import HTWG.SE.Muehle.aview.TUI
-import HTWG.SE.Muehle.controller.{Controller, SetCommand}
-import HTWG.SE.Muehle.model.{FieldArray, Field}
+import HTWG.SE.Muehle.controller.controllerBaseImpl.{Controller, SetCommand}
+import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.{FieldArray, Field}
 import HTWG.SE.Muehle.util.{Command, UndoManager}
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
@@ -24,7 +24,14 @@ class undoManagerTest extends AnyWordSpec {
 
         "undo a Step" in{
             undoManager.undoStep
-            undoManager.undoStep should be(fieldarray.placeStone(0, 1, 'o'))
+            val list = undoManager.undoStep
+            val string = list(0).toString()
+            string should be(fieldarray.placeStone(0, 1, 'o'))
+        }
+
+        "redo a Step" in{
+            undoManager.redoStep
+            controller.fieldString should be(controller.controllerPlaceStones(0, 1, 'w','b', 0, mesh))
         }
     }
 

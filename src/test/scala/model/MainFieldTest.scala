@@ -1,7 +1,7 @@
 package HTWG.SE.Muehle.test.scala.model
 import HTWG.SE.Muehle.aview.TUI
-import HTWG.SE.Muehle.model.{FieldArray, Field}
-import HTWG.SE.Muehle.controller.Controller
+import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.{FieldArray, Field}
+import HTWG.SE.Muehle.controller.controllerBaseImpl.Controller
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
