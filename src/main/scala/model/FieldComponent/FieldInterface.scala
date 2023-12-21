@@ -1,6 +1,8 @@
 package HTWG.SE.Muehle.model.FieldComponent
 
 trait FieldInterface {
+    val mesh: String
+    val eol: String
     def bar(cellWidth: Int, pos1: Char, pos2: Char, pos3: Char):String
     def line(cellWidth: Int = 6): String
     def cells(cellWidth: Int, pos1: Char, pos2: Char, pos3: Char): String
@@ -13,6 +15,7 @@ trait FieldInterface {
 }
 
 trait FieldArrayInterface {
+    val fieldArray: Array[Array[Char]]
     def placeStone(circle: Int, position: Int, player: Char): String
     def get(circle: Int, position: Int): Char
     def takeStone(circle: Int, position: Int): String

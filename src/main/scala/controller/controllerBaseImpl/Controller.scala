@@ -1,19 +1,26 @@
 package HTWG.SE.Muehle.controller.controllerBaseImpl
 
 import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.{FieldArray, Field}
+import HTWG.SE.Muehle.model.FieldComponent.{FieldInterface, FieldArrayInterface}
 import HTWG.SE.Muehle.model.logicComponent.Handler1
 import HTWG.SE.Muehle.util.{Observable, UndoManager, Event}
 import HTWG.SE.Muehle.controller._
+import HTWG.SE.Muehle.MuehleModule
 import scala.swing.FlowPanel.Alignment
 import scala.swing._
 import javax.swing.table._
 import scala.swing.event._
+import com.google.inject.name.Names
+import com.google.inject.{Guice, Inject, Injector}
+import net.codingwell.scalaguice.InjectorExtensions._
 
 
-class Controller() extends Observable with controllerInterface {
+class Controller @Inject() extends Observable with controllerInterface {
     //var stone = new blackS()
     val undoManager = new UndoManager(this)
     val fieldArray = new FieldArray
+
+    val injector: Injector = Guice.createInjector(new MuehleModule)
     /*trait Stone {
     def placeStone(): StoneFactory
     def place(): Char = {
@@ -43,9 +50,11 @@ class Controller() extends Observable with controllerInterface {
     }
 
     //val wurde zur Methode
-    def field1: Field = new Field(6, array.fieldArray)
+    //def field1: Field = new Field(6, array.fieldArray)
+    def field1 = injector.getInstance(classOf[FieldInterface])
     
-    val array: FieldArray = new FieldArray()
+    //val array: FieldArray = new FieldArray()
+    val array = injector.getInstance(classOf[FieldArrayInterface])
     val handler1: Handler1 = new Handler1(array.fieldArray)
     var fieldString = ""
     var counter = 0
@@ -86,7 +95,7 @@ class Controller() extends Observable with controllerInterface {
         
     }
 
-    def muehle(array: FieldArray): Boolean ={
+    def muehle(array: FieldArrayInterface): Boolean ={
         var muehle: Boolean = false
         if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
