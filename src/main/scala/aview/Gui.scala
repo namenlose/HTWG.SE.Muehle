@@ -85,7 +85,6 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
             contents += spielfeld.playPanel(color)
             contents += undo
             contents += redo
-            //contents += muehleLabel
             }
         }
     }
@@ -94,28 +93,6 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
 
     contents += buttonWhite
     contents += buttonBlack
-
-   /* val icon= new ImageIcon()
-    contents += new Button("Enter") {
-      reactions += {
-        case event.ButtonClicked(_) =>
-            //val playerOneName = player1.text
-            val ind1 = circle.text.toInt
-            val ind2 = column.text.toInt
-            controller.controllerPlaceFirstStone(ind1, ind2, color) //Danach muss sich ein neues Fenster öffnen
-            val newFrame = new Frame {
-                title = "Muehle"
-                contents = new FlowPanel {
-                    contents += circle
-                    contents += column
-                }
-            }
-            newFrame.visible = true
-            close()
-            //firstFrame.visible = false
-      }
-    }*/
-    //contents += ImageIcon()
   }
 
     pack()

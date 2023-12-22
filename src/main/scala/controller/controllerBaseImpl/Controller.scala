@@ -4,6 +4,7 @@ import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.{FieldArray, Field
 import HTWG.SE.Muehle.model.logicComponent.Handler1
 import HTWG.SE.Muehle.util.{Observable, UndoManager, Event}
 import HTWG.SE.Muehle.controller._
+import scala.io.StdIn.readInt
 import scala.swing.FlowPanel.Alignment
 import scala.swing._
 import javax.swing.table._
@@ -14,26 +15,10 @@ class Controller() extends Observable with controllerInterface {
     //var stone = new blackS()
     val undoManager = new UndoManager(this)
     val fieldArray = new FieldArray
-    /*trait Stone {
-    def placeStone(): StoneFactory
-    def place(): Char = {
-        val stone = placeStone()
-        stone.color()
-        }
-    }
-    val c = new blackStone
-    val b = new whiteStone
-
-    class whiteStone extends Stone {
-    override def placeStone(): StoneFactory = new whiteS
-
-    }
-
-    class blackStone extends Stone {
-    override def placeStone(): StoneFactory = new blackS
-    }*/
-
     var state: GameState = new blackState()
+    var p = 0
+    var c = 0
+
     def handle(): String = {
         state.handle()
     }
@@ -65,25 +50,34 @@ class Controller() extends Observable with controllerInterface {
     }
 
     def controllerPlaceStones(ind1: Int, ind2: Int, player1: Char, player2: Char, i: Int, mesh: String): String = {
-
         if(i % 2 == 0){
             fieldString = array.placeStone(ind1, ind2, player1)
             muehle(array)
-            /*if(handler1.checkRequirement(array.fieldArray) == true){
-                println("MÜHLE!!")
+            if(handler1.checkRequirement(array.fieldArray) == true){
+                println("Sie haben eine Muehle. Nehmen Sie einen Stein ihres Gegners")
+                /* println("Kreis")
+                c = readInt()
+                println("Position")
+                p = readInt() */
+                //fieldString = array.takeStone(c, p)
                 //notifyObservers(Event.StonePlaced(ind1, ind2, player1))
-            }*/
+            }
         }else{
             fieldString = array.placeStone(ind1, ind2, player2)
             muehle(array)
-             /*if(handler1.checkRequirement(array.fieldArray) == true){
+             if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
+               /*  println("Sie haben eine Muehle. Nehmen Sie einen Stein ihres Gegners")
+                println("Kreis")
+                c = readInt()
+                println("Position")
+                p = readInt() */
+                //fieldString = array.takeStone(c, p)
                 //notifyObservers(Event.StonePlaced(ind1, ind2, player2))
-            }*/
+            }
             //notifyObservers(Event.StonePlaced)
         }
-        fieldString
-        
+        fieldString  
     }
 
     def muehle(array: FieldArray): Boolean ={

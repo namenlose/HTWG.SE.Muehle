@@ -31,97 +31,62 @@ import javax.print.attribute.standard.OrientationRequested
         }
     
         buttonMap = new ButtonMap(controller, color).createButtonMap
-   /* def buttonMap: Map[(Int, Int), Button] = {
-  val rows = 3
-  val columns = 8
-  val buttons = for {
-    row <- 0 until rows
-    col <- 0 until columns
-  } yield {
-    val button = new Button {
-      background = gray
-      reactions += {
-        case event.ButtonClicked(_) =>
-            controller.setStoneGui(row, col, color)
-            background = controller.getColor(row, col)
-      }
-    }
-    (row, col) -> button
-  }
-  buttons.toMap
-}*/
 
         val firstLine: GridPanel = new GridPanel(1, 13){
             val button0 = buttonMap((0,0))
             contents += button0
-                
-                /*new Button{
-                background = gray
-                reactions += {
-                    case event.ButtonClicked(_) =>
-                        controller.setStoneGui(0,0,color)
-                        background = controller.getColor(0,0)
-            }
-        }*/
-        contents += createLine
-        contents += createLine
-        contents += createLine
-        contents += createLine
-        contents += createLine
 
-        val button1 = buttonMap((0, 1)) 
-        contents += button1
-        contents += createLine
-        contents += createLine
-        contents += createLine
-        contents += createLine
-        contents += createLine
+            contents += createLine
+            contents += createLine
+            contents += createLine
+            contents += createLine
+            contents += createLine
 
-        val button2 = buttonMap((0, 2))
-        contents += button2
-        /*contents += new Button{
-                background = gray
-                reactions += {
-                    case event.ButtonClicked(_) =>
-                        controller.setStoneGui(0,2, color)
-                        background = controller.getColor(0,2)
-                }
-        } */
+            val button1 = buttonMap((0, 1)) 
+            contents += button1
+            contents += createLine
+            contents += createLine
+            contents += createLine
+            contents += createLine
+            contents += createLine
+
+            val button2 = buttonMap((0, 2))
+            contents += button2
         }
 
         def secondLine:GridPanel = new GridPanel(1, 13){
             contents += createVerticalLine
-        contents += createSpace
-        contents += createSpace
-        contents += createSpace
-        contents += createSpace
-        contents += createSpace
-        contents += createVerticalLine
-        contents += createSpace
-        contents += createSpace
-        contents += createSpace
-        contents += createSpace
-        contents += createSpace
-        contents += createVerticalLine
+            contents += createSpace
+            contents += createSpace
+            contents += createSpace
+            contents += createSpace
+            contents += createSpace
+            contents += createVerticalLine
+            contents += createSpace
+            contents += createSpace
+            contents += createSpace
+            contents += createSpace
+            contents += createSpace
+            contents += createVerticalLine
         }
 
-    val button3 = buttonMap((1, 0))
-    val button4 = buttonMap((1, 1)) 
-    val button5 = buttonMap((1, 2))  
-    val thirdLine = new GridPanel(1, 13){
-        contents += createVerticalLine
-        contents += createSpace
-        contents +=  button3
-        contents += createLine
-        contents += createLine
-        contents += createLine
-        contents +=  button4
-        contents += createLine
-        contents += createLine
-        contents += createLine
-        contents +=  button5
-        contents += createSpace
-        contents += createVerticalLine
+        val button3 = buttonMap((1, 0))
+        val button4 = buttonMap((1, 1)) 
+        val button5 = buttonMap((1, 2))  
+        val thirdLine = new GridPanel(1, 13){
+            contents += createVerticalLine
+            contents += createSpace
+            contents +=  button3
+            contents += createLine
+            contents += createLine
+            contents += createLine
+            contents +=  button4
+            contents += createLine
+            contents += createLine
+            contents += createLine
+            contents +=  button5
+            contents += createSpace
+            contents += createVerticalLine
     }
 
     def forthLLine: GridPanel = new GridPanel(1, 13){

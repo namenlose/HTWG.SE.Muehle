@@ -4,12 +4,17 @@ trait HandlerInterface() {
     def checkRequirement(array: Array[Array[Char]]): Boolean = {false}
     def checkRequirementRecursiv(array1: Array[Char]): Boolean = {false}
     def nextHandler(): Boolean = {false}
+    //def removeMill(array: Array[Array[Char]]): Unit
 }
 
 class Handler1(array: Array[Array[Char]]) extends HandlerInterface {
     val handler2: Handler2 = new Handler2(array: Array[Array[Char]])
     var muehle: Boolean = false
     var y = 0
+
+/*     def removeMill(array: Array[Array[Char]]): Unit = {
+        array()
+    } */
 
     override def checkRequirement(array: Array[Array[Char]]): Boolean = {
         var array1: Array[Char] = Array(array(0)(0), array(0)(1), array(0)(2))
