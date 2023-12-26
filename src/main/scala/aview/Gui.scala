@@ -68,6 +68,8 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
         }
     }
 
+    /*val muehle = new Label
+    def getMuehle: Label = muehle*/
     /*var muehle = new Label()
 
     def muehleLabel = new Label(){
@@ -126,7 +128,10 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
 
 
     override def update(e: Event): Unit = {
+
     //e match {
+        //case Event.muehle => 
+
         //case Event.doStep => this.firstFrame.muehle = muehleLabel
         //case Event.doStep => GuiField(controller)
         //case Event.StonePlaced2(pos1, pos2, color) => println("he")

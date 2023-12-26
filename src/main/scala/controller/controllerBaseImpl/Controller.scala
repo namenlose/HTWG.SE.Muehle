@@ -2,7 +2,7 @@ package HTWG.SE.Muehle.controller.controllerBaseImpl
 
 import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.{FieldArray, Field}
 import HTWG.SE.Muehle.model.FieldComponent.{FieldInterface, FieldArrayInterface}
-import HTWG.SE.Muehle.model.logicComponent.Handler1
+import HTWG.SE.Muehle.model.logicComponent.{Handler1, Mill, MillList, MillListInterface}
 import HTWG.SE.Muehle.util.{Observable, UndoManager, Event}
 import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.MuehleModule
@@ -16,29 +16,10 @@ import net.codingwell.scalaguice.InjectorExtensions._
 
 
 class Controller @Inject() extends Observable with controllerInterface {
-    //var stone = new blackS()
-    val undoManager = new UndoManager(this)
-    val fieldArray = new FieldArray
-
     val injector: Injector = Guice.createInjector(new MuehleModule)
-    /*trait Stone {
-    def placeStone(): StoneFactory
-    def place(): Char = {
-        val stone = placeStone()
-        stone.color()
-        }
-    }
-    val c = new blackStone
-    val b = new whiteStone
-
-    class whiteStone extends Stone {
-    override def placeStone(): StoneFactory = new whiteS
-
-    }
-
-    class blackStone extends Stone {
-    override def placeStone(): StoneFactory = new blackS
-    }*/
+    val fieldArray = new FieldArray
+    val undoManager = new UndoManager(this)
+    var millList = injector.getInstance(classOf[MillListInterface])
 
     var state: GameState = new blackState()
     def handle(): String = {
@@ -49,13 +30,10 @@ class Controller @Inject() extends Observable with controllerInterface {
         case black: blackState => state = new whiteState
     }
 
-    //val wurde zur Methode
-    //def field1: Field = new Field(6, array.fieldArray)
     def field1 = injector.getInstance(classOf[FieldInterface])
-    
-    //val array: FieldArray = new FieldArray()
+
     val array = injector.getInstance(classOf[FieldArrayInterface])
-    val handler1: Handler1 = new Handler1(array.fieldArray)
+    val handler1: Handler1 = new Handler1(array.fieldArray, millList)
     var fieldString = ""
     var counter = 0
 
@@ -67,9 +45,6 @@ class Controller @Inject() extends Observable with controllerInterface {
             new blackState
         }
         fieldString = array.placeStone(ind1, ind2, player)
-        //notifyObservers(Event.StonePlaced)
-        //notifyObservers(Event.StonePlaced1)
-        //notifyObservers(Event.StonePlaced2(ind1, ind2, player))
         fieldString
     }
 
@@ -78,18 +53,9 @@ class Controller @Inject() extends Observable with controllerInterface {
         if(i % 2 == 0){
             fieldString = array.placeStone(ind1, ind2, player1)
             muehle(array)
-            /*if(handler1.checkRequirement(array.fieldArray) == true){
-                println("MÜHLE!!")
-                //notifyObservers(Event.StonePlaced(ind1, ind2, player1))
-            }*/
         }else{
             fieldString = array.placeStone(ind1, ind2, player2)
             muehle(array)
-             /*if(handler1.checkRequirement(array.fieldArray) == true){
-                println("MÜHLE!!")
-                //notifyObservers(Event.StonePlaced(ind1, ind2, player2))
-            }*/
-            //notifyObservers(Event.StonePlaced)
         }
         fieldString
         
@@ -115,18 +81,10 @@ class Controller @Inject() extends Observable with controllerInterface {
                 color2 = 'w'
             }
 
-           /* if(counter == 0){
-                //mesh = controllerPlaceFirstStone(pos1, pos2, color)
-                //background = colorButton
-                counter += 1
-            }else */
-            if(/*counter % 2 == 0 && */counter < 18) {
+            if(counter < 18) {
                 doStep(pos1, pos2, color, color2, counter, mesh)
                 counter += 1
-            } /*else {
-                doStep(pos1, pos2, color, color2, counter, mesh)
-                counter += 1
-            }*/
+            } 
     }
 
     def getColor(ind1: Int, ind2: Int): Color ={
@@ -142,7 +100,7 @@ class Controller @Inject() extends Observable with controllerInterface {
     }
 
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String): Unit = {
-        undoManager.doStep(new SetCommand(ind1, ind2, player1, player2, i, mesh, this))
+        undoManager.doStep(new SetCommand(ind1, ind2, player1, player2, i, mesh, this, millList))
         notifyObservers(Event.doStep)
     } 
 
