@@ -19,4 +19,6 @@ trait controllerInterface extends Observable {
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String): Unit
     def undoStep: Unit
     def redoStep: Unit
+    def controllerMove(ind1: Int, ind2: Int, player: Char): String
+    def controllerTakeStone(circle: Int, position: Int): String
 }

@@ -21,24 +21,6 @@ class Controller @Inject() extends Observable with controllerInterface {
     val fieldArray = new FieldArray
 
     val injector: Injector = Guice.createInjector(new MuehleModule)
-    /*trait Stone {
-    def placeStone(): StoneFactory
-    def place(): Char = {
-        val stone = placeStone()
-        stone.color()
-        }
-    }
-    val c = new blackStone
-    val b = new whiteStone
-
-    class whiteStone extends Stone {
-    override def placeStone(): StoneFactory = new whiteS
-
-    }
-
-    class blackStone extends Stone {
-    override def placeStone(): StoneFactory = new blackS
-    }*/
 
     var state: GameState = new blackState()
     def handle(): String = {
@@ -67,9 +49,6 @@ class Controller @Inject() extends Observable with controllerInterface {
             new blackState
         }
         fieldString = array.placeStone(ind1, ind2, player)
-        //notifyObservers(Event.StonePlaced)
-        //notifyObservers(Event.StonePlaced1)
-        //notifyObservers(Event.StonePlaced2(ind1, ind2, player))
         fieldString
     }
 
@@ -78,21 +57,23 @@ class Controller @Inject() extends Observable with controllerInterface {
         if(i % 2 == 0){
             fieldString = array.placeStone(ind1, ind2, player1)
             muehle(array)
-            /*if(handler1.checkRequirement(array.fieldArray) == true){
-                println("MÜHLE!!")
-                //notifyObservers(Event.StonePlaced(ind1, ind2, player1))
-            }*/
         }else{
             fieldString = array.placeStone(ind1, ind2, player2)
             muehle(array)
-             /*if(handler1.checkRequirement(array.fieldArray) == true){
-                println("MÜHLE!!")
-                //notifyObservers(Event.StonePlaced(ind1, ind2, player2))
-            }*/
-            //notifyObservers(Event.StonePlaced)
         }
         fieldString
         
+    }
+    
+    def controllerMove(ind1: Int, ind2: Int, player: Char): String = {
+        
+       /*  state = if(player == 'w'){
+            new whiteState
+        }else{
+            new blackState
+        } */
+        fieldString = array.move(ind1, ind2, player)
+        fieldString
     }
 
     def muehle(array: FieldArrayInterface): Boolean ={
@@ -100,8 +81,14 @@ class Controller @Inject() extends Observable with controllerInterface {
         if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
                 muehle = true
+                notifyObservers(Event.mill)
             }
         muehle
+    }
+
+    def controllerTakeStone(circle: Int, position: Int): String = {
+        fieldString = array.takeStone(circle, position)
+        fieldString
     }
     
     def getFieldString():String = fieldString

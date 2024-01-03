@@ -1,34 +1,48 @@
-/*package HTWG.SE.Muehle.test.scala.util
+package HTWG.SE.Muehle.test.util
 
-import HTWG.SE.Muehle.aview.TUI
-import HTWG.SE.Muehle.controller.Controller
-import HTWG.SE.Muehle.model.{FieldArray, Field}
-import HTWG.SE.Muehle.util.*
+import HTWG.SE.Muehle.util.{Event, Observable, Observer}
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-class ObservableSpec extends AnyWordSpec  {
-  "An Observable" should {
-    val observable = new Observable
-    val observer = new Observer {
-      var updated: Boolean = false
-      def isUpdated: Boolean = updated
-      override def update: Boolean = {updated = true; updated}
-    }
-    "add an Observer" in {
-      observable.add(observer)
-      observable.subscribers should contain (observer)
-    }
-   /* "notify an Observer" in {
-      observer.isUpdated should be(false)
-      observable.notifyObservers
-      observer.isUpdated should be(true)
-    }*/
-    "remove an Observer" in {
-      observable.remove(observer)
-      observable.subscribers should not contain (observer)
-    }
+class ObservableTest extends AnyWordSpec {
 
+  class TestObserver extends Observer {
+    var updatedEvent: Option[Event] = None
+
+    override def update(e: Event): Unit = updatedEvent = Some(e)
   }
 
-}*/
+  "Observable" should {
+    "add and notify observers" in {
+      val observable = new Observable
+      val observer1 = new TestObserver
+      val observer2 = new TestObserver
+
+      observable.add(observer1)
+      observable.add(observer2)
+
+      val testEvent = Event.StonePlaced(1, 2, 'a')
+      observable.notifyObservers(testEvent)
+
+      observer1.updatedEvent should be(Some(testEvent))
+      observer2.updatedEvent should be(Some(testEvent))
+    }
+
+    "remove observer" in {
+      val observable = new Observable
+      val observer1 = new TestObserver
+      val observer2 = new TestObserver
+
+      observable.add(observer1)
+      observable.add(observer2)
+
+      observable.remove(observer1)
+
+      val testEvent = Event.StonePlaced(1, 2, 'a')
+      observable.notifyObservers(testEvent)
+
+      observer1.updatedEvent should be(None)
+      observer2.updatedEvent should be(Some(testEvent))
+    }
+  }
+}

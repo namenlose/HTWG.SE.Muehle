@@ -16,6 +16,12 @@ import javax.print.attribute.standard.OrientationRequested
     val gray = new Color(150,150,150)
     var buttonMap = new ButtonMap(controller, 'w').createButtonMap
 
+    var muehle = new Label("Keine Muehle")
+
+    def muehleLabel = {
+        muehle.text = "Muehle"
+    }
+
     def playPanel(color: Char) = new FlowPanel{
 
         def createLine: Label = new Label{
@@ -273,6 +279,8 @@ import javax.print.attribute.standard.OrientationRequested
         }
 
         contents += spielfeld
+        //muehleLabel
+        contents += muehle
         
         //pack()
         //centerOnScreen()
@@ -289,6 +297,7 @@ import javax.print.attribute.standard.OrientationRequested
             case Event.redoStep(row, col) => 
                 val button: Button = buttonMap(row, col)
                 button.background = controller.getColor(row, col)
+            case Event.mill => " "
             //repaint()
         }
     }
