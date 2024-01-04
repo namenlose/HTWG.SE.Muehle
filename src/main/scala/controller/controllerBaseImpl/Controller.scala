@@ -13,13 +13,15 @@ import scala.swing.event._
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject, Injector}
 import net.codingwell.scalaguice.InjectorExtensions._
-
+import scala.xml.{ NodeSeq, PrettyPrinter }
+import HTWG.SE.Muehle.model.FileIO._
 
 class Controller @Inject() extends Observable with controllerInterface {
     val injector: Injector = Guice.createInjector(new MuehleModule)
     val fieldArray = new FieldArray
     val undoManager = new UndoManager(this)
     var millList = injector.getInstance(classOf[MillListInterface])
+    val fileIo = injector.getInstance(classOf[FileIOInterface])
 
     var state: GameState = new blackState()
     def handle(): String = {
@@ -105,6 +107,7 @@ class Controller @Inject() extends Observable with controllerInterface {
     } 
 
     def undoStep: Unit ={
+        counter = counter - 1
         val list = undoManager.undoStep
         val array: Array[Int] = list(1).asInstanceOf[Array[Int]]
         val row: Int = array(0)
@@ -115,9 +118,14 @@ class Controller @Inject() extends Observable with controllerInterface {
     } 
 
     def redoStep: Unit ={
+        counter += 1
         val array: Array[Int] = undoManager.redoStep
         val row: Int = array(0)
         val col: Int = array(1)
         notifyObservers(Event.redoStep(row, col))
+    }
+
+    def save: Unit = {
+        fileIo.save(array)
     }
 }

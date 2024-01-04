@@ -68,6 +68,13 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
         }
     }
 
+    val save = new Button("Save"){
+        reactions +={
+            case event.ButtonClicked(_) =>
+                controller.save
+        }
+    }
+
     /*val muehle = new Label
     def getMuehle: Label = muehle*/
     /*var muehle = new Label()
@@ -87,6 +94,7 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
             contents += spielfeld.playPanel(color)
             contents += undo
             contents += redo
+            contents += save
             //contents += muehleLabel
             }
         }

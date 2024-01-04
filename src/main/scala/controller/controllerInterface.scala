@@ -4,6 +4,7 @@ import scala.swing._
 import HTWG.SE.Muehle.util._
 import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent._
 import HTWG.SE.Muehle.model.FieldComponent.{FieldInterface, FieldArrayInterface}
+import scala.xml.{ NodeSeq, PrettyPrinter }
 
 trait controllerInterface extends Observable {
     def handle(): String
@@ -19,4 +20,5 @@ trait controllerInterface extends Observable {
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String): Unit
     def undoStep: Unit
     def redoStep: Unit
+    def save: Unit
 }
