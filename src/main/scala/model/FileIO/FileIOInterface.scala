@@ -7,5 +7,6 @@ trait FileIOInterface{
 
     def save(array: FieldArrayInterface): Unit
     def fieldArrayToXML(array: FieldArrayInterface): xml.Node
+    def load: FieldArrayInterface
 }
 

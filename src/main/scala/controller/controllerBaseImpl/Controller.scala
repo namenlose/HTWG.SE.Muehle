@@ -147,4 +147,14 @@ class Controller @Inject() extends Observable with controllerInterface {
     def save: Unit = {
         fileIo.save(array)
     }
+
+    def load: Array[Array[Char]] = {
+        val arrayLoad: Array[Array[Char]] = fileIo.load.fieldArray
+        for (i <- 0 to 2){
+            for (x <- 0 to 7){
+            array.fieldArray(i)(x) = arrayLoad(i)(x)
+            }
+        }
+        arrayLoad
+    }
 }

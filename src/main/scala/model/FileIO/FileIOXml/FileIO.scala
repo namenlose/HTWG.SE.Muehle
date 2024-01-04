@@ -6,6 +6,7 @@ import net.codingwell.scalaguice.InjectorExtensions._
 import scala.xml.{ NodeSeq, PrettyPrinter }
 import HTWG.SE.Muehle.model.FieldComponent.{FieldArrayInterface, FieldInterface}
 import HTWG.SE.Muehle.model.FileIO.FileIOInterface
+import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.FieldArray
 
 
 class FileIO extends FileIOInterface {
@@ -36,6 +37,22 @@ class FileIO extends FileIOInterface {
        } yield x
     }
     </array2></field>
+  }
+
+  def load: FieldArrayInterface = {
+    var array: FieldArray = new FieldArray
+    val file = scala.xml.XML.loadFile("C:\\Users\\Sbirk\\Documents\\HTWG\\Software Engeneering\\field.xml")
+    val string0: String = (file \\ "field" \ "array0").text
+    val string1: String = (file \\ "field" \ "array1").text
+    val string2: String = (file \\ "field" \ "array2").text
+    val arrayEingelesen: Array[Array[Char]] = Array(string0.toArray, string1.toArray, string2.toArray)
+
+    for (i <- 0 to 2){
+      for (x <- 0 to 7){
+        array.fieldArray(i)(x) = arrayEingelesen(i)(x)
+      }
+  }
+    array
   }
 
 }

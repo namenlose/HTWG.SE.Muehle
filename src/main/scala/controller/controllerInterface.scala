@@ -23,4 +23,5 @@ trait controllerInterface extends Observable {
     def controllerMove(ind1: Int, ind2: Int, player: Char): String
     def controllerTakeStone(circle: Int, position: Int): String
     def save: Unit
+    def load: Array[Array[Char]]
 }

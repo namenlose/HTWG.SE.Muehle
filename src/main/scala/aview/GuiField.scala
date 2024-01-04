@@ -26,6 +26,15 @@ import javax.print.attribute.standard.OrientationRequested
         muehle.text = "keine Mühle"
     }
 
+    def updateField ={
+        for(i <- 0 to 2){
+            for(x <- 0 to 7){
+                val button = buttonMap((i,x))
+                button.background = controller.getColor(i,x)
+            }
+        }
+    }
+
     def playPanel(color: Char) = new FlowPanel{
 
         def createLine: Label = new Label{
@@ -265,6 +274,14 @@ import javax.print.attribute.standard.OrientationRequested
 
         contents += button23
         }
+
+        /*def updateField ={
+            for(i <- 0 to 2){
+                for(x <- 0 to 7){
+                    buttonMap((i,x))
+                }
+            }
+        }*/
 
         def spielfeld: GridPanel = new GridPanel(13, 1){
         contents += firstLine
