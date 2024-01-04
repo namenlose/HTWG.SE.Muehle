@@ -62,14 +62,31 @@ class Controller @Inject() extends Observable with controllerInterface {
         fieldString
         
     }
+    
+    def controllerMove(ind1: Int, ind2: Int, player: Char): String = {
+        
+       /*  state = if(player == 'w'){
+            new whiteState
+        }else{
+            new blackState
+        } */
+        fieldString = array.move(ind1, ind2, player)
+        fieldString
+    }
 
     def muehle(array: FieldArrayInterface): Boolean ={
         var muehle: Boolean = false
         if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
                 muehle = true
+                notifyObservers(Event.mill)
             }
         muehle
+    }
+
+    def controllerTakeStone(circle: Int, position: Int): String = {
+        fieldString = array.takeStone(circle, position)
+        fieldString
     }
     
     def getFieldString():String = fieldString

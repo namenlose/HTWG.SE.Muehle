@@ -23,9 +23,13 @@ case class FieldArray() extends FieldArrayInterface {
     def takeStone(circle: Int, position: Int): String = {
         if(fieldArray(circle)(position) != 'o') {
             fieldArray(circle)(position) = 'o'
-        } else {
-            fieldArray(circle)(position) = fieldArray(circle)(position)
         }
+        val field = new Field(6, fieldArray)
+        field.mesh
+    }
+
+    def move(circle: Int, position: Int, player: Char): String = {
+        fieldArray(circle)(position) = player
         val field = new Field(6, fieldArray)
         field.mesh
     }

@@ -16,8 +16,6 @@ case class TUI(controller: controllerInterface) extends Observer{
     /*var player = controller.c.place()
     var player1 = controller.b.place()*/
 
-
-    
     def firstStone(): String = {
     println("Hallo, das ist Muehle")
     println("Geben Sie zwei Spieler Namen ein:")
@@ -42,6 +40,7 @@ case class TUI(controller: controllerInterface) extends Observer{
 
     var mesh = controller.controllerPlaceFirstStone(ind1, ind2, playerOne)
     setStones(nameOne, nameTwo, playerOne, playerTwo, mesh)
+    moveStone(nameOne, nameTwo, playerOne, playerTwo, mesh)
     mesh
 
 }
@@ -53,7 +52,7 @@ case class TUI(controller: controllerInterface) extends Observer{
     var i = 1;
     var undo = false
     var redo = false
-    while(i <=  17) {
+    while(i <=  4) {
 
         if(i % 2 == 0) {
             println(nameOne + " positonieren Sie einen Stein:" + controller.field1.eol)
@@ -94,6 +93,52 @@ case class TUI(controller: controllerInterface) extends Observer{
         i += 1  
     }
 }
+    def moveStone(nameOne: String, nameTwo: String, playerOne: Char, playerTwo: Char, mesh: String): Unit = {
+        var i = 0
+        var take1 = 0
+        var take2 = 0
+        if(i % 2 == 0) {
+            println("Welchen Stein wollen Sie bewegen?")
+            println("Kreis: ")
+            val take1 = readInt()
+            println(" ")
+            println("Position: ")
+            val take2 = readInt()
+            println(" ")
+            val zero = 'o'
+            controller.doStep(take1, take2, zero, zero, i, mesh)
+            println(nameOne + " Bewegen Sie einen Stein " + controller.field1.eol)
+            //controller.state
+            controller.turn()
+            println(controller.handle())
+            i += 1
+            //controller.turn()
+        }else{
+            println("Welchen Stein wollen Sie bewegen?")
+            println("Kreis: ")
+            val take1 = readInt()
+            println(" ")
+            println("Position: ")
+            val take2 = readInt()
+            println(" ")
+            val zero = 'o'
+            controller.doStep(take1, take2, zero, zero, i, mesh)
+            println(nameTwo + " Bewegen Sie einen Stein " + controller.field1.eol)
+            controller.turn()
+            controller.handle()
+            println(controller.handle())
+            i += 1
+            //controller.turn()
+        }
+        println("Kreis: ")
+        val ind1 = readInt()
+        println(" ")
+        println("Position: ")
+        val ind2 = readInt()
+        println(" ")
+        controller.doStep(ind1, ind2, playerOne, playerTwo, i, mesh)
+
+    }
     def update(e: Event): Unit = {
         e match {
         //case Event.StonePlaced(pos1, pos2, color) => //println(controller.controllerPlaceFirstStone(pos1, pos2, color)) println(controller.getFieldString())
@@ -104,6 +149,7 @@ case class TUI(controller: controllerInterface) extends Observer{
             case Event.doStep => println(controller.getFieldString())
             case Event.undo(row, col) => println(controller.getFieldString())
             case Event.redoStep(row, col) => println(controller.getFieldString())
+            case Event.mill => " "
     }
 }
     //override def update: Unit =  {println(controller.getFieldString())
