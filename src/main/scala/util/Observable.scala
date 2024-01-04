@@ -21,4 +21,5 @@ enum Event {
   case redoStep(row: Int, col: Int)
   case doStep
   case mill
+  case noMill
 }

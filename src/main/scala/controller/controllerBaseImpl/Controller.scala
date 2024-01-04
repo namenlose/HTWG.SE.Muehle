@@ -80,6 +80,8 @@ class Controller @Inject() extends Observable with controllerInterface {
                 println("MÜHLE!!")
                 muehle = true
                 notifyObservers(Event.mill)
+            }else{
+                notifyObservers(Event.noMill)
             }
         muehle
     }

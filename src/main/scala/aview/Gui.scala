@@ -105,8 +105,10 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
     override def update(e: Event): Unit = {
     e match {
         case Event.mill => spielfeld.muehleLabel
+        case Event.noMill => spielfeld.keinMuehleLable
         case Event.doStep => " "
         case Event.undo(row, col) => " "
+        case Event.redoStep(row, col) => " "
     }
 }
 }

@@ -22,6 +22,10 @@ import javax.print.attribute.standard.OrientationRequested
         muehle.text = "Muehle"
     }
 
+    def keinMuehleLable = {
+        muehle.text = "keine Mühle"
+    }
+
     def playPanel(color: Char) = new FlowPanel{
 
         def createLine: Label = new Label{
@@ -298,6 +302,7 @@ import javax.print.attribute.standard.OrientationRequested
                 val button: Button = buttonMap(row, col)
                 button.background = controller.getColor(row, col)
             case Event.mill => " "
+            case Event.noMill => " "
             //repaint()
         }
     }
