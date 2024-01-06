@@ -8,7 +8,8 @@ package HTWG.SE.Muehle
   import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.{FieldArray, Field}
   import HTWG.SE.Muehle.model.FieldComponent._
   import HTWG.SE.Muehle.model.logicComponent.Handler1
-
+  import HTWG.SE.Muehle.model.FileIOInterface
+  import HTWG.SE.Muehle.model.FilelO
 
   class MuehleModule extends AbstractModule with ScalaModule {
 
@@ -23,6 +24,7 @@ package HTWG.SE.Muehle
       bind[FieldInterface].toInstance(new Field(6, array))
       //bind[GridInterface].annotatedWithName("small").toInstance(new Grid(4))
       //bind[GridInterface].annotatedWithName("normal").toInstance(new Grid(9))
+      bind[FileIOInterface].toInstance(new FilelO)
     }
 
 }

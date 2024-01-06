@@ -13,6 +13,9 @@ import scala.swing.event._
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject, Injector}
 import net.codingwell.scalaguice.InjectorExtensions._
+import play.api.libs.json._
+import HTWG.SE.Muehle.model.FilelO
+import HTWG.SE.Muehle.model.FileIOInterface
 
 
 class Controller @Inject() extends Observable with controllerInterface {
@@ -21,6 +24,8 @@ class Controller @Inject() extends Observable with controllerInterface {
     val fieldArray = new FieldArray
 
     val injector: Injector = Guice.createInjector(new MuehleModule)
+
+    val fileIo = injector.getInstance(classOf[FileIOInterface])
 
     var state: GameState = new blackState()
     def handle(): String = {

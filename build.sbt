@@ -26,5 +26,6 @@ lazy val root = project
             .map(m => "org.openjfx" % s"javafx-$m" % "16" classifier osName)
       },
       libraryDependencies += ("org.scala-lang.modules" %% "scala-swing" % "3.0.0").cross(CrossVersion.for3Use2_13),
-      libraryDependencies += "net.codingwell" %% "scala-guice" % "7.0.0"
+      libraryDependencies += "net.codingwell" %% "scala-guice" % "7.0.0",
+      libraryDependencies += "com.typesafe.play" %% "play-json" % "2.10.3"
   )
