@@ -1,4 +1,4 @@
- package HTWG.SE.Muehle.aview
+package HTWG.SE.Muehle.aview
 
 import scala.swing.FlowPanel.Alignment
 import scala.swing._
@@ -50,98 +50,47 @@ import javax.print.attribute.standard.OrientationRequested
         }
     
         buttonMap = new ButtonMap(controller, color).createButtonMap
-   /* def buttonMap: Map[(Int, Int), Button] = {
-  val rows = 3
-  val columns = 8
-  val buttons = for {
-    row <- 0 until rows
-    col <- 0 until columns
-  } yield {
-    val button = new Button {
-      background = gray
-      reactions += {
-        case event.ButtonClicked(_) =>
-            controller.setStoneGui(row, col, color)
-            background = controller.getColor(row, col)
-      }
-    }
-    (row, col) -> button
-  }
-  buttons.toMap
-}*/
 
-        val firstLine: GridPanel = new GridPanel(1, 13){
-            val button0 = buttonMap((0,0))
-            contents += button0
-                
-                /*new Button{
-                background = gray
-                reactions += {
-                    case event.ButtonClicked(_) =>
-                        controller.setStoneGui(0,0,color)
-                        background = controller.getColor(0,0)
-            }
-        }*/
-            contents += createLine
-            contents += createLine
-            contents += createLine
-            contents += createLine
-            contents += createLine
+        def createButtonPanel(row: Int, colRange: Range): GridPanel = new GridPanel(1, 13) {
+            colRange.foreach(col => {
+                val button = buttonMap((row, col))
+                contents += button
+                if (col < 2) {
+                    contents ++= Seq.fill(5)(createLine)
+                } 
+            })        
+        }
 
-            val button1 = buttonMap((0, 1)) 
-            contents += button1
-            contents += createLine
-            contents += createLine
-            contents += createLine
-            contents += createLine
-            contents += createLine
-
-            val button2 = buttonMap((0, 2))
-            contents += button2
-            /*contents += new Button{
-                    background = gray
-                    reactions += {
-                        case event.ButtonClicked(_) =>
-                            controller.setStoneGui(0,2, color)
-                            background = controller.getColor(0,2)
-                    }
-            } */
-            }
-
-            def secondLine:GridPanel = new GridPanel(1, 13){
-                contents += createVerticalLine
-                contents += createSpace
-                contents += createSpace
-                contents += createSpace
-                contents += createSpace
-                contents += createSpace
-                contents += createVerticalLine
-                contents += createSpace
-                contents += createSpace
-                contents += createSpace
-                contents += createSpace
-                contents += createSpace
-                contents += createVerticalLine
-            }
+        def secondLine: GridPanel = new GridPanel(1, 13) {   
+            contents += createVerticalLine
+            (1 to 5).foreach(_ => contents += createSpace)
+            contents += createVerticalLine
+            (1 to 5).foreach(_ => contents += createSpace)
+            contents += createVerticalLine
+        }
 
         val button3 = buttonMap((1, 0))
         val button4 = buttonMap((1, 1)) 
-        val button5 = buttonMap((1, 2))  
-        val thirdLine = new GridPanel(1, 13){
+        val button5 = buttonMap((1, 2))
+
+        val thirdLine: GridPanel = new GridPanel(1, 13) {
             contents += createVerticalLine
             contents += createSpace
-            contents +=  button3
-            contents += createLine
-            contents += createLine
-            contents += createLine
-            contents +=  button4
-            contents += createLine
-            contents += createLine
-            contents += createLine
-            contents +=  button5
-            contents += createSpace
-            contents += createVerticalLine
+            // Füge die Buttons und Linien entsprechend hinzu
+            Seq(button3, button4, button5).zipWithIndex.foreach { case (button, index) =>
+            //contents += createSpace
+            contents += button
+
+            // Füge drei Linien nach jedem Button hinzu
+            if (index < 2) {
+                (1 to 3).foreach(_ => contents += createLine)
+            }
         }
+
+            contents += createSpace
+            contents += createVerticalLine
+}
+
 
         def forthLLine: GridPanel = new GridPanel(1, 13){
             contents += createVerticalLine
@@ -275,16 +224,8 @@ import javax.print.attribute.standard.OrientationRequested
         contents += button23
         }
 
-        /*def updateField ={
-            for(i <- 0 to 2){
-                for(x <- 0 to 7){
-                    buttonMap((i,x))
-                }
-            }
-        }*/
-
         def spielfeld: GridPanel = new GridPanel(13, 1){
-        contents += firstLine
+        contents += createButtonPanel(0, 0 to 2)
         contents += secondLine
         contents += thirdLine
         contents += forthLLine
@@ -325,3 +266,4 @@ import javax.print.attribute.standard.OrientationRequested
     }
 
 }
+ 
