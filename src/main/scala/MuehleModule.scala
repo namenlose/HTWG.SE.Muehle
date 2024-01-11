@@ -11,7 +11,7 @@ package HTWG.SE.Muehle
   import HTWG.SE.Muehle.model.logicComponent.Handler1
   import HTWG.SE.Muehle.model.logicComponent.{MillList, MillListInterface}
   import HTWG.SE.Muehle.model.FileIO.FielIOXml.FileIO
-  import HTWG.SE.Muehle.model.FileIO.FileIOJSON.FileIO
+  //import HTWG.SE.Muehle.model.FileIO.FileIOJSON.FileIO
 
   class MuehleModule extends AbstractModule with ScalaModule {
 
