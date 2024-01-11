@@ -9,7 +9,7 @@ import HTWG.SE.Muehle.model.FileIO.FileIOInterface
 import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.FieldArray
 
 
-class FileIO extends FileIOInterface {
+class FileIOXml extends FileIOInterface {
 
   var counter: Int = 0
   def save(array: FieldArrayInterface, counter: Int): Unit ={
@@ -59,4 +59,5 @@ class FileIO extends FileIOInterface {
     array
   }
 
+  def save(array: FieldArrayInterface): Unit = {" "}
 }

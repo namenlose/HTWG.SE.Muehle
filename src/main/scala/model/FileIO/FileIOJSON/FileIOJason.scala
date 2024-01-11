@@ -12,8 +12,8 @@ import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.FieldArray
 
 import scala.io.Source
 
-class FileIO extends FileIOInterface {
-    def save(field: FieldArrayInterface): Unit = {
+class FileIOJason extends FileIOInterface {
+    def save(field: FieldArrayInterface, counter: Int): Unit = {
         val pw = new PrintWriter(new File("field.json"))
         val json = fieldArrayToJson(field)  // Corrected method name
         val jsonString = Json.prettyPrint(json)
@@ -49,5 +49,8 @@ class FileIO extends FileIOInterface {
     }
     array
   }
+
+  var counter: Int = 0
+
 }
 

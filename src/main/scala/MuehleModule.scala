@@ -10,8 +10,8 @@ package HTWG.SE.Muehle
   import HTWG.SE.Muehle.model.FileIO.FileIOInterface
   import HTWG.SE.Muehle.model.logicComponent.Handler1
   import HTWG.SE.Muehle.model.logicComponent.{MillList, MillListInterface}
-  import HTWG.SE.Muehle.model.FileIO.FielIOXml.FileIO
-  import HTWG.SE.Muehle.model.FileIO.FileIOJSON.FileIO
+  import HTWG.SE.Muehle.model.FileIO.FielIOXml.FileIOXml
+  import HTWG.SE.Muehle.model.FileIO.FileIOJSON.FileIOJason
 
   class MuehleModule extends AbstractModule with ScalaModule {
 
@@ -23,7 +23,7 @@ package HTWG.SE.Muehle
       bind[FieldArrayInterface].toInstance(new FieldArray)
       bind[FieldInterface].toInstance(new Field(6, array))
       bind[MillListInterface].toInstance(new MillList)
-      bind[FileIOInterface].toInstance(new FileIO)
+      bind[FileIOInterface].toInstance(new FileIOJason)
     }
 
 }
