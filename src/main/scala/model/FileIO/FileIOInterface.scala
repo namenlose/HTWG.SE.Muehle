@@ -6,7 +6,7 @@ import scala.xml.{ NodeSeq, PrettyPrinter }
 trait FileIOInterface{
 
     def save(array: FieldArrayInterface): Unit
-    def fieldArrayToXML(array: FieldArrayInterface): xml.Node
+    //def fieldArrayToXML(array: FieldArrayInterface): xml.Node
     def load: FieldArrayInterface
 }
 
