@@ -72,6 +72,14 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
         }
     }
 
+    val gridPanel = new GridPanel(2, 2){
+        contents += undo
+        contents += redo
+        contents += save
+        contents += load
+    }
+
+
     /*val muehle = new Label
     def getMuehle: Label = muehle*/
     /*var muehle = new Label()
@@ -89,10 +97,7 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
         new MainFrame{
             contents = new FlowPanel{
             contents += spielfeld.playPanel(color)
-            contents += undo
-            contents += redo
-            contents += save
-            contents += load
+            contents += gridPanel
             //contents += muehleLabel
             }
         }

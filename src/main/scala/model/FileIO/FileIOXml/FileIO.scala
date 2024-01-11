@@ -11,16 +11,17 @@ import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.FieldArray
 
 class FileIO extends FileIOInterface {
 
-  def save(array: FieldArrayInterface): Unit ={
+  var counter: Int = 0
+  def save(array: FieldArrayInterface, counter: Int): Unit ={
     import java.io._
     val pw = new PrintWriter(new File("C:\\Users\\Sbirk\\Documents\\HTWG\\Software Engeneering\\field.xml"))
     val prettyPrinter = new PrettyPrinter(120, 4)
-    val xml = prettyPrinter.format(fieldArrayToXML(array))
+    val xml = prettyPrinter.format(fieldArrayToXML(array, counter))
     pw.write(xml)
     pw.close  
   }
 
-  def fieldArrayToXML(array: FieldArrayInterface) = {
+  def fieldArrayToXML(array: FieldArrayInterface, counter: Int) = {
     <field><array0>{
       for {
         x <- array.fieldArray(0)
@@ -36,7 +37,9 @@ class FileIO extends FileIOInterface {
         x <- array.fieldArray(2)
        } yield x
     }
-    </array2></field>
+    </array2><counter>{
+      counter
+    }</counter></field>
   }
 
   def load: FieldArrayInterface = {
@@ -45,6 +48,7 @@ class FileIO extends FileIOInterface {
     val string0: String = (file \\ "field" \ "array0").text
     val string1: String = (file \\ "field" \ "array1").text
     val string2: String = (file \\ "field" \ "array2").text
+    counter = (file \\ "field" \ "counter").text.toInt
     val arrayEingelesen: Array[Array[Char]] = Array(string0.toArray, string1.toArray, string2.toArray)
 
     for (i <- 0 to 2){

@@ -93,7 +93,8 @@ class Controller @Inject() extends Observable with controllerInterface {
     
     def getFieldString():String = fieldString
 
-    def setStoneGui(pos1: Int, pos2: Int, color: Char):Unit = {
+    def setStoneGui(pos1: Int, pos2: Int, color: Char):Boolean = {
+        var startFinished: Boolean = false
         var mesh = " "
         var color2 = ' '
             if(color == 'w') {
@@ -105,7 +106,10 @@ class Controller @Inject() extends Observable with controllerInterface {
             if(counter < 18) {
                 doStep(pos1, pos2, color, color2, counter, mesh)
                 counter += 1
-            } 
+            }else{
+                startFinished = true
+            }
+        startFinished
     }
 
     def getColor(ind1: Int, ind2: Int): Color ={
@@ -145,7 +149,7 @@ class Controller @Inject() extends Observable with controllerInterface {
     }
 
     def save: Unit = {
-        fileIo.save(array)
+        fileIo.save(array, counter)
     }
 
     def load: Array[Array[Char]] = {
@@ -155,6 +159,7 @@ class Controller @Inject() extends Observable with controllerInterface {
             array.fieldArray(i)(x) = arrayLoad(i)(x)
             }
         }
+        counter = fileIo.counter
         arrayLoad
     }
 }

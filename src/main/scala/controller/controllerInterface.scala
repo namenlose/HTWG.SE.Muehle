@@ -15,7 +15,7 @@ trait controllerInterface extends Observable {
     def muehle(array: FieldArrayInterface): Boolean
     def getFieldString(): String
     def field1: FieldInterface
-    def setStoneGui(pos1: Int, pos2: Int, color: Char): Unit
+    def setStoneGui(pos1: Int, pos2: Int, color: Char): Boolean
     def getColor(ind1: Int, ind2: Int): Color
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String): Unit
     def undoStep: Unit

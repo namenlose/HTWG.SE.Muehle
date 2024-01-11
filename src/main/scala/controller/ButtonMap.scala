@@ -18,8 +18,12 @@ class ButtonMap(controller: controllerInterface, color: Char){
         background = gray
         reactions += {
           case event.ButtonClicked(_) =>
-              controller.setStoneGui(row, col, color)
+              if(!controller.setStoneGui(row, col, color)){
               background = controller.getColor(row, col)
+              }else{
+                controller.setStoneGui(row, col, 'o')
+                background = controller.getColor(row, col)
+              }
         }
       }
       (row, col) -> button
