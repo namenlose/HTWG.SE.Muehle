@@ -14,7 +14,7 @@ class FileIO extends FileIOInterface {
   var counter: Int = 0
   def save(array: FieldArrayInterface, counter: Int): Unit ={
     import java.io._
-    val pw = new PrintWriter(new File("C:\\Users\\Sbirk\\Documents\\HTWG\\Software Engeneering\\field.xml"))
+    val pw = new PrintWriter(new File("field.xml"))
     val prettyPrinter = new PrettyPrinter(120, 4)
     val xml = prettyPrinter.format(fieldArrayToXML(array, counter))
     pw.write(xml)
@@ -44,7 +44,7 @@ class FileIO extends FileIOInterface {
 
   def load: FieldArrayInterface = {
     var array: FieldArray = new FieldArray
-    val file = scala.xml.XML.loadFile("C:\\Users\\Sbirk\\Documents\\HTWG\\Software Engeneering\\field.xml")
+    val file = scala.xml.XML.loadFile("field.xml")
     val string0: String = (file \\ "field" \ "array0").text
     val string1: String = (file \\ "field" \ "array1").text
     val string2: String = (file \\ "field" \ "array2").text
