@@ -1,4 +1,4 @@
-package HTWG.SE.Muehle.model
+package HTWG.SE.Muehle.model.FileIO.FileIOJSON
 
 import com.google.inject.Guice
 import com.google.inject.name.Names
@@ -12,7 +12,7 @@ import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.FieldArray
 
 import scala.io.Source
 
-class FilelO extends FileIOInterface {
+class FileIO extends FileIOInterface {
     def save(field: FieldArrayInterface): Unit = {
         val pw = new PrintWriter(new File("field.json"))
         val json = fieldArrayToJson(field)  // Corrected method name
