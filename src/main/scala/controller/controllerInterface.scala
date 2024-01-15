@@ -5,10 +5,12 @@ import HTWG.SE.Muehle.util._
 import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent._
 import HTWG.SE.Muehle.model.FieldComponent.{FieldInterface, FieldArrayInterface}
 import scala.xml.{ NodeSeq, PrettyPrinter }
+import HTWG.SE.Muehle.model.logicComponent.{MillList, MillListInterface}
 
 trait controllerInterface extends Observable {
     var placeabel: Boolean
     var muehleBool: Boolean
+    var millList: MillListInterface
     //var counter: Int
     def setPlaceableTrue: Boolean
     def setPlaceableFalse: Boolean

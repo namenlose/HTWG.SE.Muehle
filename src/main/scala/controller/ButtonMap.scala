@@ -19,27 +19,32 @@ class ButtonMap(controller: controllerInterface, color: Char){
     } yield {
       val button = new Button {
         background = gray
+        val posToRemove = row * 10 + col
         reactions += {
           case event.ButtonClicked(_) =>
-              if(!controller.setStoneGui(row, col, color)){
+              if(!controller.muehleBool && !controller.setStoneGui(row, col, color)){
                 background = controller.getColor(row, col)
-              }else if(background == new Color(0,0,0) && !controller.placeabel){
+              }else if(background == new Color(0,0,0) && !controller.placeabel && !controller.muehleBool){
                 color2 = 'b'
                 controller.doStepMove(row, col, 'b')
+                controller.millList.MillListRemove(posToRemove)
                 updateButtonMap
                 controller.setPlaceableTrue
-              }else if(background == new Color(255,255,255) && !controller.placeabel){
+              }else if(background == new Color(255,255,255) && !controller.placeabel && !controller.muehleBool){
                 color2 = 'w'
                 controller.doStepMove(row, col, 'w')
+                //val posToRemove2 = row * 10 + col
+                controller.millList.MillListRemove(posToRemove)
                 updateButtonMap
                 controller.setPlaceableTrue
-              }else if(background == new Color(150,150,150) && controller.placeabel){
+              }else if(background == new Color(150,150,150) && controller.placeabel && !controller.muehleBool){
                 controller.controllerMove(row, col,  color2)
                 updateButtonMap
                 controller.setPlaceableFalse
               }else if(controller.muehleBool){
                 controller.doStep(row, col, 'o')
                 controller.setMuehleFalse
+                updateButtonMap
               }
         }
       }
