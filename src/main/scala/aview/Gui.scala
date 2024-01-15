@@ -47,6 +47,7 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
         reactions += {
             case event.ButtonClicked(_) =>
                 controller.undoStep
+                spielfeld.updateField
         }
     }
 
@@ -120,6 +121,7 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
     e match {
         case Event.mill => spielfeld.muehleLabel
         case Event.noMill => spielfeld.keinMuehleLable
+        case Event.allStonesPlaced => spielfeld.alleSteineGesetztLabel
         case Event.doStep => " "
         case Event.undo(row, col) => " "
         case Event.redoStep(row, col) => " "

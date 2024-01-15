@@ -6,7 +6,7 @@ import javax.swing.table._
 import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.controller.controllerBaseImpl._
 import HTWG.SE.Muehle.util._
-import HTWG.SE.Muehle.model.ButtonMap
+import HTWG.SE.Muehle.controller.ButtonMap
 import javax.swing.ImageIcon
 import javax.print.attribute.standard.OrientationRequested
  
@@ -14,12 +14,17 @@ import javax.print.attribute.standard.OrientationRequested
  class GuiField(controller: controllerInterface)extends Observer{
     controller.add(this)
     val gray = new Color(150,150,150)
-    var buttonMap = new ButtonMap(controller, 'w').createButtonMap
+    var buttonMapClass = new ButtonMap(controller, 'w')
 
     var muehle = new Label("Keine Muehle")
+    var alleSteineGesetzt = new Label(" ")
 
     def muehleLabel = {
         muehle.text = "Muehle"
+    }
+
+    def alleSteineGesetztLabel = {
+        alleSteineGesetzt.text = "Es wurden alle Steine platziert, jetzt könnt ihr Steine verschieben"
     }
 
     def keinMuehleLable = {
@@ -27,12 +32,13 @@ import javax.print.attribute.standard.OrientationRequested
     }
 
     def updateField ={
-        for(i <- 0 to 2){
+        /*for(i <- 0 to 2){
             for(x <- 0 to 7){
                 val button = buttonMap((i,x))
                 button.background = controller.getColor(i,x)
             }
-        }
+        }*/
+        buttonMapClass.updateButtonMap
     }
 
     def playPanel(color: Char) = new FlowPanel{
@@ -49,7 +55,7 @@ import javax.print.attribute.standard.OrientationRequested
             text = " "
         }
     
-        buttonMap = new ButtonMap(controller, color).createButtonMap
+        buttonMapClass = new ButtonMap(controller, color)
    /* def buttonMap: Map[(Int, Int), Button] = {
   val rows = 3
   val columns = 8
@@ -71,7 +77,7 @@ import javax.print.attribute.standard.OrientationRequested
 }*/
 
         val firstLine: GridPanel = new GridPanel(1, 13){
-            val button0 = buttonMap((0,0))
+            val button0 = buttonMapClass.buttonMap((0,0))
             contents += button0
                 
                 /*new Button{
@@ -88,7 +94,7 @@ import javax.print.attribute.standard.OrientationRequested
             contents += createLine
             contents += createLine
 
-            val button1 = buttonMap((0, 1)) 
+            val button1 = buttonMapClass.buttonMap((0, 1)) 
             contents += button1
             contents += createLine
             contents += createLine
@@ -96,7 +102,7 @@ import javax.print.attribute.standard.OrientationRequested
             contents += createLine
             contents += createLine
 
-            val button2 = buttonMap((0, 2))
+            val button2 = buttonMapClass.buttonMap((0, 2))
             contents += button2
             /*contents += new Button{
                     background = gray
@@ -124,9 +130,9 @@ import javax.print.attribute.standard.OrientationRequested
                 contents += createVerticalLine
             }
 
-        val button3 = buttonMap((1, 0))
-        val button4 = buttonMap((1, 1)) 
-        val button5 = buttonMap((1, 2))  
+        val button3 = buttonMapClass.buttonMap((1, 0))
+        val button4 = buttonMapClass.buttonMap((1, 1)) 
+        val button5 = buttonMapClass.buttonMap((1, 2))  
         val thirdLine = new GridPanel(1, 13){
             contents += createVerticalLine
             contents += createSpace
@@ -159,9 +165,9 @@ import javax.print.attribute.standard.OrientationRequested
             contents += createVerticalLine
         }
     
-        val button6 = buttonMap((2, 0))
-        val button7 = buttonMap((2, 1))
-        val button8 = buttonMap((2, 2)) 
+        val button6 = buttonMapClass.buttonMap((2, 0))
+        val button7 = buttonMapClass.buttonMap((2, 1))
+        val button8 = buttonMapClass.buttonMap((2, 2)) 
         def fifthLine: GridPanel = new GridPanel(1, 13){
             contents += createVerticalLine
             contents += createSpace
@@ -194,12 +200,12 @@ import javax.print.attribute.standard.OrientationRequested
             contents += createVerticalLine
         }
 
-        val button9 = buttonMap((0, 7))
-        val button10 = buttonMap((1, 7))
-        val button11 = buttonMap((2, 7))
-        val button12 = buttonMap((2, 3))
-        val button13 = buttonMap((1, 3))
-        val button14 = buttonMap((0, 3))  
+        val button9 = buttonMapClass.buttonMap((0, 7))
+        val button10 = buttonMapClass.buttonMap((1, 7))
+        val button11 = buttonMapClass.buttonMap((2, 7))
+        val button12 = buttonMapClass.buttonMap((2, 3))
+        val button13 = buttonMapClass.buttonMap((1, 3))
+        val button14 = buttonMapClass.buttonMap((0, 3))  
         val seventhLine = new GridPanel(1, 13){
             contents +=  button9
             contents += createLine
@@ -216,9 +222,9 @@ import javax.print.attribute.standard.OrientationRequested
             contents +=  button14
         }
 
-        val button15 = buttonMap((2, 6)) 
-        val button16 = buttonMap((2, 5))
-        val button17 = buttonMap((2, 4)) 
+        val button15 = buttonMapClass.buttonMap((2, 6)) 
+        val button16 = buttonMapClass.buttonMap((2, 5))
+        val button17 = buttonMapClass.buttonMap((2, 4)) 
         val eighthLine = new GridPanel(1, 13){
             contents += createVerticalLine
             contents += createSpace
@@ -235,9 +241,9 @@ import javax.print.attribute.standard.OrientationRequested
             contents += createVerticalLine
         }
 
-        val button18 = buttonMap((1, 6))
-        val button19 = buttonMap((1, 5))
-        val button20 = buttonMap((1, 4)) 
+        val button18 = buttonMapClass.buttonMap((1, 6))
+        val button19 = buttonMapClass.buttonMap((1, 5))
+        val button20 = buttonMapClass.buttonMap((1, 4)) 
         val ninthLine = new GridPanel(1, 13){
             contents += createVerticalLine
             contents += createSpace
@@ -254,9 +260,9 @@ import javax.print.attribute.standard.OrientationRequested
             contents += createVerticalLine
         }
 
-        val button21 = buttonMap((0, 6))
-        val button22 = buttonMap((0, 5))
-        val button23 = buttonMap((0, 4)) 
+        val button21 = buttonMapClass.buttonMap((0, 6))
+        val button22 = buttonMapClass.buttonMap((0, 5))
+        val button23 = buttonMapClass.buttonMap((0, 4)) 
         val tenthLine = new GridPanel(1, 13){
         contents += button21
         contents += createLine
@@ -302,6 +308,7 @@ import javax.print.attribute.standard.OrientationRequested
         contents += spielfeld
         //muehleLabel
         contents += muehle
+        contents += alleSteineGesetzt
         
         //pack()
         //centerOnScreen()
@@ -313,13 +320,15 @@ import javax.print.attribute.standard.OrientationRequested
             case Event.StonePlaced(pos1, pos2, color) => controller.setStoneGui(pos1, pos2, color)
             case Event.doStep => println(" ")
             case Event.undo(row, col) => 
-                val button: Button = buttonMap(row, col)
-                button.background = controller.getColor(row, col)
+                val button: Button = buttonMapClass.buttonMap(row, col)
+                //button.background = controller.getColor(row, col)
+                updateField
             case Event.redoStep(row, col) => 
-                val button: Button = buttonMap(row, col)
+                val button: Button = buttonMapClass.buttonMap(row, col)
                 button.background = controller.getColor(row, col)
             case Event.mill => " "
             case Event.noMill => " "
+            case Event.allStonesPlaced => " "
             //repaint()
         }
     }

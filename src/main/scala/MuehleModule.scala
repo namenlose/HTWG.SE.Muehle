@@ -23,7 +23,8 @@ package HTWG.SE.Muehle
       bind[FieldArrayInterface].toInstance(new FieldArray)
       bind[FieldInterface].toInstance(new Field(6, array))
       bind[MillListInterface].toInstance(new MillList)
-      bind[FileIOInterface].toInstance(new FileIOJason)
+      bind[FileIOInterface].toInstance(new FileIOXml)
+      //bind[FileIOInterface].toInstance(new FileIOJason)
     }
 
 }

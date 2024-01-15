@@ -28,14 +28,25 @@ class UndoManager(controller: Controller) {
         //string //das auch succes zurückgeben
     }*/
     def undoStep: List[Any] = {
-    var string = ""   
-    val command = undoStack.head
-    redoStack = command +: redoStack
-    undoStack = undoStack.drop(1)
-    string = command.undoStep
-    val position = command.getPositon
-    val list = List(string, position)
-    list
+        var string = ""   
+        val command = undoStack.head
+        redoStack = command +: redoStack
+        undoStack = undoStack.drop(1)
+        string = command.undoStep
+        var position = command.getPositon
+        var list = List(string, position)
+        println("counter: " + controller.counter)
+
+        if(controller.counter >= 17){
+            println("im if")
+            doStep(undoStack.head)
+            println("nach do step")
+            position = undoStack.head.getPositon
+            list = List(string, position)
+            println("list: " + list)
+            undoStack = undoStack.drop(1)
+        }
+        list
     }
     
     def redoStep: Array[Int] = {

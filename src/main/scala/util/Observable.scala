@@ -22,4 +22,5 @@ enum Event {
   case doStep
   case mill
   case noMill
+  case allStonesPlaced
 }

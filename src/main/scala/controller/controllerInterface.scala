@@ -7,6 +7,10 @@ import HTWG.SE.Muehle.model.FieldComponent.{FieldInterface, FieldArrayInterface}
 import scala.xml.{ NodeSeq, PrettyPrinter }
 
 trait controllerInterface extends Observable {
+    var placeabel: Boolean
+    //var counter: Int
+    def setPlaceableTrue: Boolean
+    def setPlaceableFalse: Boolean
     def handle(): String
     def turn(): Unit
     //def controllerPlaceFirstStoneind1(ind1: Int, ind2: Int, player: Char): String
@@ -20,7 +24,7 @@ trait controllerInterface extends Observable {
     def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String): Unit
     def undoStep: Unit
     def redoStep: Unit
-    def controllerMove(ind1: Int, ind2: Int, player: Char): String
+    def controllerMove(ind1: Int, ind2: Int, player: Char): Unit
     def controllerTakeStone(circle: Int, position: Int): String
     def save: Unit
     def load: Array[Array[Char]]

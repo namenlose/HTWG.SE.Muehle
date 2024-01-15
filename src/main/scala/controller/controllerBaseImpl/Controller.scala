@@ -5,6 +5,7 @@ import HTWG.SE.Muehle.model.FieldComponent.{FieldInterface, FieldArrayInterface}
 import HTWG.SE.Muehle.model.logicComponent.{Handler1, Mill, MillList, MillListInterface}
 import HTWG.SE.Muehle.util.{Observable, UndoManager, Event}
 import HTWG.SE.Muehle.controller._
+import HTWG.SE.Muehle.controller.ButtonMap
 import HTWG.SE.Muehle.MuehleModule
 import scala.swing.FlowPanel.Alignment
 import scala.swing._
@@ -22,8 +23,24 @@ class Controller @Inject() extends Observable with controllerInterface {
     val undoManager = new UndoManager(this)
     var millList = injector.getInstance(classOf[MillListInterface])
     val fileIo = injector.getInstance(classOf[FileIOInterface])
-
     var state: GameState = new blackState()
+    def field1 = injector.getInstance(classOf[FieldInterface])
+    val array = injector.getInstance(classOf[FieldArrayInterface])
+    val handler1: Handler1 = new Handler1(array.fieldArray, millList)
+    var fieldString = ""
+    var counter = 0
+    var placeabel = false
+
+    def setPlaceableTrue = {
+        placeabel = true
+        placeabel
+    }
+
+    def setPlaceableFalse = {
+        placeabel = false
+        placeabel
+    }
+
     def handle(): String = {
         state.handle()
     }
@@ -31,13 +48,6 @@ class Controller @Inject() extends Observable with controllerInterface {
         case white: whiteState => state = new blackState
         case black: blackState => state = new whiteState
     }
-
-    def field1 = injector.getInstance(classOf[FieldInterface])
-
-    val array = injector.getInstance(classOf[FieldArrayInterface])
-    val handler1: Handler1 = new Handler1(array.fieldArray, millList)
-    var fieldString = ""
-    var counter = 0
 
     def controllerPlaceFirstStone(ind1: Int, ind2: Int, player: Char): String = {
         
@@ -55,23 +65,33 @@ class Controller @Inject() extends Observable with controllerInterface {
         if(i % 2 == 0){
             fieldString = array.placeStone(ind1, ind2, player1)
             muehle(array)
-        }else{
+        }else if (i % 2 != 0){
             fieldString = array.placeStone(ind1, ind2, player2)
             muehle(array)
+        }else{
+            fieldString = array.placeStone(ind1, ind2, player1)
         }
         fieldString
         
     }
     
-    def controllerMove(ind1: Int, ind2: Int, player: Char): String = {
+    def controllerMove(ind1: Int, ind2: Int, player: Char): Unit = {
         
        /*  state = if(player == 'w'){
             new whiteState
         }else{
             new blackState
         } */
-        fieldString = array.move(ind1, ind2, player)
-        fieldString
+        //fieldString = array.placeStone(ind1, ind2, player)
+        val mesh = " "
+        var player2 = ' '
+            if(player == 'w') {
+                player2 = 'b'
+            } else {
+                player2 = 'w'
+            }
+        doStep(ind1, ind2, player, player2, counter, mesh)
+        muehle(array)
     }
 
     def muehle(array: FieldArrayInterface): Boolean ={
@@ -79,6 +99,8 @@ class Controller @Inject() extends Observable with controllerInterface {
         if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
                 muehle = true
+                //setPlaceableFalse
+                //print(placeabel)
                 notifyObservers(Event.mill)
             }else{
                 notifyObservers(Event.noMill)
@@ -94,6 +116,7 @@ class Controller @Inject() extends Observable with controllerInterface {
     def getFieldString():String = fieldString
 
     def setStoneGui(pos1: Int, pos2: Int, color: Char):Boolean = {
+        //print(placeabel)
         var startFinished: Boolean = false
         var mesh = " "
         var color2 = ' '
@@ -106,9 +129,15 @@ class Controller @Inject() extends Observable with controllerInterface {
             if(counter < 18) {
                 doStep(pos1, pos2, color, color2, counter, mesh)
                 counter += 1
-            }else{
+            }else /*if(counter >= 18 && !placeabel)*/{
                 startFinished = true
-            }
+                notifyObservers(Event.allStonesPlaced)
+            }/*else if(counter >= 18 && placeabel){
+                doStep(pos1, pos2, color, color2, counter, mesh)
+                counter += 1
+                //setPlaceableFalse
+                
+            }*/
         startFinished
     }
 
@@ -132,19 +161,20 @@ class Controller @Inject() extends Observable with controllerInterface {
     def undoStep: Unit ={
         counter = counter - 1
         val list = undoManager.undoStep
-        val array: Array[Int] = list(1).asInstanceOf[Array[Int]]
-        val row: Int = array(0)
-        val col: Int = array(1)
+        val arrayPos: Array[Int] = list(1).asInstanceOf[Array[Int]]
+        val row: Int = arrayPos(0)
+        val col: Int = arrayPos(1)
         fieldString = list(0).toString()
+        println("array: " + array.fieldArray(0)(0) + array.fieldArray(0)(1))
         notifyObservers(Event.undo(row, col))
         fieldString
     } 
 
     def redoStep: Unit ={
         counter += 1
-        val array: Array[Int] = undoManager.redoStep
-        val row: Int = array(0)
-        val col: Int = array(1)
+        val arrayPos: Array[Int] = undoManager.redoStep
+        val row: Int = arrayPos(0)
+        val col: Int = arrayPos(1)
         notifyObservers(Event.redoStep(row, col))
     }
 

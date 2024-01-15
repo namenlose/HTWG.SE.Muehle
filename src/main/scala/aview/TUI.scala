@@ -151,6 +151,7 @@ case class TUI(controller: controllerInterface) extends Observer{
             case Event.redoStep(row, col) => println(controller.getFieldString())
             case Event.mill => " "
             case Event.noMill => " "
+            case Event.allStonesPlaced => " "
     }
 }
     //override def update: Unit =  {println(controller.getFieldString())
