@@ -46,12 +46,12 @@ case class TUI(controller: controllerInterface) extends Observer{
 }
 
     def setStones(nameOne: String, nameTwo: String, playerOne: Char, playerTwo: Char, mesh: String): Unit = {
-    //val context = new Context(new whiteState)
-    //val undoManager = new UndoManager(controller)
     val key = new Controller()
     var i = 1;
     var undo = false
     var redo = false
+    var take1 = 0;
+    var take2 = 0;
     while(i <=  4) {
 
         if(i % 2 == 0) {
@@ -141,11 +141,7 @@ case class TUI(controller: controllerInterface) extends Observer{
     }
     def update(e: Event): Unit = {
         e match {
-        //case Event.StonePlaced(pos1, pos2, color) => //println(controller.controllerPlaceFirstStone(pos1, pos2, color)) println(controller.getFieldString())
-        //case Event.StonePlaced => println(controller.getFieldString())
             case Event.StonePlaced(pos1, pos2, color) => println(controller.controllerPlaceFirstStone(pos1, pos2, color))
-        //case Event.StonePlaced(pos1, pos2, color) => println(controller.controllerPlaceFirstStone(pos1, pos2, color))
-        //case Event.StonePlaced(pos1, pos2, color) => println(controller.controllerPlaceFirstStone(pos1, pos2, color))
             case Event.doStep => println(controller.getFieldString())
             case Event.undo(row, col) => println(controller.getFieldString())
             case Event.redoStep(row, col) => println(controller.getFieldString())

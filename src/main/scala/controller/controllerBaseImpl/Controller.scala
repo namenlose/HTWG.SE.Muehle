@@ -6,6 +6,7 @@ import HTWG.SE.Muehle.model.logicComponent.{Handler1, Mill, MillList, MillListIn
 import HTWG.SE.Muehle.util.{Observable, UndoManager, Event}
 import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.MuehleModule
+import scala.io.StdIn.readInt
 import scala.swing.FlowPanel.Alignment
 import scala.swing._
 import javax.swing.table._
@@ -51,10 +52,12 @@ class Controller @Inject() extends Observable with controllerInterface {
     }
 
     def controllerPlaceStones(ind1: Int, ind2: Int, player1: Char, player2: Char, i: Int, mesh: String): String = {
+        var c = 0;
+        var p = 0;
 
         if(i % 2 == 0){
             fieldString = array.placeStone(ind1, ind2, player1)
-            muehle(array)
+            muehle(array)         
         }else{
             fieldString = array.placeStone(ind1, ind2, player2)
             muehle(array)
@@ -76,10 +79,20 @@ class Controller @Inject() extends Observable with controllerInterface {
 
     def muehle(array: FieldArrayInterface): Boolean ={
         var muehle: Boolean = false
+        var p = 0;
+        var c = 0;
         if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
                 muehle = true
                 notifyObservers(Event.mill)
+                println("Sie haben eine Muehle. Nehmen Sie einen Stein ihres Gegners")
+                println("Kreis")
+                c = readInt()
+                println("Position")
+                p = readInt()
+
+                array.counter('b')
+                fieldString = array.takeStone(c, p)
             }else{
                 notifyObservers(Event.noMill)
             }
