@@ -25,24 +25,21 @@ class ButtonMap(controller: controllerInterface, color: Char){
                 background = controller.getColor(row, col)
               }else if(background == new Color(0,0,0) && !controller.placeabel){
                 color2 = 'b'
-                controller.controllerTakeStone(row, col)
-                //background = controller.getColor(row, col)
+                controller.doStepMove(row, col, 'b')
                 updateButtonMap
-                //placeabel = true
                 controller.setPlaceableTrue
               }else if(background == new Color(255,255,255) && !controller.placeabel){
                 color2 = 'w'
-                controller.controllerTakeStone(row, col)
-                //background = controller.getColor(row, col)
+                controller.doStepMove(row, col, 'w')
                 updateButtonMap
-                //placeabel = true
                 controller.setPlaceableTrue
               }else if(background == new Color(150,150,150) && controller.placeabel){
                 controller.controllerMove(row, col,  color2)
-                //background = controller.getColor(row, col)
                 updateButtonMap
-                //placeabel = false
                 controller.setPlaceableFalse
+              }else if(controller.muehleBool){
+                controller.doStep(row, col, 'o')
+                controller.setMuehleFalse
               }
         }
       }

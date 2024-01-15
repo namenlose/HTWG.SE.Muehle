@@ -17,6 +17,7 @@ case class FieldArray() extends FieldArrayInterface {
         val field = new Field(6, fieldArray)
         field.mesh
     }
+    
     def get(circle: Int, position: Int):Char = fieldArray(circle)(position)
 
     def takeStone(circle: Int, position: Int): String = {

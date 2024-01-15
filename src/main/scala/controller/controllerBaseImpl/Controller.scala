@@ -30,6 +30,7 @@ class Controller @Inject() extends Observable with controllerInterface {
     var fieldString = ""
     var counter = 0
     var placeabel = false
+    var muehleBool: Boolean = false
 
     def setPlaceableTrue = {
         placeabel = true
@@ -39,6 +40,11 @@ class Controller @Inject() extends Observable with controllerInterface {
     def setPlaceableFalse = {
         placeabel = false
         placeabel
+    }
+
+    def setMuehleFalse ={
+        muehleBool = false
+        muehleBool
     }
 
     def handle(): String = {
@@ -60,9 +66,12 @@ class Controller @Inject() extends Observable with controllerInterface {
         fieldString
     }
 
-    def controllerPlaceStones(ind1: Int, ind2: Int, player1: Char, player2: Char, i: Int, mesh: String): String = {
+    def controllerPlaceStones(ind1: Int, ind2: Int, player1: Char/*, player2: Char, i: Int, mesh: String*/): String = {
 
-        if(i % 2 == 0){
+        fieldString = array.placeStone(ind1, ind2, player1)
+            muehle(array)
+
+        /*if(i % 2 == 0){
             fieldString = array.placeStone(ind1, ind2, player1)
             muehle(array)
         }else if (i % 2 != 0){
@@ -70,7 +79,7 @@ class Controller @Inject() extends Observable with controllerInterface {
             muehle(array)
         }else{
             fieldString = array.placeStone(ind1, ind2, player1)
-        }
+        }*/
         fieldString
         
     }
@@ -90,28 +99,26 @@ class Controller @Inject() extends Observable with controllerInterface {
             } else {
                 player2 = 'w'
             }
-        doStep(ind1, ind2, player, player2, counter, mesh)
-        muehle(array)
+        doStep(ind1, ind2, player/*, player2, counter, mesh*/)
+        //muehle(array)
     }
 
     def muehle(array: FieldArrayInterface): Boolean ={
-        var muehle: Boolean = false
+        //var muehle: Boolean = false
         if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
-                muehle = true
-                //setPlaceableFalse
-                //print(placeabel)
+                muehleBool = true
                 notifyObservers(Event.mill)
             }else{
                 notifyObservers(Event.noMill)
             }
-        muehle
+        muehleBool
     }
 
-    def controllerTakeStone(circle: Int, position: Int): String = {
-        fieldString = array.takeStone(circle, position)
+    /*def controllerTakeStone(pos1: Int, pos2: Int): String = {
+        fieldString = doStep(pos1, pos2, 'o')
         fieldString
-    }
+    }*/
     
     def getFieldString():String = fieldString
 
@@ -126,7 +133,19 @@ class Controller @Inject() extends Observable with controllerInterface {
                 color2 = 'w'
             }
 
-            if(counter < 18) {
+            if(counter < 18 && counter % 2 == 0) {
+                doStep(pos1, pos2, color)
+                counter += 1
+            }else if (counter < 18 && counter % 2 != 0){
+                doStep(pos1, pos2, color2)
+                counter += 1
+            }else{
+                startFinished = true
+                counter +=1
+                notifyObservers(Event.allStonesPlaced)
+            }
+
+            /*if(counter < 18) {
                 doStep(pos1, pos2, color, color2, counter, mesh)
                 counter += 1
             }else /*if(counter >= 18 && !placeabel)*/{
@@ -137,7 +156,7 @@ class Controller @Inject() extends Observable with controllerInterface {
                 counter += 1
                 //setPlaceableFalse
                 
-            }*/
+            }*/*/
         startFinished
     }
 
@@ -153,10 +172,14 @@ class Controller @Inject() extends Observable with controllerInterface {
         background
     }
 
-    def doStep(ind1:Int, ind2: Int,  player1: Char, player2: Char, i: Int, mesh: String): Unit = {
-        undoManager.doStep(new SetCommand(ind1, ind2, player1, player2, i, mesh, this, millList))
+    def doStep(ind1:Int, ind2: Int,  player1: Char/*, player2: Char, i: Int, mesh: String*/): Unit = {
+        undoManager.doStep(new SetCommand(ind1, ind2, player1,/*, player2, i, mesh, */this, millList))
         notifyObservers(Event.doStep)
     } 
+
+    def doStepMove(ind1:Int, ind2: Int,  color: Char) = {
+        undoManager.doStepMove(new SetCommand(ind1, ind2, 'o', this, millList), new SetCommand(ind1, ind2, color, this, millList))
+    }
 
     def undoStep: Unit ={
         counter = counter - 1

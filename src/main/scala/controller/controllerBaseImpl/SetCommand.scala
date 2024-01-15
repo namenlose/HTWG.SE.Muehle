@@ -8,10 +8,10 @@ import scala.util.Try
 import scala.util.Failure
 import java.{util => ju}
 
-class SetCommand(ind1:Int, ind2: Int, player1: Char, player2: Char, i: Int, mesh: String, controller: Controller, millList: MillListInterface) extends Command{
+class SetCommand(ind1:Int, ind2: Int, player1: Char,/*, player2: Char, i: Int, mesh: String,*/ controller: Controller, millList: MillListInterface) extends Command{
 
 override def doStep: Unit = {
-    controller.controllerPlaceStones(ind1, ind2, player1, player2, i, mesh)}
+    controller.controllerPlaceStones(ind1, ind2, player1/* player2, i, mesh*/)}
 override def undoStep: String ={
   val posToRemove = ind1 * 10 + ind2
   millList.MillListRemove(posToRemove)

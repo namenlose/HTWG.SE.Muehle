@@ -81,7 +81,7 @@ case class TUI(controller: controllerInterface) extends Observer{
         println(" ")
 
         if(undo == false && redo == false){
-            controller.doStep(ind1, ind2, playerOne, playerTwo, i, mesh)
+            controller.doStep(ind1, ind2, playerOne/*, playerTwo, i, mesh*/)
         }else if(undo == true){
             controller.undoStep
             undo = false
@@ -106,7 +106,7 @@ case class TUI(controller: controllerInterface) extends Observer{
             val take2 = readInt()
             println(" ")
             val zero = 'o'
-            controller.doStep(take1, take2, zero, zero, i, mesh)
+            controller.doStep(take1, take2, zero/*, zero, i, mesh*/)
             println(nameOne + " Bewegen Sie einen Stein " + controller.field1.eol)
             //controller.state
             controller.turn()
@@ -122,7 +122,7 @@ case class TUI(controller: controllerInterface) extends Observer{
             val take2 = readInt()
             println(" ")
             val zero = 'o'
-            controller.doStep(take1, take2, zero, zero, i, mesh)
+            controller.doStep(take1, take2, zero/*, zero, i, mesh*/)
             println(nameTwo + " Bewegen Sie einen Stein " + controller.field1.eol)
             controller.turn()
             controller.handle()
@@ -136,7 +136,7 @@ case class TUI(controller: controllerInterface) extends Observer{
         println("Position: ")
         val ind2 = readInt()
         println(" ")
-        controller.doStep(ind1, ind2, playerOne, playerTwo, i, mesh)
+        controller.doStep(ind1, ind2, playerOne/*, playerTwo, i, mesh*/)
 
     }
     def update(e: Event): Unit = {
@@ -149,7 +149,7 @@ case class TUI(controller: controllerInterface) extends Observer{
             case Event.doStep => println(controller.getFieldString())
             case Event.undo(row, col) => println(controller.getFieldString())
             case Event.redoStep(row, col) => println(controller.getFieldString())
-            case Event.mill => " "
+            case Event.mill => println("mill notification")
             case Event.noMill => " "
             case Event.allStonesPlaced => " "
     }

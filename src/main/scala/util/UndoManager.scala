@@ -17,6 +17,13 @@ class UndoManager(controller: Controller) {
         undoStack
     }
 
+    def doStepMove(command: Command, commandFarbe: Command) = {
+        undoStack = commandFarbe +: undoStack
+        empty = Some(undoStack)
+        command.doStep
+        undoStack
+    }
+
     /*def undoStep1: Try[String] = {
         //var string = "" //das streichen failure zurückgeben
         if(empty == Some(undoStack)){
@@ -35,15 +42,12 @@ class UndoManager(controller: Controller) {
         string = command.undoStep
         var position = command.getPositon
         var list = List(string, position)
-        println("counter: " + controller.counter)
 
-        if(controller.counter >= 17){
-            println("im if")
+        if(controller.counter >= 18){
+            redoStack = undoStack.head +: redoStack
             doStep(undoStack.head)
-            println("nach do step")
             position = undoStack.head.getPositon
             list = List(string, position)
-            println("list: " + list)
             undoStack = undoStack.drop(1)
         }
         list
@@ -53,7 +57,14 @@ class UndoManager(controller: Controller) {
         val command = redoStack.head
         redoStack = redoStack.drop(1)
         command.doStep
-        val position = command.getPositon
+        var position = command.getPositon
+
+        if(controller.counter >= 18){
+            val command2 = redoStack.head
+            command2.doStep
+            position = command2.getPositon
+
+        }
         position
     }
 }
