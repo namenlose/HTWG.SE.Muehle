@@ -114,14 +114,14 @@ class Controller @Inject() extends Observable with controllerInterface {
                 println("MÜHLE!!")
                 muehleBool = true
                 notifyObservers(Event.mill)
-                println("Sie haben eine Muehle. Nehmen Sie einen Stein ihres Gegners")
+                /*println("Sie haben eine Muehle. Nehmen Sie einen Stein ihres Gegners")
                 println("Kreis")
                 c = readInt()
                 println("Position")
                 p = readInt()
 
                 array.counter('b')
-                fieldString = array.takeStone(c, p)
+                fieldString = array.takeStone(c, p)*/
             }else{
                 notifyObservers(Event.noMill)
             }
