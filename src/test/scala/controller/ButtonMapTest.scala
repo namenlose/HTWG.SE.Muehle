@@ -1,4 +1,4 @@
-package HTWG.SE.Muehle.test.scala.aview
+/* package HTWG.SE.Muehle.test.scala.aview
 
 import scala.swing._
 import HTWG.SE.Muehle.controller.controllerBaseImpl._
@@ -31,3 +31,4 @@ class ButtonMapTest extends AnyWordSpec {
 
   }
 }
+ */

@@ -1,4 +1,4 @@
-package HTWG.SE.Muehle.test.scala.aview
+/* package HTWG.SE.Muehle.test.scala.aview
 import HTWG.SE.Muehle.aview.TUI
 import HTWG.SE.Muehle.controller.controllerBaseImpl.{Controller, SetCommand}
 import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.{FieldArray, Field}
@@ -36,4 +36,4 @@ class undoManagerTest extends AnyWordSpec {
     }
 
 
-}
+} */

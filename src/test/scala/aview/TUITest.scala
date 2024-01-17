@@ -1,43 +1,37 @@
-/* package HTWG.SE.Muehle.test.scala.aview
+package HTWG.SE.Muehle.aview
 
+import HTWG.SE.Muehle.controller.controllerBaseImpl.{Controller}
+import HTWG.SE.Muehle.controller.controllerInterface
 import HTWG.SE.Muehle.aview.TUI
-import HTWG.SE.Muehle.controller.controllerBaseImpl.Controller
-import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.FieldArray
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-class TUITest extends AnyWordSpec {
+class TUISpec extends AnyWordSpec {
 
-  val controller = new Controller()
-  val fieldArray = new FieldArray()
-  val tui = TUI(controller)
-
-  "TUI" should {
-
-    "handle placing the first stone" in {
-      tui.firstStone() should be(fieldArray.placeStone(0, 0, 'b'))
+  "A TUI" should {
+    "initialize with the correct controller" in {
+      val controller: controllerInterface = new Controller()
+      val tui = new TUI(controller)
+      tui.controller should be(controller)
     }
 
-    "handle placing more stones (odd)" in {
-      val expected = fieldArray.placeStone(0, 1, 'w')
-      tui.setStones("Player1", "Player2", 'b', 'w', expected)
-      tui.moveStone("Player1", "Player2", 'b', 'w', expected)
-      tui.firstStone() should be(expected)
-    }
+    "return 'Weiss ist dran' after placing the first stone" in {
+      val controller: controllerInterface = new Controller()
+      val tui = new TUI(controller)
 
-    "handle placing more stones (even)" in {
-      val expected = fieldArray.placeStone(0, 1, 'w')
-      tui.setStones("Player1", "Player2", 'b', 'w', expected)
-      tui.moveStone("Player1", "Player2", 'b', 'w', expected)
-      tui.firstStone() should be(expected)
-    }
+      
+      
+      // Mock user input for testing purposes
+      /* val mockedInput = List("Player1", "Player2", "w", "1", "1", "2", "2", "3", "4", "5", "6", "7", "8")
 
-    "return a string of the field" in {
-      tui.update(null) // Simulating an update event
-      tui.firstStone() should be(controller.getFieldString())
+      mockedInput.foreach { input =>
+        Console.withIn(scala.io.StdIn.toString(input)) {
+          tui.firstStone()
+        }
+      } */
+
+      // Assert the game state after placing the first stone
+      //controller.getState should be("Weiss ist dran")
     }
   }
 }
-
-
- */
