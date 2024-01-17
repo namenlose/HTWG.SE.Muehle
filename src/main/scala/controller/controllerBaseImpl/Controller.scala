@@ -32,6 +32,7 @@ class Controller @Inject() extends Observable with controllerInterface {
     var counter = 0
     var placeabel = false
     var muehleBool: Boolean = false
+    var color2 = ' '
 
     def setPlaceableTrue = {
         placeabel = true
@@ -110,6 +111,7 @@ class Controller @Inject() extends Observable with controllerInterface {
         //var muehle: Boolean = false
         var p = 0;
         var c = 0;
+        var winner = " "
         if(handler1.checkRequirement(array.fieldArray) == true){
                 println("MÜHLE!!")
                 muehleBool = true
@@ -122,6 +124,19 @@ class Controller @Inject() extends Observable with controllerInterface {
 
                 array.counter('b')
                 fieldString = array.takeStone(c, p)*/
+                if(counter % 2 == 0 && color2 == 'b'){
+                    winner = array.counter('b')
+                }else if(counter % 2 == 0 && color2 == 'w'){
+                    winner = array.counter('w')
+                }else if (counter % 2 != 0 && color2 == 'b'){
+                    winner = array.counter('w')
+                }else if (counter % 2 != 0 && color2 == 'w'){
+                    winner = array.counter('b')
+                }
+
+                if(winner != " "){
+                    notifyObservers(Event.ende(winner))
+                }
             }else{
                 notifyObservers(Event.noMill)
             }
@@ -139,7 +154,7 @@ class Controller @Inject() extends Observable with controllerInterface {
         //print(placeabel)
         var startFinished: Boolean = false
         var mesh = " "
-        var color2 = ' '
+        //var color2 = ' '
             if(color == 'w') {
                 color2 = 'b'
             } else {
@@ -191,6 +206,8 @@ class Controller @Inject() extends Observable with controllerInterface {
     } 
 
     def doStepMove(ind1:Int, ind2: Int,  color: Char) = {
+        counter += 1
+        println("counter: " + counter)
         undoManager.doStepMove(new SetCommand(ind1, ind2, 'o', this, millList), new SetCommand(ind1, ind2, color, this, millList))
     }
 

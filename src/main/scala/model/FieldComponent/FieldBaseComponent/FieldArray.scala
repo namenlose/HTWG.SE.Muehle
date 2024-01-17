@@ -55,7 +55,11 @@ case class FieldArray() extends FieldArrayInterface {
             winner = "Weiß hat gewonnen"
         } else if(white == 2) {
             winner = "Schwarz hat gewonnen"
+
         }
+        println("black: " + black)
+        println("weiß: " + white)
+        println("Sieger " + winner)
         winner
     }
 }

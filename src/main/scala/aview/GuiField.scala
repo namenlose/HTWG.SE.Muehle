@@ -18,6 +18,7 @@ import javax.print.attribute.standard.OrientationRequested
 
     var muehle = new Label("Keine Muehle")
     var alleSteineGesetzt = new Label(" ")
+    var fertig = new Label(" ")
 
     def muehleLabel = {
         muehle.text = "Muehle"
@@ -27,9 +28,14 @@ import javax.print.attribute.standard.OrientationRequested
         alleSteineGesetzt.text = "Es wurden alle Steine platziert, jetzt könnt ihr Steine verschieben"
     }
 
-  def keinMuehleLable = {
-    muehle.text = "keine Mühle"
-  }
+    def keinMuehleLable = {
+      muehle.text = "keine Mühle"
+    }
+
+    def fertigLable(winner: String) ={
+      fertig.text = winner
+    }
+
 
     def updateField ={
         /*for(i <- 0 to 2){
@@ -206,9 +212,20 @@ Seq(
         contents += tenthLine
         }
 
-        contents += spielfeld
-        contents += muehle
-        contents += alleSteineGesetzt
+        def labels: GridPanel = new GridPanel(3,1){
+          contents += muehle
+          contents += alleSteineGesetzt
+          contents += fertig
+        }
+
+        def alles: GridPanel = new GridPanel(2, 1){
+          contents += spielfeld
+          contents += labels
+        }
+
+        contents += alles
+
+        
         
         //pack()
         //centerOnScreen()
@@ -229,6 +246,7 @@ Seq(
             case Event.mill => " "
             case Event.noMill => " "
             case Event.allStonesPlaced => " "
+            case Event.ende(winner) => " "
             //repaint()
         }
     }
