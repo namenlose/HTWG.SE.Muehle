@@ -31,26 +31,26 @@ class FileIOJason extends FileIOInterface {
         )
     }
 
-  def load: FieldArrayInterface = {
-    val fileContent = Source.fromFile("field.json").mkString
-    val json = Json.parse(fileContent)
+    def load: FieldArrayInterface = {
+      val fileContent = Source.fromFile("field.json").mkString
+      val json = Json.parse(fileContent)
 
-    val array0 = (json \ "field" \ "array0").as[String].toArray
-    val array1 = (json \ "field" \ "array1").as[String].toArray
-    val array2 = (json \ "field" \ "array2").as[String].toArray
+      val array0 = (json \ "field" \ "array0").as[String].toArray
+      val array1 = (json \ "field" \ "array1").as[String].toArray
+      val array2 = (json \ "field" \ "array2").as[String].toArray
 
-    val arrayEingelesen: Array[Array[Char]] = Array(array0, array1, array2)
+      val arrayEingelesen: Array[Array[Char]] = Array(array0, array1, array2)
 
-    val array: FieldArrayInterface = new FieldArray
-    for (i <- 0 to 2) {
-      for (x <- 0 to 7) {
-        array.fieldArray(i)(x) = arrayEingelesen(i)(x)
+      val array: FieldArrayInterface = new FieldArray
+      for (i <- 0 to 2) {
+        for (x <- 0 to 7) {
+          array.fieldArray(i)(x) = arrayEingelesen(i)(x)
+        }
       }
+      array
     }
-    array
-  }
 
-  var counter: Int = 0
+    var counter: Int = 0
 
 }
 

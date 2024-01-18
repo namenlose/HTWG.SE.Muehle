@@ -38,192 +38,187 @@ import javax.print.attribute.standard.OrientationRequested
 
 
     def updateField ={
-        /*for(i <- 0 to 2){
-            for(x <- 0 to 7){
-                val button = buttonMap((i,x))
-                button.background = controller.getColor(i,x)
-            }
-        }*/
         buttonMapClass.updateButtonMap
     }
 
-  def playPanel(color: Char) = new FlowPanel {
-    def createLine: Label = new Label {
-      text = "-"
-    }
+    def playPanel(color: Char) = new FlowPanel {
 
-    def createVerticalLine: Label = new Label {
-      text = "|"
-    }
+          def createLine: Label = new Label {
+            text = "-"
+          }
 
-    def createSpace: Label = new Label {
-      text = " "
-    }
+          def createVerticalLine: Label = new Label {
+            text = "|"
+          }
 
-    buttonMapClass = new ButtonMap(controller, color)
+          def createSpace: Label = new Label {
+            text = " "
+          }
 
-    def createButtonPanel(row: Int, colRange: Range): GridPanel = new GridPanel(1, 13) {
-      colRange.foreach(col => {
-        val button = buttonMapClass.buttonMap((row, col))
-        contents += button
-        if (col < 2) {
-          contents ++= Seq.fill(5)(createLine)
-        }
-      })
-    }
+          buttonMapClass = new ButtonMap(controller, color)
 
-    def secondLine: GridPanel = new GridPanel(1, 13) {
-      contents += createVerticalLine
-      (1 to 5).foreach(_ => contents += createSpace)
-      contents += createVerticalLine
-      (1 to 5).foreach(_ => contents += createSpace)
-      contents += createVerticalLine
-    }
+          def createButtonPanel(row: Int, colRange: Range): GridPanel = new GridPanel(1, 13) {
+            colRange.foreach(col => {
+              val button = buttonMapClass.buttonMap((row, col))
+              contents += button
+              if (col < 2) {
+                contents ++= Seq.fill(5)(createLine)
+              }
+            })
+          }
 
-    val button3 = buttonMapClass.buttonMap((1, 0))
-    val button4 = buttonMapClass.buttonMap((1, 1))
-    val button5 = buttonMapClass.buttonMap((1, 2))
+          def secondLine: GridPanel = new GridPanel(1, 13) {
+            contents += createVerticalLine
+            (1 to 5).foreach(_ => contents += createSpace)
+            contents += createVerticalLine
+            (1 to 5).foreach(_ => contents += createSpace)
+            contents += createVerticalLine
+          }
 
-    val thirdLine: GridPanel = new GridPanel(1, 13) {
-      contents += createVerticalLine
-      contents += createSpace
-      Seq(button3, button4, button5).zipWithIndex.foreach { case (button, index) =>
-        contents += button
-        if (index < 2) {
-          (1 to 3).foreach(_ => contents += createLine)
-        }
-      }
-      contents += createSpace
-      contents += createVerticalLine
-    }
+          val button3 = buttonMapClass.buttonMap((1, 0))
+          val button4 = buttonMapClass.buttonMap((1, 1))
+          val button5 = buttonMapClass.buttonMap((1, 2))
 
-    def forthLLine: GridPanel = new GridPanel(1, 13) {
-      contents ++= Seq(createVerticalLine, createSpace, createVerticalLine)
-      (1 to 3).foreach(_ => contents += createSpace)
-      contents += createVerticalLine
-      (1 to 3).foreach(_ => contents += createSpace)
-      contents ++= Seq(createVerticalLine, createSpace, createVerticalLine)
-    }
+          val thirdLine: GridPanel = new GridPanel(1, 13) {
+            contents += createVerticalLine
+            contents += createSpace
+            Seq(button3, button4, button5).zipWithIndex.foreach { case (button, index) =>
+              contents += button
+              if (index < 2) {
+                (1 to 3).foreach(_ => contents += createLine)
+              }
+            }
+            contents += createSpace
+            contents += createVerticalLine
+          }
 
-    val button6 = buttonMapClass.buttonMap((2, 0))
-    val button7 = buttonMapClass.buttonMap((2, 1))
-    val button8 = buttonMapClass.buttonMap((2, 2))
+          def forthLLine: GridPanel = new GridPanel(1, 13) {
+            contents ++= Seq(createVerticalLine, createSpace, createVerticalLine)
+            (1 to 3).foreach(_ => contents += createSpace)
+            contents += createVerticalLine
+            (1 to 3).foreach(_ => contents += createSpace)
+            contents ++= Seq(createVerticalLine, createSpace, createVerticalLine)
+          }
 
-    def fifthLine: GridPanel = new GridPanel(1, 13) {
+          val button6 = buttonMapClass.buttonMap((2, 0))
+          val button7 = buttonMapClass.buttonMap((2, 1))
+          val button8 = buttonMapClass.buttonMap((2, 2))
+
+          def fifthLine: GridPanel = new GridPanel(1, 13) {
+            Seq(
+              createVerticalLine, createSpace, createVerticalLine,
+              createSpace, button6, createLine,
+              button7, createLine,
+              button8, createSpace,
+              createVerticalLine, createSpace, createVerticalLine
+            ).foreach(contents += _)
+          }
+
+          def sixthLine: GridPanel = new GridPanel(1, 13) {
+            Seq(
+              createVerticalLine, createSpace, createVerticalLine,
+              createSpace, createVerticalLine, createSpace,
+              createSpace, createSpace, createSpace,
+              createVerticalLine, createSpace, createVerticalLine
+            ).foreach(contents += _)
+          }
+
+          val button9 = buttonMapClass.buttonMap((0, 7))
+          val button10 = buttonMapClass.buttonMap((1, 7))
+          val button11 = buttonMapClass.buttonMap((2, 7))
+          val button12 = buttonMapClass.buttonMap((2, 3))
+          val button13 = buttonMapClass.buttonMap((1, 3))
+          val button14 = buttonMapClass.buttonMap((0, 3))
+
+          val seventhLine = new GridPanel(1, 13) {
+              Seq(
+                  button9, createLine,
+                  button10, createLine,
+                  button11, createSpace, createSpace, createSpace,
+                  button12, createLine,
+                  button13, createLine,
+                  button14
+              ).foreach(contents += _)
+
+          }
+
+          val button15 = buttonMapClass.buttonMap((2, 6))
+          val button16 = buttonMapClass.buttonMap((2, 5))
+          val button17 = buttonMapClass.buttonMap((2, 4))
+
+          val eighthLine = new GridPanel(1, 13) {
       Seq(
-        createVerticalLine, createSpace, createVerticalLine,
-        createSpace, button6, createLine,
-        button7, createLine,
-        button8, createSpace,
-        createVerticalLine, createSpace, createVerticalLine
+        createVerticalLine, createSpace,
+        createVerticalLine, createSpace,
+        button15, createLine,
+        button16, createLine,
+        button17, createSpace,
+        createVerticalLine, createSpace,
+        createVerticalLine
       ).foreach(contents += _)
-    }
 
-    def sixthLine: GridPanel = new GridPanel(1, 13) {
+          }
+
+          val button18 = buttonMapClass.buttonMap((1, 6))
+          val button19 = buttonMapClass.buttonMap((1, 5))
+          val button20 = buttonMapClass.buttonMap((1, 4))
+
+          val ninthLine = new GridPanel(1, 13) {
+              Seq(
+                  createVerticalLine, createSpace,
+                  button18, createLine,
+                  createLine, createLine,
+                  button19, createLine,
+                  createLine, createLine,
+                  button20, createSpace,
+                  createVerticalLine
+              ).foreach(contents += _)
+
+          }
+
+          val button21 = buttonMapClass.buttonMap((0, 6))
+          val button22 = buttonMapClass.buttonMap((0, 5))
+          val button23 = buttonMapClass.buttonMap((0, 4))
+
+          val tenthLine = new GridPanel(1, 13) {
       Seq(
-        createVerticalLine, createSpace, createVerticalLine,
-        createSpace, createVerticalLine, createSpace,
-        createSpace, createSpace, createSpace,
-        createVerticalLine, createSpace, createVerticalLine
+        button21, createLine,
+        createLine, createLine, createLine, createLine,
+        button22, createLine,
+        createLine, createLine, createLine, createLine,
+        button23
       ).foreach(contents += _)
-    }
 
-    val button9 = buttonMapClass.buttonMap((0, 7))
-    val button10 = buttonMapClass.buttonMap((1, 7))
-    val button11 = buttonMapClass.buttonMap((2, 7))
-    val button12 = buttonMapClass.buttonMap((2, 3))
-    val button13 = buttonMapClass.buttonMap((1, 3))
-    val button14 = buttonMapClass.buttonMap((0, 3))
+  }
 
-    val seventhLine = new GridPanel(1, 13) {
-        Seq(
-            button9, createLine,
-            button10, createLine,
-            button11, createSpace, createSpace, createSpace,
-            button12, createLine,
-            button13, createLine,
-            button14
-        ).foreach(contents += _)
+            def spielfeld: GridPanel = new GridPanel(13, 1){
+            contents += createButtonPanel(0, 0 to 2)
+            contents += secondLine
+            contents += thirdLine
+            contents += forthLLine
+            contents += fifthLine
+            contents += sixthLine
+            contents += seventhLine
+            contents += sixthLine
+            contents += eighthLine
+            contents += forthLLine
+            contents += ninthLine
+            contents += secondLine
+            contents += tenthLine
+            }
 
-    }
+            def labels: GridPanel = new GridPanel(3,1){
+              contents += muehle
+              contents += alleSteineGesetzt
+              contents += fertig
+            }
 
-    val button15 = buttonMapClass.buttonMap((2, 6))
-    val button16 = buttonMapClass.buttonMap((2, 5))
-    val button17 = buttonMapClass.buttonMap((2, 4))
+            def alles: GridPanel = new GridPanel(2, 1){
+              contents += spielfeld
+              contents += labels
+            }
 
-    val eighthLine = new GridPanel(1, 13) {
-Seq(
-  createVerticalLine, createSpace,
-  createVerticalLine, createSpace,
-  button15, createLine,
-  button16, createLine,
-  button17, createSpace,
-  createVerticalLine, createSpace,
-  createVerticalLine
-).foreach(contents += _)
-
-    }
-
-    val button18 = buttonMapClass.buttonMap((1, 6))
-    val button19 = buttonMapClass.buttonMap((1, 5))
-    val button20 = buttonMapClass.buttonMap((1, 4))
-
-    val ninthLine = new GridPanel(1, 13) {
-        Seq(
-            createVerticalLine, createSpace,
-            button18, createLine,
-            createLine, createLine,
-            button19, createLine,
-            createLine, createLine,
-            button20, createSpace,
-            createVerticalLine
-        ).foreach(contents += _)
-
-    }
-
-    val button21 = buttonMapClass.buttonMap((0, 6))
-    val button22 = buttonMapClass.buttonMap((0, 5))
-    val button23 = buttonMapClass.buttonMap((0, 4))
-
-    val tenthLine = new GridPanel(1, 13) {
-Seq(
-  button21, createLine,
-  createLine, createLine, createLine, createLine,
-  button22, createLine,
-  createLine, createLine, createLine, createLine,
-  button23
-).foreach(contents += _)
-
-    }
-
-        def spielfeld: GridPanel = new GridPanel(13, 1){
-        contents += createButtonPanel(0, 0 to 2)
-        contents += secondLine
-        contents += thirdLine
-        contents += forthLLine
-        contents += fifthLine
-        contents += sixthLine
-        contents += seventhLine
-        contents += sixthLine
-        contents += eighthLine
-        contents += forthLLine
-        contents += ninthLine
-        contents += secondLine
-        contents += tenthLine
-        }
-
-        def labels: GridPanel = new GridPanel(3,1){
-          contents += muehle
-          contents += alleSteineGesetzt
-          contents += fertig
-        }
-
-        def alles: GridPanel = new GridPanel(2, 1){
-          contents += spielfeld
-          contents += labels
-        }
-
-        contents += alles
+            contents += alles
 
         
         

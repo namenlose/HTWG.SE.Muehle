@@ -13,7 +13,6 @@ case class FieldArray() extends FieldArrayInterface {
             fieldArray(circle)(position) = player
         }else{
             fieldArray(circle)(position) = fieldArray(circle)(position)
-            //println("Fehler: Die Position ist bereits belegt")
         }
 
         val field = new Field(6, fieldArray)
@@ -55,11 +54,7 @@ case class FieldArray() extends FieldArrayInterface {
             winner = "Weiß hat gewonnen"
         } else if(white == 2) {
             winner = "Schwarz hat gewonnen"
-
         }
-        println("black: " + black)
-        println("weiß: " + white)
-        println("Sieger " + winner)
         winner
     }
 }

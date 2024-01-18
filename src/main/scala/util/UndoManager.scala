@@ -1,6 +1,5 @@
 package HTWG.SE.Muehle.util
 import HTWG.SE.Muehle.controller.controllerBaseImpl.Controller
-//import HTWG.SE.Muehle.model.logicComponent.{Mill, MillList}
 import scala.util.Failure
 import scala.util.Success
 import scala.util.Try

@@ -30,9 +30,7 @@ class MillList extends MillListInterface{
         var bool = false
         for(m <- millList){
             val arrayM = m.millGetPos
-            //println("arrayM: " + arrayM(0) + arrayM(1) + arrayM(2))
             val arrayMuehle = muehle.millGetPos
-            //println("arrayMuehle: " + arrayMuehle(0) + arrayMuehle(1) + arrayMuehle(2))
             if(arrayM(0) == arrayMuehle(0) && arrayM(1) == arrayMuehle(1) && arrayM(2) == arrayMuehle(2)){
                 bool = true
             }

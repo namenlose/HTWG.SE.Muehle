@@ -6,86 +6,98 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import HTWG.SE.Muehle.controller.controllerBaseImpl.{Controller}
 import HTWG.SE.Muehle.controller.controllerInterface
+import HTWG.SE.Muehle.model.FieldComponent.FieldArrayInterface
 
 class ControllerSpec extends AnyWordSpec {
 
- /*  "A Controller" should {
-    "initialize with a black state" in {
+    
+
+    "A Controller" should {
+      val controller = new Controller()
+    /*"initialize with a black state" in {
       val controller = new Controller()
       controller.state should be(a[blackState])
     } */
+      "set the Boolean placeable to true" in {
+        controller.setPlaceableTrue should be(true)
+      }
 
-    "correctly handle state transition to 'Weiss ist dran'" in {
-      val controller = new Controller()
-      controller.turn()
-      controller.state should be(a[whiteState])
-      controller.handle() should be("Weiss ist dran")
-    }
+      "set the Boolean placeable to false" in {
+        controller.setPlaceableFalse should be(false)
+      }
 
-    "correctly handle state transition to 'Schwarz ist dran'" in {
-      val controller = new Controller()
-      controller.turn()
-      controller.turn()
-      controller.state should be(a[blackState])
-      controller.handle() should be("Schwarz ist dran")
-    }
+      "set the Boolean muehleBool to false" in {
+        controller.setMuehleFalse should be(false)
+      }
 
-    "correctly place the first stone for white" in {
-      val controller = new Controller()
-      controller.controllerPlaceFirstStone(0, 0, 'w') should be(a[String])
-    }
+      "correctly handle state transition to 'Weiss ist dran'" in {
+        controller.turn()
+        controller.state should be(a[whiteState])
+        controller.handle() should be("Weiss ist dran")
+      }
 
-    "correctly place stones for both players" in {
-      val controller = new Controller()
-      controller.controllerPlaceStones(0, 0, 'w', 'b', 0, "") should be(a[String])
-    }
+      "correctly handle state transition to 'Schwarz ist dran'" in {
+        controller.turn()
+        controller.state should be(a[blackState])
+        controller.handle() should be("Schwarz ist dran")
+      }
 
-    "correctly move a stone" in {
-      val controller = new Controller()
-      controller.controllerMove(0, 0, 'w') should be(a[String])
-    }
+      "correctly place the first stone for white" in {
+        controller.controllerPlaceFirstStone(0, 0, 'w') should be(a[String])
+      }
 
-    "correctly take a stone" in {
-      val controller = new Controller()
-      controller.controllerTakeStone(0, 0) should be(a[String])
-    }
+      "correctly place stones for both players" in {
+        controller.controllerPlaceStones(0, 0, 'w') should be(a[String])
+      }
 
-    "correctly get the field string" in {
-      val controller = new Controller()
-      controller.getFieldString() should be(a[String])
-    }
+      "correctly move a stone" in {
+        controller.controllerMove(0, 0, 'w') should be(a[Unit])
+      }
 
-    "correctly set a stone in the GUI" in {
-      val controller = new Controller()
-      controller.setStoneGui(0, 0, 'w')
-      // Add more assertions based on the expected behavior of setStoneGui
-    }
+      /*"correctly take a stone" in {
+        val controller = new Controller()
+        controller.controllerTakeStone(0, 0) should be(a[String])
+      }*/
 
-    /* "correctly get the color of a field" in {
-      val controller = new Controller()
-      controller.getColor(0, 0) should be(a[Color])
-    } */
+      "check if and who got a mill" in {
+        val array = new FieldArray
+        controller.muehle(array) should be(false)
+      }
 
-   /*  "correctly undo a step" in {
-      val controller = new Controller()
-      controller.undoStep should be(a[Unit])
-    }
 
-    "correctly redo a step" in {
-      val controller = new Controller()
-      controller.redoStep should be(a[Unit])
-    }  */
+      "correctly get the field string" in {
+        controller.getFieldString() should be(a[String])
+      }
 
-    "correctly save the game state" in {
-      val controller = new Controller()
-      controller.controllerPlaceFirstStone(0, 0, 'w')
-      controller.save should be(a[Unit])
-    }
+      "correctly set a stone in the GUI" in {
+        controller.setStoneGui(0, 0, 'w') should be(false)
+        // Add more assertions based on the expected behavior of setStoneGui
+      }
 
-    "correctly load the game state" in {
-      val controller = new Controller()
-      
-      controller.load should be(a[Array[Array[Char]]])
+      /*"correctly get the color of a field" in {
+        val controller = new Controller()
+        controller.getColor(0, 0) should be(a[Color])
+      }*/
+
+      "do a step when all stones are placed" in{
+        controller.doStepMove(0,0,'w')
+      }
+
+      "correctly undo a step" in {
+        controller.undoStep should be(a[Unit])
+      }
+
+      "correctly redo a step" in {
+        controller.redoStep should be(a[Unit])
+      }
+
+      "correctly save the game state" in {
+        controller.controllerPlaceFirstStone(0, 0, 'w')
+        controller.save should be(a[Unit])
+      }
+
+      "correctly load the game state" in {
+        controller.load should be(a[Array[Array[Char]]])
+      }
     }
   }
-//}
