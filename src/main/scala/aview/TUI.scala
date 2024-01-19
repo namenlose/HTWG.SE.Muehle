@@ -35,13 +35,13 @@ case class TUI(controller: controllerInterface) extends Observer{
     println(" ")
 
     var mesh = controller.controllerPlaceFirstStone(ind1, ind2, playerOne)
-    setStones(nameOne, nameTwo, playerOne, playerTwo, mesh)
+    setStones(nameOne, nameTwo, playerTwo)
     moveStone(nameOne, nameTwo, playerOne, playerTwo, mesh)
     mesh
 
 }
 
-    def setStones(nameOne: String, nameTwo: String, playerOne: Char, playerTwo: Char, mesh: String): Unit = {
+    def setStones(nameOne: String, nameTwo: String, playerOne: Char): Unit = {
     val key = new Controller()
     var i = 1;
     var undo = false
@@ -74,7 +74,7 @@ case class TUI(controller: controllerInterface) extends Observer{
         println(" ")
 
         if(undo == false && redo == false){
-            controller.doStep(ind1, ind2, playerOne)
+            controller.setStoneGui(ind1, ind2, playerOne)
         }else if(undo == true){
             controller.undoStep
             undo = false
