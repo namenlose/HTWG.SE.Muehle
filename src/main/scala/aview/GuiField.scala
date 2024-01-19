@@ -4,9 +4,7 @@ import scala.swing.FlowPanel.Alignment
 import scala.swing._
 import javax.swing.table._
 import HTWG.SE.Muehle.controller._
-import HTWG.SE.Muehle.controller.controllerBaseImpl._
 import HTWG.SE.Muehle.util._
-import HTWG.SE.Muehle.controller.ButtonMap
 import javax.swing.ImageIcon
 import javax.print.attribute.standard.OrientationRequested
  

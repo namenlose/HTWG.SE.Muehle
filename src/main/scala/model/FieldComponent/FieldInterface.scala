@@ -16,9 +16,8 @@ trait FieldInterface {
 
 trait FieldArrayInterface {
     val fieldArray: Array[Array[Char]]
+    var placed: Boolean
     def placeStone(circle: Int, position: Int, player: Char): String
     def get(circle: Int, position: Int): Char
-    def takeStone(circle: Int, position: Int): String
     def counter(color: Char): String
-    def move(circle: Int, position: Int, color: Char): String
 }

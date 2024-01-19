@@ -5,7 +5,6 @@ import HTWG.SE.Muehle.model.FieldComponent.{FieldInterface, FieldArrayInterface}
 import HTWG.SE.Muehle.model.logicComponent.{Handler1, Mill, MillList, MillListInterface}
 import HTWG.SE.Muehle.util.{Observable, UndoManager, Event}
 import HTWG.SE.Muehle.controller._
-import HTWG.SE.Muehle.controller.ButtonMap
 import HTWG.SE.Muehle.MuehleModule
 import scala.io.StdIn.readInt
 import scala.swing.FlowPanel.Alignment
@@ -69,10 +68,12 @@ class Controller @Inject() extends Observable with controllerInterface {
     }
 
     def controllerPlaceStones(ind1: Int, ind2: Int, player1: Char): String = {
-        var c = 0;
-        var p = 0;
 
         fieldString = array.placeStone(ind1, ind2, player1)
+
+        if(!array.placed){
+            counter -= 1
+        }
             muehle(array)
 
         fieldString
@@ -91,8 +92,6 @@ class Controller @Inject() extends Observable with controllerInterface {
     }
 
     def muehle(array: FieldArrayInterface): Boolean ={
-        var p = 0;
-        var c = 0;
         var winner = " "
         if(handler1.checkRequirement(array.fieldArray) == true){
                 muehleBool = true

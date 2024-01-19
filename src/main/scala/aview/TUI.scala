@@ -1,8 +1,7 @@
 package HTWG.SE.Muehle.aview
 import HTWG.SE.Muehle.model.FieldComponent.FieldBaseComponent.{FieldArray, Field}
+import HTWG.SE.Muehle.controller._
 import HTWG.SE.Muehle.controller.controllerBaseImpl.{Controller}
-import HTWG.SE.Muehle.controller.controllerInterface
-import HTWG.SE.Muehle.controller.{GameState, StoneFactory}
 import HTWG.SE.Muehle.util.{Observer, Event}
 import scala.io.StdIn.readLine
 import scala.io.StdIn.readInt
