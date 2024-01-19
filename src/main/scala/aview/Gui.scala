@@ -80,20 +80,6 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
         contents += load
     }
 
-
-    /*val muehle = new Label
-    def getMuehle: Label = muehle*/
-    /*var muehle = new Label()
-
-    def muehleLabel = new Label(){
-        val bool: Boolean = controller.muehle(controller.array)
-        if( bool == true){
-            text = "MÜHLE!!"
-        }else{
-            text = "keine Mühle"
-        }
-    }*/
-
     def newWindow(color: Char): MainFrame = {
         new MainFrame{
             contents = new FlowPanel{
@@ -118,14 +104,14 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
 
 
     override def update(e: Event): Unit = {
-    e match {
-        case Event.mill => spielfeld.muehleLabel
-        case Event.noMill => spielfeld.keinMuehleLable
-        case Event.allStonesPlaced => spielfeld.alleSteineGesetztLabel
-        case Event.ende(winner) => spielfeld.fertigLable(winner)
-        case Event.doStep => " "
-        case Event.undo(row, col) => " "
-        case Event.redoStep(row, col) => " "
+        e match {
+            case Event.mill => spielfeld.muehleLabel
+            case Event.noMill => spielfeld.keinMuehleLable
+            case Event.allStonesPlaced => spielfeld.alleSteineGesetztLabel
+            case Event.ende(winner) => spielfeld.fertigLable(winner)
+            case Event.doStep => " "
+            case Event.undo(row, col) => " "
+            case Event.redoStep(row, col) => " "
+        }
     }
-}
 }

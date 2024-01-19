@@ -8,6 +8,7 @@ import HTWG.SE.Muehle.controller.controllerBaseImpl._
 import HTWG.SE.Muehle.util._
 import HTWG.SE.Muehle.controller.ButtonMap
 import javax.swing.ImageIcon
+import javax.swing.ImageIcon
 import javax.print.attribute.standard.OrientationRequested
  
  
@@ -38,12 +39,6 @@ import javax.print.attribute.standard.OrientationRequested
 
 
     def updateField ={
-        /*for(i <- 0 to 2){
-            for(x <- 0 to 7){
-                val button = buttonMap((i,x))
-                button.background = controller.getColor(i,x)
-            }
-        }*/
         buttonMapClass.updateButtonMap
     }
 
@@ -79,8 +74,12 @@ import javax.print.attribute.standard.OrientationRequested
       (1 to 5).foreach(_ => contents += createSpace)
       contents += createVerticalLine
     }
+    
+    val image = new ImageIcon("C:/SE/HTWG.SE.Muehle/src/Fotos/greydot.png")
+    val imageLabel = new Label() { icon = image }
 
     val button3 = buttonMapClass.buttonMap((1, 0))
+    //button3.icon = image
     val button4 = buttonMapClass.buttonMap((1, 1))
     val button5 = buttonMapClass.buttonMap((1, 2))
 
@@ -123,7 +122,7 @@ import javax.print.attribute.standard.OrientationRequested
       Seq(
         createVerticalLine, createSpace, createVerticalLine,
         createSpace, createVerticalLine, createSpace,
-        createSpace, createSpace, createSpace,
+        createSpace, createSpace, createVerticalLine, createSpace, 
         createVerticalLine, createSpace, createVerticalLine
       ).foreach(contents += _)
     }
@@ -196,6 +195,7 @@ Seq(
 
     }
 
+
         def spielfeld: GridPanel = new GridPanel(13, 1){
         contents += createButtonPanel(0, 0 to 2)
         contents += secondLine
@@ -210,6 +210,8 @@ Seq(
         contents += ninthLine
         contents += secondLine
         contents += tenthLine
+        //contents += image
+        //button10.icon =image
         }
 
         def labels: GridPanel = new GridPanel(3,1){
@@ -224,21 +226,13 @@ Seq(
         }
 
         contents += alles
-
-        
-        
-        //pack()
-        //centerOnScreen()
-        //open()
     }
     override def update(e: Event): Unit = {
     e match {
-            //case Event.doStep => GuiField(controller)
             case Event.StonePlaced(pos1, pos2, color) => controller.setStoneGui(pos1, pos2, color)
             case Event.doStep => println(" ")
             case Event.undo(row, col) => 
                 val button: Button = buttonMapClass.buttonMap(row, col)
-                //button.background = controller.getColor(row, col)
                 updateField
             case Event.redoStep(row, col) => 
                 val button: Button = buttonMapClass.buttonMap(row, col)
@@ -247,7 +241,6 @@ Seq(
             case Event.noMill => " "
             case Event.allStonesPlaced => " "
             case Event.ende(winner) => " "
-            //repaint()
         }
     }
 }

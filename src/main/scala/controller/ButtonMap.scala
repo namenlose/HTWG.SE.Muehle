@@ -3,12 +3,12 @@ package HTWG.SE.Muehle.controller
 import scala.swing._
 import HTWG.SE.Muehle.controller.controllerBaseImpl._
 import HTWG.SE.Muehle.controller._
+import java.awt.Dimension
 
 class ButtonMap(controller: controllerInterface, color: Char){
     val gray = new Color(150,150,150)
     var color2 = color
     val buttonMap = createButtonMap
-    //var placeabel = true
 
   def createButtonMap: Map[(Int, Int), Button] = {
     val rows = 3
@@ -18,6 +18,7 @@ class ButtonMap(controller: controllerInterface, color: Char){
       col <- 0 until columns
     } yield {
       val button = new Button {
+        preferredSize = new Dimension(50, 50)
         background = gray
         val posToRemove = row * 10 + col
         reactions += {
@@ -33,7 +34,6 @@ class ButtonMap(controller: controllerInterface, color: Char){
               }else if(background == new Color(255,255,255) && !controller.placeabel && !controller.muehleBool){
                 color2 = 'w'
                 controller.doStepMove(row, col, 'w')
-                //val posToRemove2 = row * 10 + col
                 controller.millList.MillListRemove(posToRemove)
                 updateButtonMap
                 controller.setPlaceableTrue

@@ -13,9 +13,6 @@ case class TUI(controller: controllerInterface) extends Observer{
 
     controller.add(this)
 
-    /*var player = controller.c.place()
-    var player1 = controller.b.place()*/
-
     def firstStone(): String = {
     println("Hallo, das ist Muehle")
     println("Geben Sie zwei Spieler Namen ein:")

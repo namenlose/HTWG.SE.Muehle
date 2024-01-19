@@ -23,4 +23,16 @@ case class blackState() extends GameState {
     }
 }
 
+/* class Context(var state: GameState) {
+    def request(): Unit = state.handle(this)
+    def message() = currentState
+}
+
+
+object StateClient extends App {
+    val context = new Context(new whiteState)
+    
+    context.request()
+    context.request()
+} */
 
