@@ -88,6 +88,7 @@ class Controller @Inject() extends Observable with controllerInterface {
             } else {
                 player2 = 'w'
             }
+            counter += 1
         doStep(ind1, ind2, player)
     }
 
@@ -162,7 +163,7 @@ class Controller @Inject() extends Observable with controllerInterface {
     } 
 
     def doStepMove(ind1:Int, ind2: Int,  color: Char) = { 
-        counter += 1
+        //counter += 1
         undoManager.doStepMove(new SetCommand(ind1, ind2, 'o', this, millList), new SetCommand(ind1, ind2, color, this, millList))
     }
 
