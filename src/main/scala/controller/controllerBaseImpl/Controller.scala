@@ -14,7 +14,7 @@ import scala.swing.event._
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject, Injector}
 import net.codingwell.scalaguice.InjectorExtensions._
-import scala.xml.{ NodeSeq, PrettyPrinter }
+import scala.xml.{NodeSeq, PrettyPrinter}   
 import HTWG.SE.Muehle.model.FileIO._
 
 class Controller @Inject() extends Observable with controllerInterface {

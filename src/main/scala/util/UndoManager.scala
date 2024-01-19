@@ -22,17 +22,7 @@ class UndoManager(controller: Controller) {
         command.doStep
         undoStack
     }
-
-    /*def undoStep1: Try[String] = {
-        //var string = "" //das streichen failure zurückgeben
-        if(empty == Some(undoStack)){
-            Success((undoStep))
-            
-        }else{
-            Failure(new NoSuchElementException("Nicht möglich!"))
-        }
-        //string //das auch succes zurückgeben
-    }*/
+    
     def undoStep: List[Any] = {
         var string = ""   
         val command = undoStack.head

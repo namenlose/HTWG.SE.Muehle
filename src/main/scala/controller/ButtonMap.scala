@@ -3,6 +3,7 @@ package HTWG.SE.Muehle.controller
 import scala.swing._
 import HTWG.SE.Muehle.controller.controllerBaseImpl._
 import HTWG.SE.Muehle.controller._
+import java.awt.Dimension
 
 class ButtonMap(controller: controllerInterface, color: Char){
     val gray = new Color(150,150,150)

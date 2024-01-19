@@ -112,14 +112,14 @@ import javax.print.attribute.standard.OrientationRequested
             ).foreach(contents += _)
           }
 
-          def sixthLine: GridPanel = new GridPanel(1, 13) {
-            Seq(
-              createVerticalLine, createSpace, createVerticalLine,
-              createSpace, createVerticalLine, createSpace,
-              createSpace, createSpace, createSpace,
-              createVerticalLine, createSpace, createVerticalLine
-            ).foreach(contents += _)
-          }
+    def sixthLine: GridPanel = new GridPanel(1, 13) {
+      Seq(
+        createVerticalLine, createSpace, createVerticalLine,
+        createSpace, createVerticalLine, createSpace,
+        createSpace, createSpace, createVerticalLine, createSpace, 
+        createVerticalLine, createSpace, createVerticalLine
+      ).foreach(contents += _)
+    }
 
           val button9 = buttonMapClass.buttonMap((0, 7))
           val button10 = buttonMapClass.buttonMap((1, 7))
@@ -216,22 +216,14 @@ import javax.print.attribute.standard.OrientationRequested
               contents += labels
             }
 
-            contents += alles
-
-        
-        
-        //pack()
-        //centerOnScreen()
-        //open()
+        contents += alles
     }
     override def update(e: Event): Unit = {
     e match {
-            //case Event.doStep => GuiField(controller)
             case Event.StonePlaced(pos1, pos2, color) => controller.setStoneGui(pos1, pos2, color)
             case Event.doStep => println(" ")
             case Event.undo(row, col) => 
                 val button: Button = buttonMapClass.buttonMap(row, col)
-                //button.background = controller.getColor(row, col)
                 updateField
             case Event.redoStep(row, col) => 
                 val button: Button = buttonMapClass.buttonMap(row, col)
@@ -240,7 +232,6 @@ import javax.print.attribute.standard.OrientationRequested
             case Event.noMill => " "
             case Event.allStonesPlaced => " "
             case Event.ende(winner) => " "
-            //repaint()
         }
     }
 }

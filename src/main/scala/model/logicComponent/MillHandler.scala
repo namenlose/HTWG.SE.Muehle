@@ -20,7 +20,6 @@ class Handler1(array: Array[Array[Char]], millList1: MillListInterface) extends 
     }
 
     override def checkRequirementRecursiv(array1: Array[Char]): Boolean = {
-
         array1(0) match {
             case 'b' => muehle = if (array1(1) == 'b' && array1(2) =='b' && !millList.isInMillList(new Mill(y, y + 1, y + 2))){
                                         millList.MillListAdd(new Mill(y, y + 1, y + 2))
