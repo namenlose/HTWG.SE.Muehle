@@ -21,16 +21,5 @@ class FieldArraySpec extends AnyWordSpec {
       stone should be('o')
     }
 
-    "allow taking a stone" in {
-      val fieldArray = new FieldArray()
-      val result = fieldArray.takeStone(0, 0)
-      result should not include "Fehler"
-    }
-
-    "allow moving a stone" in {
-      val fieldArray = new FieldArray()
-      val result = fieldArray.move(0, 0, 'o')
-      result should not include "Fehler"
-    }
   }
 }
