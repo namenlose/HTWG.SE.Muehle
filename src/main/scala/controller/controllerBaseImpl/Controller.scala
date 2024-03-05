@@ -21,9 +21,9 @@ class Controller @Inject() extends Observable with controllerInterface {
     val injector: Injector = Guice.createInjector(new MuehleModule)
     val fieldArray = new FieldArray
     val undoManager = new UndoManager(this)
+    var state: GameState = new blackState()
     var millList = injector.getInstance(classOf[MillListInterface])
     val fileIo = injector.getInstance(classOf[FileIOInterface])
-    var state: GameState = new blackState()
     def field1 = injector.getInstance(classOf[FieldInterface])
     val array = injector.getInstance(classOf[FieldArrayInterface])
     val handler1: Handler1 = new Handler1(array.fieldArray, millList)
@@ -74,6 +74,9 @@ class Controller @Inject() extends Observable with controllerInterface {
         if(!array.placed){
             counter -= 1
         }
+
+        print("counter:" + counter)
+        //whosTurn
             muehle(array)
 
         fieldString
@@ -115,6 +118,24 @@ class Controller @Inject() extends Observable with controllerInterface {
                 notifyObservers(Event.noMill)
             }
         muehleBool
+    }
+    
+    def whosTurn: Char = {
+        var turn: Char = 'b'
+        if(counter % 2 == 0 && color2 == 'b'){
+            print("weeiß ist dran")
+            turn = 'b'
+        }else if(counter % 2 == 0 && color2 == 'w'){
+            print("schwarz  ist dran")
+            turn = 'w'
+        }else if (counter % 2 != 0 && color2 == 'b'){
+            print("schwarz ist dran")
+            turn = 'w'
+        }else if (counter % 2 != 0 && color2 == 'w'){
+            print("weiß ist dran")
+            turn = 'b'
+        }
+        turn
     }
     
     def getFieldString():String = fieldString
@@ -163,6 +184,7 @@ class Controller @Inject() extends Observable with controllerInterface {
     } 
 
     def doStepMove(ind1:Int, ind2: Int,  color: Char) = { 
+        println(counter)
         //counter += 1
         undoManager.doStepMove(new SetCommand(ind1, ind2, 'o', this, millList), new SetCommand(ind1, ind2, color, this, millList))
     }

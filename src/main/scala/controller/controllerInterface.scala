@@ -19,6 +19,7 @@ trait controllerInterface extends Observable {
     def controllerPlaceFirstStone(ind1: Int, ind2: Int, player: Char): String
     def controllerPlaceStones(ind1: Int, ind2: Int, player1: Char): String
     def muehle(array: FieldArrayInterface): Boolean
+    def whosTurn:Char
     def getFieldString(): String
     def field1: FieldInterface
     def setStoneGui(pos1: Int, pos2: Int, color: Char): Boolean

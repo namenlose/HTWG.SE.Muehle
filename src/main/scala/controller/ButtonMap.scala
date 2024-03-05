@@ -25,17 +25,21 @@ class ButtonMap(controller: controllerInterface, color: Char){
                   if(!controller.muehleBool && !controller.setStoneGui(row, col, color)){
                     background = controller.getColor(row, col)
                   }else if(background == new Color(0,0,0) && !controller.placeabel && !controller.muehleBool){
-                    color2 = 'b'
-                    controller.doStepMove(row, col, 'b')
-                    controller.millList.MillListRemove(posToRemove)
-                    updateButtonMap
-                    controller.setPlaceableTrue
+                      if(controller.whosTurn == 'w'){
+                          color2 = 'b'
+                          controller.doStepMove(row, col, 'b')
+                          controller.millList.MillListRemove(posToRemove)
+                          updateButtonMap
+                          controller.setPlaceableTrue
+                      }
                   }else if(background == new Color(255,255,255) && !controller.placeabel && !controller.muehleBool){
-                    color2 = 'w'
-                    controller.doStepMove(row, col, 'w')
-                    controller.millList.MillListRemove(posToRemove)
-                    updateButtonMap
-                    controller.setPlaceableTrue
+                      if(controller.whosTurn == 'b'){  
+                          color2 = 'w'
+                          controller.doStepMove(row, col, 'w')
+                          controller.millList.MillListRemove(posToRemove)
+                          updateButtonMap
+                          controller.setPlaceableTrue
+                      }
                   }else if(background == new Color(150,150,150) && controller.placeabel && !controller.muehleBool){
                     controller.controllerMove(row, col,  color2)
                     updateButtonMap
