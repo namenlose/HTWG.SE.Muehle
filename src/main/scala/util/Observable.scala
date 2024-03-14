@@ -22,4 +22,6 @@ enum Event {
   case noMill
   case allStonesPlaced
   case ende(winner: String)
+  case schwarz
+  case weiss
 }

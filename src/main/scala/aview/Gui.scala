@@ -110,6 +110,8 @@ class Gui(controller: controllerInterface) extends MainFrame with Observer {
             case Event.doStep => " "
             case Event.undo(row, col) => " "
             case Event.redoStep(row, col) => " "
+            case Event.weiss => spielfeld.weissLable
+            case Event.schwarz => spielfeld.schwarzLable
         }
     }
 }

@@ -140,6 +140,8 @@ case class TUI(controller: controllerInterface) extends Observer{
             case Event.noMill => " "
             case Event.allStonesPlaced => " "
             case Event.ende(winner) => println(winner)
+            case Event.weiss => " "
+            case Event.schwarz => " "
     }
 }
 

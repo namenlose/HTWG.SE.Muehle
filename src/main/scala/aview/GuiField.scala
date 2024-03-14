@@ -30,6 +30,14 @@ import javax.print.attribute.standard.OrientationRequested
       muehle.text = "keine Mühle"
     }
 
+    def weissLable = {
+      alleSteineGesetzt.text = "Weiß ist dran"
+    }
+
+    def schwarzLable = {
+      alleSteineGesetzt.text = "Schwarz ist dran"
+    }
+
     def fertigLable(winner: String) ={
       fertig.text = winner
     }
@@ -232,6 +240,8 @@ import javax.print.attribute.standard.OrientationRequested
             case Event.noMill => " "
             case Event.allStonesPlaced => " "
             case Event.ende(winner) => " "
+            case Event.weiss => " "
+            case Event.schwarz => " "
         }
     }
 }

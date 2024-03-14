@@ -123,17 +123,21 @@ class Controller @Inject() extends Observable with controllerInterface {
     def whosTurn: Char = {
         var turn: Char = 'b'
         if(counter % 2 == 0 && color2 == 'b'){
-            print("weeiß ist dran")
+            print("weiß ist dran")
             turn = 'b'
+            notifyObservers(Event.weiss)
         }else if(counter % 2 == 0 && color2 == 'w'){
             print("schwarz  ist dran")
             turn = 'w'
+            notifyObservers(Event.schwarz)
         }else if (counter % 2 != 0 && color2 == 'b'){
             print("schwarz ist dran")
             turn = 'w'
+            notifyObservers(Event.schwarz)
         }else if (counter % 2 != 0 && color2 == 'w'){
             print("weiß ist dran")
             turn = 'b'
+            notifyObservers(Event.weiss)
         }
         turn
     }
@@ -157,10 +161,13 @@ class Controller @Inject() extends Observable with controllerInterface {
             }else if (counter < 18 && counter % 2 != 0){
                 doStep(pos1, pos2, color2)
                 counter += 1
-            }else{
+            }else if (counter == 18){
                 startFinished = true
                 counter +=1
                 notifyObservers(Event.allStonesPlaced)
+            }else{
+                startFinished = true
+                counter +=1
             }
 
         startFinished

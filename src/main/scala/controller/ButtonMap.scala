@@ -23,6 +23,7 @@ class ButtonMap(controller: controllerInterface, color: Char){
             reactions += {
               case event.ButtonClicked(_) =>
                   if(!controller.muehleBool && !controller.setStoneGui(row, col, color)){
+                    controller.whosTurn
                     background = controller.getColor(row, col)
                   }else if(background == new Color(0,0,0) && !controller.placeabel && !controller.muehleBool){
                       if(controller.whosTurn == 'w'){
